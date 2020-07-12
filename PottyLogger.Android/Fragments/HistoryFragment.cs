@@ -23,7 +23,8 @@ namespace PottyLogger.Droid.Fragments
             activity.SupportActionBar.Title = "History";
 
             _tableView = view.FindViewById<CSVTableView>(Resource.Id.table);
-            _tableView.SetMultiChoiceModeListener(this);
+            // _tableView.LoadFromFile("");
+            //_tableView.SetMultiChoiceModeListener(this);
             _tableView.ItemClick += (s, e) =>
             {
                 /*Activity.FragmentManager.BeginTransaction()

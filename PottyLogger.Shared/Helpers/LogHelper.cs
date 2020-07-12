@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 
 namespace PottyLogger.Shared.Helpers
 {
@@ -16,16 +15,30 @@ namespace PottyLogger.Shared.Helpers
                 throw new NotImplementedException();
             #endif
 
-        public static string GetLogPath(PottyTypes pottyType) => Path.Combine(LogDirectory, PottyHelper.ToPottyTypeString(pottyType));
+        public static string GetLogPath(PottyTypes pottyType) => Path.Combine(LogDirectory, PottyHelper.ToPottyTypeString(pottyType) + "Log.csv");
 
-        public static void GetPeeLog()
+        /*public static PottyLog GetPeeLog()
         {
+            if (!Directory.Exists(LogDirectory))
+            {
+                Directory.CreateDirectory(LogDirectory);
+            }
+
             var filePath = GetLogPath(PottyTypes.Pee);
+
+            if (File.Exists(filePath))
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
-        public static void GetPooLog()
+        public static PottyLog GetPooLog()
         {
 
-        }
+        }*/
     }
 }

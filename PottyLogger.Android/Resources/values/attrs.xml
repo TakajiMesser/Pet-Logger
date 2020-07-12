@@ -1,3 +1,96 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+  <declare-styleable name="CSVTableView">
+    <attr name="lazyLoad" format="boolean"/>
+    <attr name="lazyLoadLimit" format="integer"/>
+    <attr name="android:choiceMode"/>
+    <attr name="headerTextSize" format="integer"/>
+    <attr name="headerTextColor" format="color"/>
+    <attr name="headerFontFamily" format="reference"/>
+    <attr name="headerBackground" format="reference|color"/>
+    <attr name="rowTextSize" format="integer"/>
+    <attr name="rowTextColor" format="color"/>
+    <attr name="rowFontFamily" format="reference"/>
+    <attr name="rowBackground" format="reference|color"/>
+    <attr name="horizontalRowDivider" format="reference"/>
+    <attr name="verticalRowDivider" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="DataTableView">
+    <attr name="lazyLoad" format="boolean"/>
+    <attr name="lazyLoadLimit" format="integer"/>
+    <attr name="android:choiceMode"/>
+    <attr name="headerTextSize" format="integer"/>
+    <attr name="headerTextColor" format="color"/>
+    <attr name="headerFontFamily" format="reference"/>
+    <attr name="headerBackground" format="reference|color"/>
+    <attr name="rowTextSize" format="integer"/>
+    <attr name="rowTextColor" format="color"/>
+    <attr name="rowFontFamily" format="reference"/>
+    <attr name="rowBackground" format="reference|color"/>
+    <attr name="horizontalRowDivider" format="reference"/>
+    <attr name="verticalRowDivider" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="FileTextView">
+    <attr name="lazyLoad" format="boolean"/>
+    <attr name="lazyLoadLimit" format="integer"/>
+    <attr name="android:choiceMode"/>
+    <attr name="rowTextSize" format="integer"/>
+    <attr name="rowTextColor" format="color"/>
+    <attr name="rowFontFamily" format="reference"/>
+    <attr name="rowBackground" format="reference|color"/>
+    <attr name="lineNumberTextSize" format="integer"/>
+    <attr name="lineNumberTextColor" format="color"/>
+    <attr name="lineNumberFontFamily" format="reference"/>
+    <attr name="lineNumberBackground" format="reference|color"/>
+    <attr name="horizontalRowDivider" format="reference"/>
+    <attr name="verticalRowDivider" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="TimeSinceView">
+    <attr name="timeTextSize" format="integer"/>
+    <attr name="timeTextColor" format="color"/>
+    <attr name="timeFontFamily" format="reference"/>
+    <attr name="labelTextSize" format="integer"/>
+    <attr name="labelTextColor" format="color"/>
+    <attr name="labelFontFamily" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="FloatingActionMenu">
+    <attr name="buttonIcon" format="reference"/>
+    <attr name="buttonBackgroundColor" format="color"/>
+    <attr name="buttonElevation" format="float"/>
+    <attr name="buttonSpacing" format="integer"/>
+    <attr name="openOnHold" format="boolean"/>
+    <attr name="openDirection" format="enum">
+      <enum name="up" value="0"/>
+      <enum name="down" value="1"/>
+      <enum name="left" value="2"/>
+      <enum name="right" value="3"/>
+    </attr>
+    <attr name="android:layout_alignParentLeft"/>
+    <attr name="android:layout_alignParentTop"/>
+    <attr name="android:layout_alignParentRight"/>
+    <attr name="android:layout_alignParentBottom"/>
+    <attr name="layout_labelText" format="string"/>
+    <attr name="layout_labelTextSize" format="integer"/>
+    <attr name="layout_labelTextColor" format="color"/>
+    <attr name="layout_labelBackgroundColor" format="color"/>
+    <attr name="layout_labelDirection" format="enum">
+      <enum name="left" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="right" value="2"/>
+      <enum name="bottom" value="3"/>
+    </attr>
+  </declare-styleable>
+
+  <declare-styleable name="NumberPickerPreference">
+    <attr name="minValue" format="integer"/>
+    <attr name="maxValue" format="integer"/>
+  </declare-styleable>
+
+  <declare-styleable name="EditNumberPreference">
+    <attr name="minValue" format="integer"/>
+    <attr name="maxValue" format="integer"/>
+  </declare-styleable>
 </resources>

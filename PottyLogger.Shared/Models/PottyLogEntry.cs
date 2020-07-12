@@ -10,7 +10,7 @@ namespace PottyLogger.Shared.Models
         private const string DATE_FORMAT = "MM-dd-yyyy";
         private const string TIME_FORMAT = "HH:mm";
 
-        public PottyTypes PottyType { get; set; }
+        /*public PottyTypes PottyType { get; set; }
         public DateTime Time { get; set; }
 
         public string ToCSVRow() => ToPottyTypeString(PottyType)
@@ -31,6 +31,6 @@ namespace PottyLogger.Shared.Models
                 PottyType = pottyType,
                 Time = date + time
             };
-        }
+        }*/
     }
 }

@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true">
-    <shape>
+    <shape android:shape="ring" android:innerRadius="0dp" android:thicknessRatio="2" android:useLevel="false">
       <solid android:color="@color/bright_blue" />
-      <stroke android:width="5dp" android:color="@android:color/white"/>
+      <stroke android:width="1dp" android:color="@android:color/black" />
       <padding android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp"/>
-      <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
     </shape>
   </item>
   <item android:state_selected="true">
-    <shape>
+    <shape android:shape="ring" android:innerRadius="0dp" android:thicknessRatio="2" android:useLevel="false">
       <solid android:color="@color/light_blue" />
-      <stroke android:width="5dp" android:color="@android:color/white"/>
+      <stroke android:width="1dp" android:color="@android:color/black" />
       <padding android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp"/>
-      <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
     </shape>
   </item>
   <item>
-    <shape>
-      <solid android:color="@color/dark_blue" />
-      <stroke android:width="5dp" android:color="@android:color/white"/>
+    <shape android:shape="ring" android:innerRadius="0dp" android:thicknessRatio="2" android:useLevel="false">
+      <solid android:color="@android:color/transparent" />
+      <stroke android:width="1dp" android:color="@android:color/black" />
       <padding android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp"/>
-      <corners android:bottomRightRadius="7dp" android:bottomLeftRadius="7dp" android:topLeftRadius="7dp" android:topRightRadius="7dp"/>
     </shape>
   </item>
 </selector>

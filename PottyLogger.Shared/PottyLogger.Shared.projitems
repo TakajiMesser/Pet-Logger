@@ -9,13 +9,27 @@
     <Import_RootNamespace>PottyLogger.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
-    <Folder Include="$(MSBuildThisFileDirectory)DataAccessLayer\" />
     <Folder Include="$(MSBuildThisFileDirectory)Utilities\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\IEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBAccess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\LoggerDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Notification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\InfoDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Modifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\IncidentType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Incident.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Pet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LINQExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PottyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\InfoCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Logging\Log.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IncidentLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PottyLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PottyLogEntry.cs" />
   </ItemGroup>

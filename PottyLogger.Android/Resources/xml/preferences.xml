@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <PreferenceScreen
+    android:key="trip_settings"
+    android:title="Trip Settings"
+    android:summary="Various threshold values used to filter and detect upcoming intersections during a trip">
+
+    <PreferenceCategory
+        android:title="Trip Settings">
+
+      <CheckBoxPreference
+              android:key="trip_log"
+              android:title="Log during trip"
+              android:summary="Create a log of GPS points during the trip. If the file already exists, starting a trip will append to the previous log"
+              android:defaultValue="false" />
+
+      <ListPreference
+              android:key="match_algorithm"
+              android:title="Approach matching algorithm"
+              android:dialogTitle="Approach matching algorithm"
+              android:summary="Determines which algorithm to use when matching"
+              android:entries="@array/MatchAlgorithms"
+              android:entryValues="@array/MatchAlgorithmValues"
+              android:defaultValue="predictionsrelay" />
+
+      <ListPreference
+              android:key="match_type"
+              android:title="Approach matching type"
+              android:dialogTitle="Approach matching type"
+              android:summary="Find matching approach in trip mode, always match with the closest intersection, or never match and only log"
+              android:entries="@array/MatchTypes"
+              android:entryValues="@array/MatchTypeValues"
+              android:defaultValue="normal" />
+
+      <CheckBoxPreference
+              android:key="developer_mode"
+              android:title="Developer mode"
+              android:summary="Display intersection number, phase numbers, confidence values, etc."
+              android:defaultValue="false" />
+
+      <CheckBoxPreference
+              android:key="launch_into_trip"
+              android:title="Launch into trip"
+              android:summary="Immediately launch into a trip upon launch"
+              android:defaultValue="false" />
+      
+    </PreferenceCategory>
+    
+    </PreferenceScreen>
+
+  <PreferenceScreen
+      android:key="prediction_settings"
+      android:title="Prediction Settings"
+      android:summary="Settings related to the prediction calculations">
+
+    <PreferenceCategory
+        android:title="Prediction Settings">
+
+      <CheckBoxPreference
+              android:key="use_predictions_relay"
+              android:title="Use predictions relay"
+              android:summary="If true, make requests to the predictions relay (requires Satellite IP address)"
+              android:defaultValue="false" />
+
+    </PreferenceCategory>
+    
+    </PreferenceScreen>
+
+  <Preference
+          android:key="view_debug_log"
+          android:title="View Debug Log" />
+
+  <Preference
+          android:key="view_database"
+          android:title="View Database" />
+
+  <Preference
+          android:key="reset_database"
+          android:title="Reset Local Database" />
+
+  <Preference
+          android:key="reset_defaults"
+          android:title="Reset to Default Values" />
+
+  <PreferenceScreen
+      android:key="about_settings"
+      android:title="About PetLogger">
+
+    <PreferenceCategory
+        android:title="About PetLogger">
+
+      <Preference
+            android:key="version"
+            android:title="App version"/>
+
+    </PreferenceCategory>
+
+  </PreferenceScreen>
+  
+</PreferenceScreen>
