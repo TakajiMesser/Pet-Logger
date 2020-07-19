@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="15dp"
+  android:focusable="false"
+  android:focusableInTouchMode="false"
+  android:background="@drawable/list_table_selector"
+  android:descendantFocusability="blocksDescendants">
+
+  <TextView
+      android:id="@+id/table_name"
+      android:focusable="false"
+      android:focusableInTouchMode="false"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20dp"
+      android:textColor="@color/textWhite" />
+
+  <TextView
+        android:id="@+id/row_count"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/textWhite"
+        android:layout_marginBottom="6dp" />
+
+  <TextView
+        android:id="@+id/columns"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textColor="@color/textWhite"
+        android:layout_marginBottom="6dp" />
+  
+</LinearLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PetLogger</string>
+    <string name="action_settings">Settings</string>
+  
+    <string name="tab_home_title">Home</string>
+    <string name="tab_history_title">History</string>
+    <string name="tab_settings_title">Settings</string>
+
+    <string name="permission_write_external_storage_rationale">Access to write external storage is needed for database access</string>
+    <string name="no_write_external_storage_permission">This application cannot run because it does not have permission to write external storage. Please allow these permissions through app settings. The application will now exit.</string>
+</resources>

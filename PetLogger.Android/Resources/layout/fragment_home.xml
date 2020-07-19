@@ -1,0 +1,65 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/incident_logger_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent" />
+
+    <com.pottylogger.android.components.FloatingActionMenu
+        android:id="@+id/fam_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        app:buttonBackgroundColor="#D0607D8B"
+        app:openDirection="up">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fam_add_pet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pets_white_36dp"
+            app:backgroundTint="#607D8B"
+            app:fabSize="mini"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:layout_labelText="Add Pet"
+            app:layout_labelDirection="left" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fam_add_incident_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/umbrella_white_36dp"
+            app:backgroundTint="#607D8B"
+            app:fabSize="mini"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:layout_labelText="Add Incident Type"
+            app:layout_labelDirection="left" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fam_add_logger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_toc_white_24dp"
+            app:backgroundTint="#546E7A"
+            app:fabSize="mini"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:layout_labelText="Add Logger"
+            app:layout_labelDirection="left" />
+    
+  </com.pottylogger.android.components.FloatingActionMenu>
+
+</RelativeLayout>

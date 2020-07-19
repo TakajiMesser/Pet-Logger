@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBoxPreference
+        android:key="stay_active"
+        android:title="Stay Active?"
+        android:summary="Keep screen on while app is open"
+        android:defaultValue="false" />
+
+  <Preference
+          android:key="view_debug_log"
+          android:title="View Debug Log" />
+
+  <Preference
+          android:key="view_database"
+          android:title="View Database" />
+
+
+
+  <Preference
+          android:key="reset_database"
+          android:title="Reset Local Database" />
+
+  <Preference
+          android:key="reset_defaults"
+          android:title="Reset to Default Values" />
+
+  <PreferenceScreen
+      android:key="about_settings"
+      android:title="About PetLogger">
+
+    <PreferenceCategory
+        android:title="About PetLogger">
+
+      <Preference
+            android:key="version"
+            android:title="App version"/>
+
+    </PreferenceCategory>
+
+  </PreferenceScreen>
+  
+</PreferenceScreen>
