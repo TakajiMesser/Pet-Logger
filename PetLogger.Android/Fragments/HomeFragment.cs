@@ -27,7 +27,6 @@ namespace PetLogger.Droid.Fragments
         {
             base.OnViewCreated(view, savedInstanceState);
 
-            //ToolbarHelper.HideToolbar(Activity);
             ToolbarHelper.ShowToolbar(Activity, "Pet Logger");
             ToolbarHelper.HideToolbarBackButton(Activity);
 

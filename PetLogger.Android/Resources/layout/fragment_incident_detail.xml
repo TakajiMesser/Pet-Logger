@@ -25,13 +25,19 @@
           android:textSize="32dp"
           android:textColor="@color/colorPrimary" />
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/detail_list"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"/>
+
+        <!--<android.support.v7.widget.RecyclerView
             android:id="@+id/incident_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent" />
+            android:cacheColorHint="@android:color/transparent" />-->
 
 
     </LinearLayout>

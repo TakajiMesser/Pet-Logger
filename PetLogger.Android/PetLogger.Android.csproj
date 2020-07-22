@@ -67,7 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Adapters\AlarmAdapter.cs" />
+    <Compile Include="Adapters\IncidentAdapter.cs" />
     <Compile Include="Adapters\IncidentLoggerAdapter.cs" />
+    <Compile Include="Adapters\MultiSelectListAdapter.cs" />
     <Compile Include="Adapters\SearchFilter.cs" />
     <Compile Include="Adapters\MultiSelectAdapter.cs" />
     <Compile Include="Adapters\ForeignEntityAdapter.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Components\FileTextView.cs" />
     <Compile Include="Components\DataTableView.cs" />
     <Compile Include="Components\CSVTableView.cs" />
+    <Compile Include="Fragments\AlarmListFragment.cs" />
     <Compile Include="Fragments\IncidentDetailFragment.cs" />
     <Compile Include="Fragments\LogFragment.cs" />
     <Compile Include="Fragments\AddEntityFragment.cs" />
@@ -94,6 +98,7 @@
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\HistoryFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
+    <Compile Include="Helpers\AlarmHelper.cs" />
     <Compile Include="Helpers\FormContent.cs" />
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />
@@ -2040,6 +2045,30 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\list_logger_selector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_detail.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\list_detail_selector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\list_alarm_selector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_alarm_list.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item_alarm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\toolbar_background.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="..\PetLogger.Shared\PetLogger.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

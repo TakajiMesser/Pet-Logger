@@ -10,7 +10,6 @@ using Android.Views;
 using PetLogger.Droid.Fragments;
 using PetLogger.Droid.Helpers;
 using PetLogger.Droid.Models.Logging;
-using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using System;
 using System.Globalization;
@@ -20,7 +19,7 @@ using Fragment = Android.Support.V4.App.Fragment;
 
 namespace PetLogger.Droid.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, IOnRequestPermissionsResultCallback
     {
         private int _currentTabID;
@@ -83,10 +82,9 @@ namespace PetLogger.Droid.Activities
         private void InitializeDatabase()
         {
             DBAccess.InitializeTables();
-            //return;
 
             // TODO - Set up database values for testing purposes
-            DBAccess.ResetTables();
+            /*DBAccess.ResetTables();
             BuiltIn.InitializeBuiltInTypes();
 
             var dog = DBTable.Get<PetType>(p => p.Name == "Dog");
@@ -140,16 +138,13 @@ namespace PetLogger.Droid.Activities
                 IncludeHours = true,
                 IncludeMinutes = true,
                 IncludeSeconds = true,
-            });
+            });*/
         }
 
         private void InitializeUI()
         {
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            /*var fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;*/
+            //var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            //SetSupportActionBar(toolbar);
 
             var tabView = FindViewById<BottomNavigationView>(Resource.Id.tab_view);
             tabView.NavigationItemSelected += (s, args) => SwitchToFragment(args.Item.ItemId);
@@ -181,6 +176,8 @@ namespace PetLogger.Droid.Activities
             {
                 case Resource.Id.tab_home:
                     return HomeFragment.Instantiate();
+                case Resource.Id.tab_alarms:
+                    return AlarmListFragment.Instantiate();
                 case Resource.Id.tab_history:
                     return HistoryFragment.Instantiate();
                 case Resource.Id.tab_settings:

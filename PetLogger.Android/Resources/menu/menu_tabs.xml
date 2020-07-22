@@ -1,22 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+  
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
         android:icon="@drawable/ic_menu_home"
         android:title="@string/tab_home_title"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_alarms"
+        android:enabled="true"
+        android:icon="@drawable/baseline_access_alarm_black_36dp"
+        android:title="@string/tab_alarms_title"
+        app:showAsAction="ifRoom" />
+  
     <item
         android:id="@+id/tab_history"
         android:enabled="true"
         android:icon="@drawable/ic_menu_archive"
         android:title="@string/tab_history_title"
         app:showAsAction="ifRoom" />
+  
     <item
         android:id="@+id/tab_settings"
         android:enabled="true"
         android:icon="@drawable/ic_settings"
         android:title="@string/tab_settings_title"
         app:showAsAction="ifRoom" />
+
 </menu>

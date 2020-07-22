@@ -18,6 +18,10 @@
     <color name="blue_select">#FF6D6BB0</color>
     <color name="blue_press">#FF838DDD</color>
     <color name="blue_normal">#FF4B4989</color>
+
+    <color name="red_select">#FFFF9E9E</color>
+    <color name="red_press">#FFE2A1A1</color>
+    <color name="red_normal">#FFC26B6B</color>
   
     <color name="light_blue">#647777FF</color>
     <color name="bright_blue">#6477FFFF</color>

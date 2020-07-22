@@ -10,31 +10,14 @@ using System.Collections.Generic;
 
 namespace PetLogger.Droid.Adapters
 {
-    public class TableAdapter : MultiSelectAdapter<TableCard>, IFilterable
+    public class TableAdapter : MultiSelectListAdapter<TableCard>, IFilterable
     {
+        private SearchFilter<TableCard> _filter;
+
+        public TableAdapter(Context context, IList<TableCard> tables) : base(context, tables) =>
+            _filter = CreateSearchFilter(l => l.Name);
+
         public Filter Filter => _filter;
-        public override int ItemCount => _tables.Count;
-        public IEnumerable<TableCard> SelectedItems
-        {
-            get
-            {
-                foreach (var position in SelectedPositions)
-                {
-                    yield return _tables[position];
-                }
-            }
-        }
-
-        private List<TableCard> _tables;
-        private SearchFilter _filter;
-
-        public TableAdapter(Context context, List<TableCard> tables) : base(context)
-        {
-            _tables = tables;
-            _filter = new SearchFilter(this);
-        }
-
-        protected override TableCard GetItemAt(int position) => _tables[position];
 
         public void ClearSelectedTables()
         {
@@ -56,7 +39,7 @@ namespace PetLogger.Droid.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             var viewHolder = holder as ViewHolder;
-            var tableCard = _tables[position];
+            var tableCard = GetItemAt(position);
 
             viewHolder.ItemView.Tag = position;
             viewHolder.ItemView.Selected = IsSelected(position);
@@ -87,22 +70,6 @@ namespace PetLogger.Droid.Adapters
                 TableName = itemView.FindViewById<TextView>(Resource.Id.table_name);
                 RowCount = itemView.FindViewById<TextView>(Resource.Id.row_count);
                 Columns = itemView.FindViewById<TextView>(Resource.Id.columns);
-            }
-        }
-
-        private class SearchFilter : SearchFilter<TableCard>
-        {
-            private TableAdapter _adapter;
-
-            public SearchFilter(TableAdapter adapter) => _adapter = adapter;
-
-            protected override List<TableCard> GetItemsToFilter() => _adapter._tables;
-            protected override string GetSearchStringFromItem(TableCard item) => item.Name;
-
-            protected override void SetItemsFromResults(List<TableCard> items)
-            {
-                _adapter._tables = items;
-                _adapter.NotifyDataSetChanged();
             }
         }
     }

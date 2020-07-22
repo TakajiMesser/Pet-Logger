@@ -25,6 +25,8 @@ namespace PetLogger.Droid.Fragments
         private Pet _pet;
         private IncidentType _incidentType;
 
+        private LinearLayout _detailList;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,6 +46,21 @@ namespace PetLogger.Droid.Fragments
 
             var title = view.FindViewById<TextView>(Resource.Id.title);
             title.Text = _pet.Name + " " + _incidentType.Name + " Details";
+
+            _detailList = view.FindViewById<LinearLayout>(Resource.Id.detail_list);
+
+            AddDetailView("", "", "");
+        }
+
+        private void AddDetailView(string title, string description, string value)
+        {
+            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.list_item_logger, _detailList, false);
+
+            view.FindViewById<TextView>(Resource.Id.title).Text = title;
+            view.FindViewById<TextView>(Resource.Id.description).Text = description;
+            view.FindViewById<TextView>(Resource.Id.detail_value).Text = value;
+
+            _detailList.AddView(view);
         }
     }
 }

@@ -58,7 +58,8 @@ namespace PetLogger.Droid.Adapters
             var logger = GetItemAt(position);
 
             logger.Update();
-            NotifyItemChanged(position);
+            //NotifyItemChanged(position);
+            NotifyDataSetChanged();
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
