@@ -143,8 +143,8 @@ namespace PetLogger.Droid.Activities
 
         private void InitializeUI()
         {
-            //var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            //SetSupportActionBar(toolbar);
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
 
             var tabView = FindViewById<BottomNavigationView>(Resource.Id.tab_view);
             tabView.NavigationItemSelected += (s, args) => SwitchToFragment(args.Item.ItemId);
@@ -176,8 +176,8 @@ namespace PetLogger.Droid.Activities
             {
                 case Resource.Id.tab_home:
                     return HomeFragment.Instantiate();
-                case Resource.Id.tab_alarms:
-                    return AlarmListFragment.Instantiate();
+                case Resource.Id.tab_reminders:
+                    return ReminderListFragment.Instantiate();
                 case Resource.Id.tab_history:
                     return HistoryFragment.Instantiate();
                 case Resource.Id.tab_settings:

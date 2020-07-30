@@ -1,13 +1,13 @@
 ﻿using Android.Content;
 using Android.Icu.Util;
 using Android.Provider;
-using PetLogger.Shared.Models;
+using PetLogger.Shared.Data;
 
 namespace PetLogger.Droid.Helpers
 {
     public static class AlarmHelper
     {
-        public static void SetSystemAlarm(Context context, Alarm alarm)
+        public static void SetSystemAlarm(Context context, Reminder reminder)
         {
             var alarmIntent = new Intent(AlarmClock.ActionSetAlarm);
             alarmIntent.PutExtra(AlarmClock.ExtraDays, Calendar.Sunday); // Day-of-week for repeating alarm
@@ -21,7 +21,7 @@ namespace PetLogger.Droid.Helpers
             context.StartActivity(alarmIntent);
         }
 
-        public static void SetSystemTimer(Context context, Alarm alarm)
+        public static void SetSystemTimer(Context context, Reminder reminder)
         {
             var timerIntent = new Intent(AlarmClock.ActionSetTimer);
             timerIntent.PutExtra(AlarmClock.ExtraLength, 1); // Integer 1-86400 (24 hours)

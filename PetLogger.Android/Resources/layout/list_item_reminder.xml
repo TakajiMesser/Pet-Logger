@@ -8,7 +8,7 @@
     android:padding="6dp"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:background="@drawable/list_alarm_selector"
+    android:background="@drawable/list_reminder_selector"
     android:descendantFocusability="blocksDescendants">
 
     <ImageView

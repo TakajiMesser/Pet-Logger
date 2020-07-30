@@ -11,7 +11,7 @@ namespace PetLogger.Droid.Adapters
     {
         private List<int> _ids = new List<int>();
 
-        public ForeignEntityAdapter(Context context, PropertyInfo identifier, IEnumerable<IEntity> foreigners) : base(context, Android.Resource.Layout.SimpleSpinnerItem, foreigners.Select(f => identifier.GetValue(f).ToString()).ToList())
+        public ForeignEntityAdapter(Context context, PropertyInfo identifier, IEnumerable<IEntity> foreigners) : base(context, Android.Resource.Layout.SimpleSpinnerDropDownItem, foreigners.Select(f => identifier.GetValue(f).ToString()).ToList())
         {
             _ids.AddRange(foreigners.Select(f => f.ID));
         }

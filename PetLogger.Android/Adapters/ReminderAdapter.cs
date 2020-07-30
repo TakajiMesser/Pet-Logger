@@ -1,30 +1,27 @@
 ﻿using Android.Content;
-using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
-using PetLogger.Shared.Models;
-using System;
+using PetLogger.Shared.Data;
 using System.Collections.Generic;
 
 namespace PetLogger.Droid.Adapters
 {
-    public class AlarmAdapter : MultiSelectListAdapter<Alarm>, IFilterable
+    public class ReminderAdapter : MultiSelectListAdapter<Reminder>, IFilterable
     {
-        private SearchFilter<Alarm> _filter;
+        private SearchFilter<Reminder> _filter;
 
-        public AlarmAdapter(Context context, IList<Alarm> alarms) : base(context, alarms) =>
+        public ReminderAdapter(Context context, IList<Reminder> reminders) : base(context, reminders) =>
             _filter = CreateSearchFilter(l => l.Title);
 
         public Filter Filter => _filter;
 
         public void RemoveSelectedAlarms()
         {
-            foreach (var alarm in SelectedItems)
+            foreach (var reminder in SelectedItems)
             {
-                alarm.Delete();
+                reminder.Delete();
             }
 
             NotifyDataSetChanged();
@@ -32,7 +29,7 @@ namespace PetLogger.Droid.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.list_item_alarm, parent, false);
+            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.list_item_reminder, parent, false);
             SetUpItemViewClickEvents(view);
 
             return new ViewHolder(view);
@@ -41,12 +38,12 @@ namespace PetLogger.Droid.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             var viewHolder = holder as ViewHolder;
-            var alarm = GetItemAt(position);
+            var reminder = GetItemAt(position);
 
             viewHolder.ItemView.Tag = position;
             viewHolder.ItemView.Selected = IsSelected(position);
 
-            viewHolder.Title.Text = alarm.Title;
+            viewHolder.Title.Text = reminder.Title;
             viewHolder.Title.Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular);
 
             /*if (logger.LatestIncidentTime.HasValue)

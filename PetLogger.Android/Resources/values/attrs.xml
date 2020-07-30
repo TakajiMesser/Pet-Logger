@@ -47,7 +47,16 @@
     <attr name="verticalRowDivider" format="reference"/>
   </declare-styleable>
 
-  <declare-styleable name="TimeSinceView">
+  <declare-styleable name="TimeSpanView">
+    <attr name="timeTextSize" format="integer"/>
+    <attr name="timeTextColor" format="color"/>
+    <attr name="timeFontFamily" format="reference"/>
+    <attr name="labelTextSize" format="integer"/>
+    <attr name="labelTextColor" format="color"/>
+    <attr name="labelFontFamily" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="EditTimeView">
     <attr name="timeTextSize" format="integer"/>
     <attr name="timeTextColor" format="color"/>
     <attr name="timeFontFamily" format="reference"/>

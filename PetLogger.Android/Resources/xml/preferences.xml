@@ -1,45 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/PrefsTheme">
 
     <CheckBoxPreference
         android:key="stay_active"
         android:title="Stay Active?"
         android:summary="Keep screen on while app is open"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        app:iconSpaceReserved="false" />
 
-  <Preference
-          android:key="view_debug_log"
-          android:title="View Debug Log" />
+    <com.pottylogger.android.components.TimePickerPreference
+        android:key="crossover_time"
+        android:title="Crossover Time"
+        android:summary="Determines when one day ends and the next begins"
+        app:iconSpaceReserved="false" />
 
-  <Preference
-          android:key="view_database"
-          android:title="View Database" />
+    <com.pottylogger.android.components.TimePickerPreference
+        android:key="sleep_time"
+        android:title="Sleep Time"
+        android:summary="Determines when to silence reminders"
+        app:iconSpaceReserved="false" />
+  
+    <PreferenceScreen
+        android:key="developer_settings"
+        android:title="Developer Settings"
+        app:iconSpaceReserved="false" >
 
+        <PreferenceCategory
+            android:title="Developer Settings"
+            app:iconSpaceReserved="false">
 
+            <Preference
+                android:key="view_debug_log"
+                android:title="View Debug Log"
+                app:iconSpaceReserved="false" />
 
-  <Preference
-          android:key="reset_database"
-          android:title="Reset Local Database" />
+            <Preference
+                android:key="view_database"
+                android:title="View Database"
+                app:iconSpaceReserved="false" />
 
-  <Preference
-          android:key="reset_defaults"
-          android:title="Reset to Default Values" />
+            <Preference
+                android:key="reset_database"
+                android:title="Reset Local Database"
+                app:iconSpaceReserved="false" />
 
-  <PreferenceScreen
-      android:key="about_settings"
-      android:title="About PetLogger">
+            <Preference
+                android:key="reset_defaults"
+                android:title="Reset to Default Values"
+                app:iconSpaceReserved="false" />
 
-    <PreferenceCategory
-        android:title="About PetLogger">
+        </PreferenceCategory>
 
-      <Preference
-            android:key="version"
-            android:title="App version"/>
+    </PreferenceScreen>
 
-    </PreferenceCategory>
+    <PreferenceScreen
+        android:key="about_settings"
+        android:title="About PetLogger"
+        app:iconSpaceReserved="false" >
 
-  </PreferenceScreen>
+        <PreferenceCategory
+            android:title="About PetLogger"
+            app:iconSpaceReserved="false">
+
+            <Preference
+                android:key="version"
+                android:title="App version"
+                app:iconSpaceReserved="false" />
+
+        </PreferenceCategory>
+
+    </PreferenceScreen>
   
 </PreferenceScreen>

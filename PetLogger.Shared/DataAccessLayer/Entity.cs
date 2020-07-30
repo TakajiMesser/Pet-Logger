@@ -6,5 +6,11 @@ namespace PetLogger.Shared.DataAccessLayer
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+
+        public void Insert() => DBTable.Insert(this);
+
+        public void Update() => DBTable.Update(this);
+
+        public void Delete() => DBTable.Delete(this);
     }
 }

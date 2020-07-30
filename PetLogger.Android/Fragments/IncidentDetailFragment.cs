@@ -54,7 +54,7 @@ namespace PetLogger.Droid.Fragments
 
         private void AddDetailView(string title, string description, string value)
         {
-            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.list_item_logger, _detailList, false);
+            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.list_item_detail, _detailList, false);
 
             view.FindViewById<TextView>(Resource.Id.title).Text = title;
             view.FindViewById<TextView>(Resource.Id.description).Text = description;

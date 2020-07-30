@@ -4,6 +4,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Adapters;
+using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.DataAccessLayer;
 using PetLogger.Shared.Helpers;
@@ -86,24 +87,36 @@ namespace PetLogger.Droid.Fragments
             var inputs = view.FindViewById<LinearLayout>(Resource.Id.inputs);
             var type = entity.GetType();
 
-            for (var i = 0; i < inputs.ChildCount; i += 2)
+            for (var i = 0; i < inputs.ChildCount; i++)
             {
-                var textView = inputs.GetChildAt(i) as TextView;
-                var property = type.GetProperty(textView.Text);
+                if (inputs.GetChildAt(i) is TextView labelText)
+                {
+                    var property = type.GetProperty(labelText.Text);
+                    var valueView = inputs.GetChildAt(i + 1);
 
-                var valueView = inputs.GetChildAt(i + 1);
-
-                if (valueView is EditText valueText)
-                {
-                    SetPropertyValue(property, entity, valueText.Text);
-                }
-                else if (valueView is ToggleButton valueToggle)
-                {
-                    property.SetValue(entity, valueToggle.Checked);
-                }
-                else if (valueView is Spinner valueSpinner && valueSpinner.Adapter is ForeignEntityAdapter adapter)
-                {
-                    property.SetValue(entity, adapter.GetID(valueSpinner.SelectedItemPosition));
+                    if (valueView is EditText valueText)
+                    {
+                        SetPropertyValue(property, entity, valueText.Text);
+                    }
+                    else if (valueView is ToggleButton valueToggle)
+                    {
+                        property.SetValue(entity, valueToggle.Checked);
+                    }
+                    else if (valueView is Spinner valueSpinner)
+                    {
+                        if (valueSpinner.Adapter is ForeignEntityAdapter entityAdapter)
+                        {
+                            property.SetValue(entity, entityAdapter.GetID(valueSpinner.SelectedItemPosition));
+                        }
+                        else if (valueSpinner.Adapter is EnumAdapter enumAdapter)
+                        {
+                            property.SetValue(entity, enumAdapter.GetValue(valueSpinner.SelectedItemPosition));
+                        }
+                    }
+                    else if (valueView is EditTimeView valueTime)
+                    {
+                        property.SetValue(entity, valueTime.Time);
+                    }
                 }
             }
 
@@ -179,6 +192,19 @@ namespace PetLogger.Droid.Fragments
             else if (property.PropertyType == typeof(bool))
             {
                 layout.AddView(new ToggleButton(Activity));
+            }
+            else if (property.PropertyType.IsEnum)
+            {
+                var spinner = new Spinner(Activity)
+                {
+                    Adapter = new EnumAdapter(Activity, property.PropertyType)
+                };
+
+                layout.AddView(spinner);
+            }
+            else if (property.PropertyType == typeof(TimeSpan))
+            {
+                layout.AddView(new EditTimeView(Activity));
             }
         }
     }

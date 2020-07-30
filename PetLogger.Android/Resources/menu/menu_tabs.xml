@@ -5,28 +5,35 @@
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:icon="@drawable/ic_menu_home"
+        android:icon="@drawable/baseline_home_black_36dp"
         android:title="@string/tab_home_title"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/tab_alarms"
+        android:id="@+id/tab_pets"
+        android:enabled="true"
+        android:icon="@drawable/baseline_pets_black_36dp"
+        android:title="@string/tab_pets_title"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tab_reminders"
         android:enabled="true"
         android:icon="@drawable/baseline_access_alarm_black_36dp"
-        android:title="@string/tab_alarms_title"
+        android:title="@string/tab_reminders_title"
         app:showAsAction="ifRoom" />
   
     <item
         android:id="@+id/tab_history"
         android:enabled="true"
-        android:icon="@drawable/ic_menu_archive"
+        android:icon="@drawable/baseline_analytics_black_36dp"
         android:title="@string/tab_history_title"
         app:showAsAction="ifRoom" />
   
     <item
         android:id="@+id/tab_settings"
         android:enabled="true"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/baseline_settings_black_36dp"
         android:title="@string/tab_settings_title"
         app:showAsAction="ifRoom" />
 

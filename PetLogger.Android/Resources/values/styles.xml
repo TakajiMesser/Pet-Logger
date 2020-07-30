@@ -2,24 +2,25 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="toolbarStyle">@style/AppTheme.PopupOverlay</item> 
+        <!--<item name="toolbarStyle">@style/AppTheme.PopupOverlay</item> -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:datePickerMode">spinner</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="AppBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         
     </style>
   
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Dark">
+      <item name="android:textColorPrimary">#E8F5E9</item>
+      <item name="android:background">@drawable/toolbar_background</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
       <item name="android:textColorPrimary">#E8F5E9</item>
       <item name="android:background">@drawable/toolbar_background</item>
     </style>
@@ -47,8 +48,10 @@
       <item name="android:listViewStyle">@style/listViewPrefs</item>
       <item name="android:dialogTheme">@style/dialogPrefs</item>
       <item name="android:alertDialogTheme">@style/dialogPrefs</item>
+      <item name="android:timePickerStyle">@style/timePickerPrefs</item>
       <item name="android:windowActionBar">true</item>
       <item name="android:windowNoTitle">true</item>
+      <item name="android:timePickerMode">spinner</item>
     </style>
 
     <style name="dialogPrefs" parent="Theme.AppCompat.Dialog">
@@ -60,6 +63,7 @@
       <item name="colorAccent">@color/colorAccent</item>
       <item name="android:windowBackground">@drawable/rounded_border_dark</item>
       <item name="android:cacheColorHint">@color/prefs_bg</item>
+      <item name="android:timePickerMode">spinner</item>
     </style>
 
     <style name="editTextPrefs" parent="android:Widget.EditText">
@@ -70,6 +74,10 @@
     <style name="listViewPrefs" parent="@android:style/Widget.ListView">
       <item name="android:background">@color/prefs_bg</item>
       <item name="android:cacheColorHint">@color/prefs_bg</item>
+    </style>
+
+    <style name="timePickerPrefs" parent="android:Widget.Material.TimePicker">
+      <item name="android:timePickerMode">spinner</item>
     </style>
   
 </resources>

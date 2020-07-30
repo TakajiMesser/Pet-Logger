@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Support.V7.Preferences;
 using Android.Views;
+using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.DataAccessLayer;
 
@@ -24,6 +25,20 @@ namespace PetLogger.Droid.Fragments
         //public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_settings, container, false);
 
         private string _rootKey;
+
+        public override void OnDisplayPreferenceDialog(Preference preference)
+        {
+            if (preference is TimePickerPreference)
+            {
+                var fragment = TimePickerPreferenceDialogFragment.Instance(preference);
+                fragment.SetTargetFragment(this, 0);
+                fragment.Show(FragmentManager, "android.support.v7.preference.PreferenceFragment.DIALOG");
+            }
+            else
+            {
+                base.OnDisplayPreferenceDialog(preference);
+            }
+        }
 
         public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {

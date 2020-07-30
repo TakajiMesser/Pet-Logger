@@ -67,7 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
-    <Compile Include="Adapters\AlarmAdapter.cs" />
+    <Compile Include="Adapters\EnumAdapter.cs" />
+    <Compile Include="Adapters\ReminderAdapter.cs" />
     <Compile Include="Adapters\IncidentAdapter.cs" />
     <Compile Include="Adapters\IncidentLoggerAdapter.cs" />
     <Compile Include="Adapters\MultiSelectListAdapter.cs" />
@@ -79,8 +80,13 @@
     <Compile Include="Components\CSVTableRow.cs" />
     <Compile Include="Components\DataTableRow.cs" />
     <Compile Include="Components\DataTableAdapter.cs" />
+    <Compile Include="Components\TimePickerPreferenceDialogFragment.cs" />
+    <Compile Include="Components\TimePickerPreference.cs" />
+    <Compile Include="Components\NumberPickerPreference.cs" />
+    <Compile Include="Components\EditNumberPreference.cs" />
     <Compile Include="Components\FloatingActionMenu.cs" />
     <Compile Include="Components\CountDownView.cs" />
+    <Compile Include="Components\EditTimeView.cs" />
     <Compile Include="Components\TimeSpanView.cs" />
     <Compile Include="Components\FileTextRowAdapter.cs" />
     <Compile Include="Components\FileTextRow.cs" />
@@ -88,7 +94,7 @@
     <Compile Include="Components\FileTextView.cs" />
     <Compile Include="Components\DataTableView.cs" />
     <Compile Include="Components\CSVTableView.cs" />
-    <Compile Include="Fragments\AlarmListFragment.cs" />
+    <Compile Include="Fragments\ReminderListFragment.cs" />
     <Compile Include="Fragments\IncidentDetailFragment.cs" />
     <Compile Include="Fragments\LogFragment.cs" />
     <Compile Include="Fragments\AddEntityFragment.cs" />
@@ -2056,13 +2062,13 @@
     <AndroidResource Include="Resources\drawable\list_detail_selector.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\list_alarm_selector.xml" />
+    <AndroidResource Include="Resources\drawable\list_reminder_selector.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_alarm_list.xml" />
+    <AndroidResource Include="Resources\layout\fragment_reminder_list.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\list_item_alarm.xml" />
+    <AndroidResource Include="Resources\layout\list_item_reminder.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\toolbar_background.xml">

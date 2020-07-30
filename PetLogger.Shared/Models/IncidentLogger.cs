@@ -40,7 +40,7 @@ namespace PetLogger.Shared.Models
                 : (DateTime?)null;
         }
 
-        public void Delete() => DBTable.Delete(_definition);
+        public void Delete() => _definition.Delete();
 
         public void LogIncident() => DBTable.Insert(new Incident()
         {

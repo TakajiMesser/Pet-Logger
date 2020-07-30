@@ -166,21 +166,21 @@ namespace PetLogger.Droid.Components
 
         private void InitializeFromAttributes(Context context, IAttributeSet attrs)
         {
-            var attr = context.ObtainStyledAttributes(attrs, Resource.Styleable.TimeSinceView, 0, 0);
+            var attr = context.ObtainStyledAttributes(attrs, Resource.Styleable.TimeSpanView, 0, 0);
 
-            TimeTextSize = attr.GetFloat(Resource.Styleable.TimeSinceView_timeTextSize, 20.0f);
-            TimeTextColor = attr.GetColor(Resource.Styleable.TimeSinceView_timeTextColor, unchecked((int)0xFF0000FF));
+            TimeTextSize = attr.GetFloat(Resource.Styleable.TimeSpanView_timeTextSize, 20.0f);
+            TimeTextColor = attr.GetColor(Resource.Styleable.TimeSpanView_timeTextColor, unchecked((int)0xFF0000FF));
 
-            var timeFontID = attr.GetResourceId(Resource.Styleable.TimeSinceView_timeFontFamily, -1);
+            var timeFontID = attr.GetResourceId(Resource.Styleable.TimeSpanView_timeFontFamily, -1);
             /*if (headerFontID != -1)
             {
                 HeaderTypeface = (true) ? ResourcesCompat.Get(Context, headerFontID) : Context.Resources.GetFont(headerFontID);
             }*/
 
-            LabelTextSize = attr.GetFloat(Resource.Styleable.TimeSinceView_labelTextSize, 20.0f);
-            LabelTextColor = attr.GetColor(Resource.Styleable.TimeSinceView_labelTextColor, unchecked((int)0xFF0000FF));
+            LabelTextSize = attr.GetFloat(Resource.Styleable.TimeSpanView_labelTextSize, 20.0f);
+            LabelTextColor = attr.GetColor(Resource.Styleable.TimeSpanView_labelTextColor, unchecked((int)0xFF0000FF));
 
-            var labelFontID = attr.GetResourceId(Resource.Styleable.TimeSinceView_labelFontFamily, -1);
+            var labelFontID = attr.GetResourceId(Resource.Styleable.TimeSpanView_labelFontFamily, -1);
             /*if (headerFontID != -1)
             {
                 HeaderTypeface = (true) ? ResourcesCompat.Get(Context, headerFontID) : Context.Resources.GetFont(headerFontID);

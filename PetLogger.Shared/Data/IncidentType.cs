@@ -3,11 +3,8 @@ using SQLite;
 
 namespace PetLogger.Shared.Data
 {
-    public class IncidentType : IEntity
+    public class IncidentType : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-
         [Identifier]
         public string Name { get; set; }
 

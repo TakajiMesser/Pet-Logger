@@ -3,11 +3,8 @@ using SQLite;
 
 namespace PetLogger.Shared.Data
 {
-    public class LoggerDefinition : IEntity
+    public class LoggerDefinition : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-
         public bool IncludeDays { get; set; }
         public bool IncludeHours { get; set; }
         public bool IncludeMinutes { get; set; }

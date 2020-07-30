@@ -18,10 +18,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBAttributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\DBAccess.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\AlarmDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Reminder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Schedule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\LoggerDefinition.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Notification.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Modifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\IncidentType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Incident.cs" />
@@ -31,7 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PottyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\EntityHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Alarm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Logging\Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IncidentLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PottyLog.cs" />

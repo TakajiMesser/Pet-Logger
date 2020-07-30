@@ -1,5 +1,4 @@
 ﻿using Android.OS;
-using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -7,63 +6,64 @@ using Android.Widget;
 using PetLogger.Droid.Adapters;
 using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
-using PetLogger.Droid.Models;
+using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using PetLogger.Shared.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Fragment = Android.Support.V4.App.Fragment;
-using PetLogger.Shared.Data;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class AlarmListFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
+    public class ReminderListFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
     {
-        private AlarmAdapter _alarmAdapter;
+        private ReminderAdapter _reminderAdapter;
 
-        public static AlarmListFragment Instantiate() => new AlarmListFragment();
+        public static ReminderListFragment Instantiate() => new ReminderListFragment();
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_alarm_list, container, false);
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_reminder_list, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
 
-            ToolbarHelper.ShowToolbar(Activity, "Alarms");
-            ToolbarHelper.ShowToolbarBackButton(Activity);
+            ToolbarHelper.ShowToolbar(Activity, "Reminders");
+            ToolbarHelper.HideToolbarBackButton(Activity);
 
-            var alarmRecycler = View.FindViewById<RecyclerView>(Resource.Id.alarm_list);
-            SetUpAlarmRecycler(alarmRecycler, view);
+            var reminderRecycler = View.FindViewById<RecyclerView>(Resource.Id.reminder_list);
+            SetUpReminderAdapter(reminderRecycler, view);
 
-            var fabAddAlarm = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_alarm);
-            fabAddAlarm.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<AlarmDefinition>.Instantiate("Alarm"));
+            var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
+            fabAddReminder.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
         }
 
-        private void SetUpAlarmRecycler(RecyclerView recyclerView, View view)
+        private void SetUpReminderAdapter(RecyclerView recyclerView, View view)
         {
             ((SimpleItemAnimator)recyclerView.GetItemAnimator()).SupportsChangeAnimations = false;
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(40));
 
-            _alarmAdapter = new AlarmAdapter(Activity, GetAlarms().ToList());
-            _alarmAdapter.SetMultiChoiceModeListener(this);
-            //_alarmAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
+            _reminderAdapter = new ReminderAdapter(Activity, DBTable.GetAll<Reminder>().ToList());
+            _reminderAdapter.SetMultiChoiceModeListener(this);
+            //_reminderAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
 
-            recyclerView.SetAdapter(_alarmAdapter);
+            recyclerView.SetAdapter(_reminderAdapter);
         }
 
-        private IEnumerable<Alarm> GetAlarms() => DBTable.GetAll<AlarmDefinition>()
-            .Select(d => new Alarm(d));
+        private void CreateReminder(Reminder reminder)
+        {
+
+        }
 
         private void DeleteSelectedItems(ActionMode mode)
         {
-            AlertDialogHelper.DisplayDialog(Activity, "Remove selected alarms", "Are you sure? This will remove ALL selected alarms!", () =>
+            AlertDialogHelper.DisplayDialog(Activity, "Remove selected reminders", "Are you sure? This will remove ALL selected reminders!", () =>
             {
-                var dialog = ProgressDialogHelper.Display(Activity, "Removing selected alarms...");
+                var dialog = ProgressDialogHelper.Display(Activity, "Removing selected reminders...");
 
                 ProgressDialogHelper.RunTask(Activity, dialog, () =>
                 {
-                    _alarmAdapter.RemoveSelectedAlarms();
+                    _reminderAdapter.RemoveSelectedAlarms();
                     Activity.RunOnUiThread(() => mode.Finish());
                 });
             });
@@ -79,7 +79,7 @@ namespace PetLogger.Droid.Fragments
                     DeleteSelectedItems(mode);
                     return true;
                 case Resource.Id.action_select_all:
-                    _alarmAdapter.SetAllItemsChecked(true);
+                    _reminderAdapter.SetAllItemsChecked(true);
                     return true;
                 default:
                     return false;

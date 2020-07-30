@@ -38,7 +38,7 @@ namespace PetLogger.Shared.DataAccessLayer
             typeof(Modifier),
             typeof(Schedule),
             typeof(LoggerDefinition),
-            typeof(AlarmDefinition)
+            typeof(Reminder)
         };
 
         public static Type ParseTableName(string tableName)
@@ -59,8 +59,8 @@ namespace PetLogger.Shared.DataAccessLayer
                     return typeof(Schedule);
                 case "LoggerDefinition":
                     return typeof(LoggerDefinition);
-                case "AlarmDefinition":
-                    return typeof(AlarmDefinition);
+                case "Reminder":
+                    return typeof(Reminder);
             }
 
             throw new ArgumentException("Could not find table name " + tableName);

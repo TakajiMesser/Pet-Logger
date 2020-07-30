@@ -4,11 +4,8 @@ using System;
 
 namespace PetLogger.Shared.Data
 {
-    public class Incident : IEntity
+    public class Incident : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-
         [Identifier]
         public DateTime Time { get; set; }
 
