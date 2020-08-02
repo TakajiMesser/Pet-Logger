@@ -31,7 +31,7 @@ namespace PetLogger.Droid.Fragments
             SetUpReminderAdapter(reminderRecycler, view);
 
             var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
-            fabAddReminder.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
+            fabAddReminder.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
         }
 
         private void SetUpReminderAdapter(RecyclerView recyclerView, View view)

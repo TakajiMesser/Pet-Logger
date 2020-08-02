@@ -278,6 +278,18 @@ namespace PetLogger.Droid
 			// aapt resource value: 0x7F010015
 			public const int fab_slide_out_to_right = 2130771989;
 			
+			// aapt resource value: 0x7F010016
+			public const int fragment_fade_in = 2130771990;
+			
+			// aapt resource value: 0x7F010017
+			public const int fragment_fade_out = 2130771991;
+			
+			// aapt resource value: 0x7F010018
+			public const int fragment_slide_in_from_bottom = 2130771992;
+			
+			// aapt resource value: 0x7F010019
+			public const int fragment_slide_out_to_bottom = 2130771993;
+			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

@@ -43,7 +43,7 @@ namespace PetLogger.Droid.Fragments
             }
 
             var fabAddPet = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_pet);
-            fabAddPet.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<Pet>.Instantiate("Pet"));
+            fabAddPet.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<Pet>.Instantiate("Pet"));
         }
 
         private void SetUpTabLayout(IList<Pet> pets)

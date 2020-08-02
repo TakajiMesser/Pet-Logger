@@ -40,11 +40,14 @@ namespace PetLogger.Droid.Fragments
         {
             ((SimpleItemAnimator)recyclerView.GetItemAnimator()).SupportsChangeAnimations = false;
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
-            recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(20));
+            recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(20)
+            {
+                ShouldShowBeforeFirst = true
+            });
 
             _loggerAdapter = new IncidentLoggerAdapter(Activity, GetIncidentLoggers().ToList());
             _loggerAdapter.SetMultiChoiceModeListener(this);
-            _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
+            _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
             _loggerAdapter.IncidentLogged += (s, args) => Snackbar.Make(view, args.Logger.Title + " logged", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null)
                 .Show();
@@ -58,10 +61,10 @@ namespace PetLogger.Droid.Fragments
             //fam.Visibility = ViewStates.Visible;
 
             var fabAddIncidentType = view.FindViewById<FloatingActionButton>(Resource.Id.fam_add_incident_type);
-            fabAddIncidentType.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<IncidentType>.Instantiate("Incident Type"));
+            fabAddIncidentType.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<IncidentType>.Instantiate("Incident Type"));
 
             var fabAddLogger = view.FindViewById<FloatingActionButton>(Resource.Id.fam_add_logger);
-            fabAddLogger.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<LoggerDefinition>.Instantiate("Incident Logger"));
+            fabAddLogger.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<LoggerDefinition>.Instantiate("Incident Logger"));
         }
 
         private IEnumerable<IncidentLogger> GetIncidentLoggers() => DBTable.GetAll<LoggerDefinition>()

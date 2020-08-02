@@ -6,12 +6,13 @@ namespace PetLogger.Droid.Helpers
 {
     public static class FragmentHelper
     {
-        public static void Add(Activity activity, Fragment fragment)
+        public static void Push(Activity activity, Fragment fragment)
         {
             if (activity is AppCompatActivity compatActivity)
             {
                 compatActivity.SupportFragmentManager.BeginTransaction()
                     .AddToBackStack(null)
+                    .SetCustomAnimations(Resource.Animation.fragment_slide_in_from_bottom, Resource.Animation.fragment_fade_out, Resource.Animation.fragment_fade_in, Resource.Animation.fragment_slide_out_to_bottom)
                     .Replace(Resource.Id.content_frame, fragment)
                     .Commit();
             }

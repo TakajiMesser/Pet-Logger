@@ -146,6 +146,8 @@ namespace PetLogger.Droid.Activities
 
         private void InitializeUI()
         {
+            //OverridePendingTransition(Resource.Animation.abc_slide_in_top, Resource.Animation.abc_slide_out_top);
+
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
@@ -163,7 +165,7 @@ namespace PetLogger.Droid.Activities
             {
                 _currentTabID = resourceID;
                 FragmentHelper.PopAll(this);
-                FragmentHelper.Add(this, GetTabFragment(_currentTabID));
+                FragmentHelper.Push(this, GetTabFragment(_currentTabID));
             }
             else
             {
@@ -208,7 +210,7 @@ namespace PetLogger.Droid.Activities
                         _isInSettings = true;
                         _backStackSnapshotCount = SupportFragmentManager.BackStackEntryCount;
 
-                        FragmentHelper.Add(this, SettingsFragment.Instantiate());
+                        FragmentHelper.Push(this, SettingsFragment.Instantiate());
                     }
                     return true;
             }
@@ -220,16 +222,16 @@ namespace PetLogger.Droid.Activities
         {
             if (SupportFragmentManager.BackStackEntryCount > 1)
             {
-                SupportFragmentManager.PopBackStack();
-
                 if (_isInSettings)
                 {
                     // Check if we've actually exit the settings fragments and returned to the main tabs or not
-                    if (SupportFragmentManager.BackStackEntryCount <= _backStackSnapshotCount)
+                    if (SupportFragmentManager.BackStackEntryCount <= _backStackSnapshotCount + 1)
                     {
                         _isInSettings = false;
                     }
                 }
+
+                SupportFragmentManager.PopBackStack();
             }
             else
             {
