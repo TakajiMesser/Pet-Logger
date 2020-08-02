@@ -29,12 +29,5 @@
         android:icon="@drawable/baseline_analytics_black_36dp"
         android:title="@string/tab_history_title"
         app:showAsAction="ifRoom" />
-  
-    <item
-        android:id="@+id/tab_settings"
-        android:enabled="true"
-        android:icon="@drawable/baseline_settings_black_36dp"
-        android:title="@string/tab_settings_title"
-        app:showAsAction="ifRoom" />
 
 </menu>

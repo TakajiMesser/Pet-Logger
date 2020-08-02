@@ -9,9 +9,6 @@
     <Import_RootNamespace>PetLogger.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Utilities\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\BuiltIn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccessLayer\IEntity.cs" />
@@ -26,13 +23,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Incident.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\PetType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Pet.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LINQExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PottyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LogHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\EntityHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PetIncident.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Logging\Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IncidentLogger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PottyLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PottyLogEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\LINQExtensions.cs" />
   </ItemGroup>
 </Project>

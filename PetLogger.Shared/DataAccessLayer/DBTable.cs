@@ -56,6 +56,8 @@ namespace PetLogger.Shared.DataAccessLayer
 
         public static T Get<T>(System.Linq.Expressions.Expression<Func<T, bool>> predExpr) where T : class, IEntity, new() => DBAccess.Connection.Get(predExpr);
 
+        public static bool Any<T>(System.Linq.Expressions.Expression<Func<T, bool>> predExpr) where T : class, IEntity, new() => DBAccess.Connection.Table<T>().Where(predExpr).Any();
+
         public static TableQuery<T> GetAll<T>() where T : class, IEntity, new() => DBAccess.Connection.Table<T>();
 
         public static List<object> GetAll(Type type) => DBAccess.Connection.Query(DBAccess.GetMapping(type), "SELECT * FROM " + type.Name);
@@ -123,6 +125,16 @@ namespace PetLogger.Shared.DataAccessLayer
         }
 
         public static void Delete(object item) => DBAccess.Connection.Delete(item);
+
+        public static void DeleteFirst<T>(System.Linq.Expressions.Expression<Func<T, bool>> predExpr) where T : class, IEntity, new()
+        {
+            var match = DBAccess.Connection.Table<T>().Where(predExpr).FirstOrDefault();
+
+            if (match != null)
+            {
+                DBAccess.Connection.Delete(match);
+            }
+        }
 
         public static void DeleteAll<T>(IEnumerable<int> ids) where T : class, IEntity, new()
         {

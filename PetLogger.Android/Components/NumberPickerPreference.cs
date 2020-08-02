@@ -8,7 +8,7 @@ using Android.Widget;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.NumberPickerPreference")]
+    [Register("com.petlogger.android.components.NumberPickerPreference")]
     public class NumberPickerPreference : DialogPreference
     {
         private const long PICKER_SPEED = 50;

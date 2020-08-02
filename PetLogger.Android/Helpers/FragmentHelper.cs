@@ -50,5 +50,18 @@ namespace PetLogger.Droid.Helpers
                 }
             }
         }
+
+        public static void PopAllButOne(Activity activity)
+        {
+            if (activity is AppCompatActivity compatActivity)
+            {
+                var stackCount = compatActivity.SupportFragmentManager.BackStackEntryCount;
+
+                for (var i = 0; i < stackCount - 1; i++)
+                {
+                    compatActivity.SupportFragmentManager.PopBackStack();
+                }
+            }
+        }
     }
 }

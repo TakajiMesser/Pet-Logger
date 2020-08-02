@@ -11,13 +11,13 @@
         android:defaultValue="false"
         app:iconSpaceReserved="false" />
 
-    <com.pottylogger.android.components.TimePickerPreference
+    <com.petlogger.android.components.TimePickerPreference
         android:key="crossover_time"
         android:title="Crossover Time"
         android:summary="Determines when one day ends and the next begins"
         app:iconSpaceReserved="false" />
 
-    <com.pottylogger.android.components.TimePickerPreference
+    <com.petlogger.android.components.TimePickerPreference
         android:key="sleep_time"
         android:title="Sleep Time"
         android:summary="Determines when to silence reminders"
@@ -28,7 +28,7 @@
         android:title="Developer Settings"
         app:iconSpaceReserved="false" >
 
-        <PreferenceCategory
+        <com.petlogger.android.components.PreferenceHeader
             android:title="Developer Settings"
             app:iconSpaceReserved="false">
 
@@ -52,7 +52,7 @@
                 android:title="Reset to Default Values"
                 app:iconSpaceReserved="false" />
 
-        </PreferenceCategory>
+        </com.petlogger.android.components.PreferenceHeader>
 
     </PreferenceScreen>
 
@@ -61,7 +61,7 @@
         android:title="About PetLogger"
         app:iconSpaceReserved="false" >
 
-        <PreferenceCategory
+        <com.petlogger.android.components.PreferenceHeader
             android:title="About PetLogger"
             app:iconSpaceReserved="false">
 
@@ -70,7 +70,7 @@
                 android:title="App version"
                 app:iconSpaceReserved="false" />
 
-        </PreferenceCategory>
+        </com.petlogger.android.components.PreferenceHeader>
 
     </PreferenceScreen>
   

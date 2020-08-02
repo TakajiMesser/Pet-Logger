@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.FileTextView")]
+    [Register("com.petlogger.android.components.FileTextView")]
     public class FileTextView : ViewGroup
     {
         //private LinearLayout _headers;

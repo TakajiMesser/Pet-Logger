@@ -10,10 +10,15 @@
     <color name="semi_transparent">#64777777</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="gray">#777777</color>
   
     <color name="textWhite">#FFFFFF</color>
     <color name="textGray">#A1A1A1</color>
     <color name="textBlack">#000000</color>
+
+    <color name="gray_blue_dark">#959595</color>
+    <color name="gray_blue_light">#6AA0BB</color>
 
     <color name="blue_select">#FF6D6BB0</color>
     <color name="blue_press">#FF838DDD</color>
@@ -22,6 +27,10 @@
     <color name="red_select">#FFFF9E9E</color>
     <color name="red_press">#FFE2A1A1</color>
     <color name="red_normal">#FFC26B6B</color>
+
+    <color name="green_select">#FF95BB9B</color>
+    <color name="green_press">#FFA3BBA9</color>
+    <color name="green_normal">#FF72907A</color>
   
     <color name="light_blue">#647777FF</color>
     <color name="bright_blue">#6477FFFF</color>

@@ -22,7 +22,10 @@ namespace PetLogger.Droid.Activities
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, IOnRequestPermissionsResultCallback
     {
+        private bool _isInSettings;
+
         private int _currentTabID;
+        private int _backStackSnapshotCount;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -147,41 +150,39 @@ namespace PetLogger.Droid.Activities
             SetSupportActionBar(toolbar);
 
             var tabView = FindViewById<BottomNavigationView>(Resource.Id.tab_view);
-            tabView.NavigationItemSelected += (s, args) => SwitchToFragment(args.Item.ItemId);
+            tabView.NavigationItemSelected += (s, args) => SwitchToTabFragment(args.Item.ItemId);
 
-            SwitchToFragment(Resource.Id.tab_home);
+            SwitchToTabFragment(Resource.Id.tab_home);
         }
 
-        private void SwitchToFragment(int resourceID)
+        private void SwitchToTabFragment(int resourceID)
         {
+            _isInSettings = false;
+
             if (_currentTabID != resourceID)
             {
-                FragmentHelper.PopAll(this);
                 _currentTabID = resourceID;
-
-                var fragment = GetFragment(resourceID);
-                SupportFragmentManager.BeginTransaction()
-                    .Replace(Resource.Id.content_frame, fragment)
-                    .Commit();
+                FragmentHelper.PopAll(this);
+                FragmentHelper.Add(this, GetTabFragment(_currentTabID));
             }
             else
             {
-                FragmentHelper.PopAll(this);
+                FragmentHelper.PopAllButOne(this);
             }
         }
 
-        private Fragment GetFragment(int resourceID)
+        private Fragment GetTabFragment(int resourceID)
         {
             switch (resourceID)
             {
                 case Resource.Id.tab_home:
                     return HomeFragment.Instantiate();
+                case Resource.Id.tab_pets:
+                    return PetsFragment.Instantiate();
                 case Resource.Id.tab_reminders:
-                    return ReminderListFragment.Instantiate();
+                    return RemindersFragment.Instantiate();
                 case Resource.Id.tab_history:
                     return HistoryFragment.Instantiate();
-                case Resource.Id.tab_settings:
-                    return SettingsFragment.Instantiate();
             }
 
             throw new ArgumentOutOfRangeException("No corresponding tab fragment found for resource ID " + resourceID);
@@ -189,7 +190,7 @@ namespace PetLogger.Droid.Activities
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+            MenuInflater.Inflate(Resource.Menu.menu_main_actions, menu);
             return true;
         }
 
@@ -201,26 +202,34 @@ namespace PetLogger.Droid.Activities
                     OnBackPressed();
                     return true;
                 case Resource.Id.action_settings:
+                    if (!_isInSettings)
+                    {
+                        // We need to store the current back stack so we know when we fully back out of settings again
+                        _isInSettings = true;
+                        _backStackSnapshotCount = SupportFragmentManager.BackStackEntryCount;
+
+                        FragmentHelper.Add(this, SettingsFragment.Instantiate());
+                    }
                     return true;
             }
 
             return base.OnOptionsItemSelected(item);
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
-            var view = (View)sender;
-
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null)
-                .Show();
-        }
-
         public override void OnBackPressed()
         {
-            if (SupportFragmentManager.BackStackEntryCount > 0)
+            if (SupportFragmentManager.BackStackEntryCount > 1)
             {
                 SupportFragmentManager.PopBackStack();
+
+                if (_isInSettings)
+                {
+                    // Check if we've actually exit the settings fragments and returned to the main tabs or not
+                    if (SupportFragmentManager.BackStackEntryCount <= _backStackSnapshotCount)
+                    {
+                        _isInSettings = false;
+                    }
+                }
             }
             else
             {

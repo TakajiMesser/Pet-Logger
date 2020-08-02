@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:padding="6dp"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:background="@drawable/selector_incident_detail"
+    android:descendantFocusability="blocksDescendants">
+
+        <ImageView
+            android:id="@+id/detail_icon"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#00000000"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:title="Alert"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <TextView
+            android:id="@+id/detail_value"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/detail_icon"
+            android:textSize="24dp"
+            android:textColor="@color/textWhite" />
+
+        <TextView
+            android:id="@+id/detail_label"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/detail_value"
+            android:textSize="14dp"
+            android:textColor="@color/textWhite" />
+  
+</RelativeLayout>

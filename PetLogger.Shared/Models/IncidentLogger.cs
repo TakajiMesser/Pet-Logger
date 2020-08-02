@@ -13,7 +13,6 @@ namespace PetLogger.Shared.Models
         {
             _definition = definition;
             ImageResourceID = ThemeHelper.GetImageResourceID(definition.IncidentType.ImageName, Themes.Dark);
-            Update();
         }
 
         public string Title => _definition.Title;
@@ -22,22 +21,18 @@ namespace PetLogger.Shared.Models
         public int PetID => _definition.PetID;
         public int IncidentTypeID => _definition.IncidentTypeID;
 
-        public bool IncludeDays => _definition.IncludeDays;
-        public bool IncludeHours => _definition.IncludeHours;
-        public bool IncludeMinutes => _definition.IncludeMinutes;
-        public bool IncludeSeconds => _definition.IncludeSeconds;
-
-        public DateTime? LatestIncidentTime { get; private set; }
-
-        public void Update()
+        public DateTime? LatestIncidentTime
         {
-            var latestIncident = DBTable.GetAll<Incident>(i => i.PetID == _definition.PetID && i.IncidentTypeID == _definition.IncidentTypeID)
+            get
+            {
+                var latestIncident = DBTable.GetAll<Incident>(i => i.PetID == _definition.PetID && i.IncidentTypeID == _definition.IncidentTypeID)
                 .OrderByDescending(i => i.Time)
                 .FirstOrDefault();
 
-            LatestIncidentTime = latestIncident != null
-                ? latestIncident.Time
-                : (DateTime?)null;
+                return latestIncident != null
+                    ? latestIncident.Time
+                    : (DateTime?)null;
+            }
         }
 
         public void Delete() => _definition.Delete();

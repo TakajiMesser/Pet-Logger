@@ -11,6 +11,12 @@ namespace PetLogger.Shared.DataAccessLayer
 
         public void Update() => DBTable.Update(this);
 
-        public void Delete() => DBTable.Delete(this);
+        public void Delete()
+        {
+            if (ID >= 0)
+            {
+                DBTable.Delete(this);
+            }
+        }
     }
 }

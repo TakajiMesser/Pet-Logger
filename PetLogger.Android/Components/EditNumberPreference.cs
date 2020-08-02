@@ -10,7 +10,7 @@ using Android.Widget;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.EditNumberPreference")]
+    [Register("com.petlogger.android.components.EditNumberPreference")]
     public class EditNumberPreference : EditTextPreference
     {
         private int _initialValue;

@@ -10,7 +10,7 @@
                         android:layout_height="wrap_content"
                         android:fillViewport="true">
 
-    <com.pottylogger.android.components.DataTableView
+    <com.petlogger.android.components.DataTableView
       android:id="@+id/table"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
       android:paddingRight="10dp"
       app:lazyLoad="true"
       app:lazyLoadLimit="100"
-      app:rowBackground="@drawable/list_row_selector"/>
+      app:rowBackground="@drawable/selector_row"/>
 
   </HorizontalScrollView>
 

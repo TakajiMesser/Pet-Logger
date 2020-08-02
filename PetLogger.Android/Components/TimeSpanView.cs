@@ -9,29 +9,38 @@ using System;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.TimeSpanView")]
+    [Register("com.petlogger.android.components.TimeSpanView")]
     public class TimeSpanView : ViewGroup
     {
         // TODO - Change these to adjustable attributes
         public const int HORIZONTAL_SPACING = 20;
         public const int VERTICAL_SPACING = 10;
 
-        private TextView _daysText;
-        private TextView _hoursText;
-        private TextView _minutesText;
-        private TextView _secondsText;
+        private TextView _largeUnitLabel;
+        private TextView _largeUnitValue;
 
-        private TextView _daysLabel;
-        private TextView _hoursLabel;
-        private TextView _minutesLabel;
-        private TextView _secondsLabel;
+        private TextView _smallUnitLabel;
+        private TextView _smallUnitValue;
+
+        private TextView _separator;
 
         private TimeSpan _timeSpan;
 
-        private bool _includeDays;
-        private bool _includeHours;
-        private bool _includeMinutes;
-        private bool _includeSeconds;
+        private int _largeUnitWidth;
+        private int _smallUnitWidth;
+
+        public TimeSpanView(Context context) : base(context) { }
+        public TimeSpanView(Context context, IAttributeSet attrs) : base(context, attrs) { InitializeFromAttributes(context, attrs); }
+        public TimeSpanView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { InitializeFromAttributes(context, attrs); }
+
+        public TimeSpanView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
+
+        public float TimeTextSize { get; private set; }
+        public Color TimeTextColor { get; private set; }
+        public Typeface TimeTypeface { get; private set; }
+        public float LabelTextSize { get; private set; }
+        public Color LabelTextColor { get; private set; }
+        public Typeface LabelTypeface { get; private set; }
 
         public TimeSpan TimeSpan
         {
@@ -46,123 +55,6 @@ namespace PetLogger.Droid.Components
                 }
             }
         }
-
-        public bool IncludeDays
-        {
-            get => _includeDays;
-            set
-            {
-                if (_includeDays != value)
-                {
-                    _includeDays = value;
-
-                    if (_includeDays)
-                    {
-                        _daysText.Visibility = ViewStates.Visible;
-                        _daysLabel.Visibility = ViewStates.Visible;
-                    }
-                    else
-                    {
-                        _daysText.Visibility = ViewStates.Gone;
-                        _daysLabel.Visibility = ViewStates.Gone;
-                    }
-
-                    Invalidate();
-                }
-            }
-        }
-
-        public bool IncludeHours
-        {
-            get => _includeHours;
-            set
-            {
-                if (_includeHours != value)
-                {
-                    _includeHours = value;
-
-                    if (_includeHours)
-                    {
-                        _hoursText.Visibility = ViewStates.Visible;
-                        _hoursLabel.Visibility = ViewStates.Visible;
-                    }
-                    else
-                    {
-                        _hoursText.Visibility = ViewStates.Gone;
-                        _hoursLabel.Visibility = ViewStates.Gone;
-                    }
-
-                    Invalidate();
-                }
-            }
-        }
-
-        public bool IncludeMinutes
-        {
-            get => _includeMinutes;
-            set
-            {
-                if (_includeMinutes != value)
-                {
-                    _includeMinutes = value;
-
-                    if (_includeMinutes)
-                    {
-                        _minutesText.Visibility = ViewStates.Visible;
-                        _minutesLabel.Visibility = ViewStates.Visible;
-                        // Potentially need to change timer clock
-                    }
-                    else
-                    {
-                        _minutesText.Visibility = ViewStates.Gone;
-                        _minutesLabel.Visibility = ViewStates.Gone;
-                        // Potentially need to change timer clock
-                    }
-
-                    Invalidate();
-                }
-            }
-        }
-
-        public bool IncludeSeconds
-        {
-            get => _includeSeconds;
-            set
-            {
-                if (_includeSeconds != value)
-                {
-                    _includeSeconds = value;
-
-                    if (_includeSeconds)
-                    {
-                        _secondsText.Visibility = ViewStates.Visible;
-                        _secondsLabel.Visibility = ViewStates.Visible;
-                        // Potentially need to change timer clock
-                    }
-                    else
-                    {
-                        _secondsText.Visibility = ViewStates.Gone;
-                        _secondsLabel.Visibility = ViewStates.Gone;
-                        // Potentially need to change timer clock
-                    }
-
-                    Invalidate();
-                }
-            }
-        }
-
-        public float TimeTextSize { get; private set; }
-        public Color TimeTextColor { get; private set; }
-        public Typeface TimeTypeface { get; private set; }
-        public float LabelTextSize { get; private set; }
-        public Color LabelTextColor { get; private set; }
-        public Typeface LabelTypeface { get; private set; }
-
-        public TimeSpanView(Context context) : base(context) { }
-        public TimeSpanView(Context context, IAttributeSet attrs) : base(context, attrs) { InitializeFromAttributes(context, attrs); }
-        public TimeSpanView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { InitializeFromAttributes(context, attrs); }
-
-        public TimeSpanView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
 
         private void InitializeFromAttributes(Context context, IAttributeSet attrs)
         {
@@ -186,31 +78,25 @@ namespace PetLogger.Droid.Components
                 HeaderTypeface = (true) ? ResourcesCompat.Get(Context, headerFontID) : Context.Resources.GetFont(headerFontID);
             }*/
 
-            CreateTimeViews();
-            CreateLabelViews();
+            BuildViews();
         }
 
-        private void CreateTimeViews()
+        private void BuildViews()
         {
-            _daysText = CreateTimeView();
-            _hoursText = CreateTimeView();
-            _minutesText = CreateTimeView();
-            _secondsText = CreateTimeView();
+            _largeUnitLabel = CreateLabelView();
+            _largeUnitValue = CreateValueView();
+
+            _smallUnitLabel = CreateLabelView();
+            _smallUnitValue = CreateValueView();
+
+            _separator = CreateValueView();
+            _separator.Text = ":";
         }
 
-        private void CreateLabelViews()
-        {
-            _daysLabel = CreateLabelView("Days");
-            _hoursLabel = CreateLabelView("Hours");
-            _minutesLabel = CreateLabelView("Minutes");
-            _secondsLabel = CreateLabelView("Seconds");
-        }
-
-        private TextView CreateLabelView(string text)
+        private TextView CreateLabelView()
         {
             var labelView = new TextView(Context)
             {
-                Text = text,
                 Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular)
             };
             labelView.SetTextColor(LabelTextColor);
@@ -223,7 +109,7 @@ namespace PetLogger.Droid.Components
             return labelView;
         }
 
-        private TextView CreateTimeView()
+        private TextView CreateValueView()
         {
             var timeView = new TextView(Context)
             {
@@ -246,25 +132,30 @@ namespace PetLogger.Droid.Components
             var nMinutes = _timeSpan.Minutes;
             var nSeconds = _timeSpan.Seconds;
 
-            if (!IncludeDays)
+            if (nDays >= 1)
             {
-                nHours += nDays * 24;
-            }
+                _largeUnitLabel.Text = "Day" + (nDays == 1 ? "" : "s");
+                _largeUnitValue.Text = nDays.ToString();
 
-            if (!IncludeHours)
+                _smallUnitLabel.Text = "Hour" + (nHours == 1 ? "" : "s");
+                _smallUnitValue.Text = nHours.ToString();
+            }
+            else if (nHours >= 1)
             {
-                nMinutes += nHours * 60;
-            }
+                _largeUnitLabel.Text = "Hour" + (nHours == 1 ? "" : "s");
+                _largeUnitValue.Text = nHours.ToString();
 
-            if (!IncludeMinutes)
+                _smallUnitLabel.Text = "Minute" + (nMinutes == 1 ? "" : "s");
+                _smallUnitValue.Text = nMinutes.ToString();
+            }
+            else
             {
-                nSeconds += nMinutes * 60;
-            }
+                _largeUnitLabel.Text = "Minute" + (nMinutes == 1 ? "" : "s");
+                _largeUnitValue.Text = nMinutes.ToString();
 
-            _daysText.Text = nDays.ToString();
-            _hoursText.Text = nHours.ToString();
-            _minutesText.Text = nMinutes.ToString();
-            _secondsText.Text = nSeconds.ToString();
+                _smallUnitLabel.Text = "Second" + (nSeconds == 1 ? "" : "s");
+                _smallUnitValue.Text = nSeconds.ToString();
+            }
         }
 
         protected override void OnFinishInflate()
@@ -272,259 +163,83 @@ namespace PetLogger.Droid.Components
             base.OnFinishInflate();
             FocusableInTouchMode = true;
 
-            AddView(_daysText, GenerateDefaultLayoutParams());
-            AddView(_hoursText, GenerateDefaultLayoutParams());
-            AddView(_minutesText, GenerateDefaultLayoutParams());
-            AddView(_secondsText, GenerateDefaultLayoutParams());
-
-            AddView(_daysLabel, GenerateDefaultLayoutParams());
-            AddView(_hoursLabel, GenerateDefaultLayoutParams());
-            AddView(_minutesLabel, GenerateDefaultLayoutParams());
-            AddView(_secondsLabel, GenerateDefaultLayoutParams());
+            AddView(_largeUnitLabel, GenerateDefaultLayoutParams());
+            AddView(_largeUnitValue, GenerateDefaultLayoutParams());
+            AddView(_smallUnitLabel, GenerateDefaultLayoutParams());
+            AddView(_smallUnitValue, GenerateDefaultLayoutParams());
+            AddView(_separator, GenerateDefaultLayoutParams());
         }
 
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
             MeasureChildren(widthMeasureSpec, heightMeasureSpec);
 
-            /*var marginLayoutParameters = (MarginLayoutParams)LayoutParameters;
-             
-            int width = (IsOpened || LayoutParameters.Width == ViewGroup.LayoutParams.MatchParent)
-                ? GetDefaultSize(SuggestedMinimumWidth, widthMeasureSpec) + marginLayoutParameters.LeftMargin + marginLayoutParameters.RightMargin
-                : _menuButton.MeasuredWidth + PaddingLeft + PaddingRight;
+            var labelsWidth = _largeUnitLabel.MeasuredWidth + HORIZONTAL_SPACING + _smallUnitLabel.MeasuredWidth;
+            var labelsHeight = _largeUnitLabel.MeasuredHeight > _smallUnitLabel.MeasuredHeight
+                ? _largeUnitLabel.MeasuredHeight
+                : _smallUnitLabel.MeasuredHeight;
 
-            int height = (IsOpened || LayoutParameters.Height == ViewGroup.LayoutParams.MatchParent)
-                ? GetDefaultSize(SuggestedMinimumHeight, heightMeasureSpec) + marginLayoutParameters.TopMargin + marginLayoutParameters.BottomMargin
-                : _menuButton.MeasuredHeight + PaddingTop + PaddingBottom;*/
+            var valuesWidth = _largeUnitValue.MeasuredWidth + HORIZONTAL_SPACING + _separator.MeasuredWidth + HORIZONTAL_SPACING + _smallUnitValue.MeasuredWidth;
+            var valuesHeight = _separator.MeasuredHeight;
 
-            //var timesWidth = _daysText.Width + _hoursText.Width + _minutesText.Width + _secondsText.Text;
-
-            var timesWidth = 0;
-            var timesHeight = 0;
-            var labelsWidth = 0;
-            var labelsHeight = 0;
-
-            var isFirst = true;
-
-            if (IncludeDays)
+            if (_largeUnitValue.MeasuredHeight > valuesHeight)
             {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    timesWidth += HORIZONTAL_SPACING;
-                    labelsWidth += HORIZONTAL_SPACING;
-                }
-
-                timesWidth += _daysText.MeasuredWidth;
-                labelsWidth += _daysLabel.MeasuredWidth;
-
-                if (_daysText.MeasuredHeight > timesHeight)
-                {
-                    timesHeight = _daysText.MeasuredHeight;
-                }
-
-                if (_daysLabel.MeasuredHeight > labelsHeight)
-                {
-                    labelsHeight = _daysLabel.MeasuredHeight;
-                }
+                valuesHeight = _largeUnitValue.MeasuredHeight;
             }
 
-            if (IncludeHours)
+            if (_smallUnitValue.MeasuredHeight > valuesHeight)
             {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    timesWidth += HORIZONTAL_SPACING;
-                    labelsWidth += HORIZONTAL_SPACING;
-                }
-
-                timesWidth += _hoursText.MeasuredWidth;
-                labelsWidth += _hoursLabel.MeasuredWidth;
-
-                if (_hoursText.MeasuredHeight > timesHeight)
-                {
-                    timesHeight = _hoursText.MeasuredHeight;
-                }
-
-                if (_hoursLabel.MeasuredHeight > labelsHeight)
-                {
-                    labelsHeight = _hoursLabel.MeasuredHeight;
-                }
+                valuesHeight = _smallUnitValue.MeasuredHeight;
             }
 
-            if (IncludeMinutes)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    timesWidth += HORIZONTAL_SPACING;
-                    labelsWidth += HORIZONTAL_SPACING;
-                }
+            _largeUnitWidth = _largeUnitValue.MeasuredWidth > _largeUnitLabel.MeasuredWidth
+                ? _largeUnitValue.MeasuredWidth
+                : _largeUnitLabel.MeasuredWidth;
 
-                timesWidth += _minutesText.MeasuredWidth;
-                labelsWidth += _minutesLabel.MeasuredWidth;
+            _smallUnitWidth = _smallUnitValue.MeasuredWidth > _smallUnitLabel.MeasuredWidth
+                ? _smallUnitValue.MeasuredWidth
+                : _smallUnitLabel.MeasuredWidth;
 
-                if (_minutesText.MeasuredHeight > timesHeight)
-                {
-                    timesHeight = _minutesText.MeasuredHeight;
-                }
-
-                if (_minutesLabel.MeasuredHeight > labelsHeight)
-                {
-                    labelsHeight = _minutesLabel.MeasuredHeight;
-                }
-            }
-
-            if (IncludeSeconds)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    timesWidth += HORIZONTAL_SPACING;
-                    labelsWidth += HORIZONTAL_SPACING;
-                }
-
-                timesWidth += _secondsText.MeasuredWidth;
-                labelsWidth += _secondsLabel.MeasuredWidth;
-
-                if (_secondsText.MeasuredHeight > timesHeight)
-                {
-                    timesHeight = _secondsText.MeasuredHeight;
-                }
-
-                if (_secondsLabel.MeasuredHeight > labelsHeight)
-                {
-                    labelsHeight = _secondsLabel.MeasuredHeight;
-                }
-            }
-
-            var width = timesWidth > labelsWidth
-                ? timesWidth
+            var width = valuesWidth > labelsWidth
+                ? valuesWidth
                 : labelsWidth;
 
-            var height = timesHeight + labelsHeight + VERTICAL_SPACING;
+            var height = valuesHeight + labelsHeight + VERTICAL_SPACING;
 
             SetMeasuredDimension(width + PaddingStart + PaddingEnd, height + PaddingTop + PaddingBottom);
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
-            var x = PaddingLeft;
-            var y = PaddingTop;
+            var largeUnitValueLeft = PaddingLeft + (_largeUnitWidth - _largeUnitValue.MeasuredWidth) / 2;
+            var largeUnitValueTop = PaddingTop;
+            var largeUnitValueRight = largeUnitValueLeft + _largeUnitValue.MeasuredWidth;
+            var largeUnitValueBottom = largeUnitValueTop + _largeUnitValue.MeasuredHeight;
 
-            var isFirst = true;
+            _largeUnitValue.Layout(largeUnitValueLeft, largeUnitValueTop, largeUnitValueRight, largeUnitValueBottom);
 
-            if (IncludeDays)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    x += HORIZONTAL_SPACING;
-                }
+            var largeUnitLabelLeft = PaddingLeft + (_largeUnitWidth - _largeUnitLabel.MeasuredWidth) / 2;
+            var largeUnitLabelBottom = MeasuredHeight - PaddingBottom;
+            var largeUnitLabelTop = largeUnitLabelBottom - _largeUnitLabel.MeasuredHeight;
+            var largeUnitLabelRight = largeUnitLabelLeft + _largeUnitLabel.MeasuredWidth;
 
-                var left = x;
-                var textRight = left + _daysText.MeasuredWidth;
+            _largeUnitLabel.Layout(largeUnitLabelLeft, largeUnitLabelTop, largeUnitLabelRight, largeUnitLabelBottom);
 
-                _daysText.Layout(left, y, textRight, y + _daysText.MeasuredHeight);
+            var smallUnitValueRight = MeasuredWidth - PaddingRight - (_smallUnitWidth - _smallUnitValue.MeasuredWidth) / 2;
+            var smallUnitValueLeft = smallUnitValueRight - _smallUnitValue.MeasuredWidth;
+            var smallUnitValueTop = PaddingTop;
+            var smallUnitValueBottom = smallUnitValueTop + _smallUnitValue.MeasuredHeight;
 
-                var labelRight = left + _daysLabel.MeasuredWidth;
-                var labelBottom = MeasuredHeight - PaddingBottom;
-                _daysLabel.Layout(left, labelBottom - _daysLabel.MeasuredHeight, labelRight, labelBottom);
+            _smallUnitValue.Layout(smallUnitValueLeft, smallUnitValueTop, smallUnitValueRight, smallUnitValueBottom);
 
-                x = textRight > labelRight
-                    ? textRight
-                    : labelRight;
-            }
+            var smallUnitLabelRight = MeasuredWidth - PaddingRight - (_smallUnitWidth - _smallUnitLabel.MeasuredWidth) / 2;
+            var smallUnitLabelLeft = smallUnitLabelRight - _smallUnitLabel.MeasuredWidth;
+            var smallUnitLabelBottom = MeasuredHeight - PaddingBottom;
+            var smallUnitLabelTop = smallUnitLabelBottom - _smallUnitLabel.MeasuredHeight;
 
-            if (IncludeHours)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    x += HORIZONTAL_SPACING;
-                }
+            _smallUnitLabel.Layout(smallUnitLabelLeft, smallUnitLabelTop, smallUnitLabelRight, smallUnitLabelBottom);
 
-                var left = x;
-                var textRight = left + _hoursText.MeasuredWidth;
-
-                _hoursText.Layout(left, y, textRight, y + _hoursText.MeasuredHeight);
-
-                var labelRight = left + _hoursLabel.MeasuredWidth;
-                var labelBottom = MeasuredHeight - PaddingBottom;
-                _hoursLabel.Layout(left, labelBottom - _hoursLabel.MeasuredHeight, labelRight, labelBottom);
-
-                x = textRight > labelRight
-                    ? textRight
-                    : labelRight;
-            }
-
-            if (IncludeMinutes)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    x += HORIZONTAL_SPACING;
-                }
-
-                var left = x;
-                var textRight = left + _minutesText.MeasuredWidth;
-
-                _minutesText.Layout(left, y, textRight, y + _minutesText.MeasuredHeight);
-
-                var labelRight = left + _minutesLabel.MeasuredWidth;
-                var labelBottom = MeasuredHeight - PaddingBottom;
-                _minutesLabel.Layout(left, labelBottom - _minutesLabel.MeasuredHeight, labelRight, labelBottom);
-
-                x = textRight > labelRight
-                    ? textRight
-                    : labelRight;
-            }
-
-            if (IncludeSeconds)
-            {
-                if (isFirst)
-                {
-                    isFirst = false;
-                }
-                else
-                {
-                    x += HORIZONTAL_SPACING;
-                }
-
-                var left = x;
-                var textRight = left + _secondsText.MeasuredWidth;
-
-                _secondsText.Layout(left, y, textRight, y + _secondsText.MeasuredHeight);
-
-                var labelRight = left + _secondsLabel.MeasuredWidth;
-                var labelBottom = MeasuredHeight - PaddingBottom;
-                _secondsLabel.Layout(left, labelBottom - _secondsLabel.MeasuredHeight, labelRight, labelBottom);
-
-                x = textRight > labelRight
-                    ? textRight
-                    : labelRight;
-            }
+            // TODO - Determine where to lay out separator
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Android.OS;
-using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -14,19 +13,16 @@ using Fragment = Android.Support.V4.App.Fragment;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class TableListFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
+    public class TablesFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
     {
+        public static TablesFragment Instantiate() => new TablesFragment();
+
         private TableAdapter _tableAdapter;
         private RecyclerView _recyclerView;
 
-        public static TableListFragment Instantiate() => new TableListFragment();
-
         public void Filter(string text) => _tableAdapter.Filter.InvokeFilter(text);
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            return inflater.Inflate(Resource.Layout.fragment_table_list, container, false);
-        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_tables, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
@@ -35,7 +31,7 @@ namespace PetLogger.Droid.Fragments
             ToolbarHelper.ShowToolbar(Activity, "Database Tables");
             ToolbarHelper.ShowToolbarBackButton(Activity);
 
-            _recyclerView = View.FindViewById<RecyclerView>(Resource.Id.card_listView);
+            _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.table_recycler);
             ((SimpleItemAnimator)_recyclerView.GetItemAnimator()).SupportsChangeAnimations = false;
             _recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
 

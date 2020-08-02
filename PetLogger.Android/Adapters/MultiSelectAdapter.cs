@@ -15,9 +15,6 @@ namespace PetLogger.Droid.Adapters
         private ActionMode _actionMode;
         private AbsListView.IMultiChoiceModeListener _listener;
 
-        public EventHandler<ItemClickEventArgs> ItemClick;
-        public EventHandler<ItemLongClickEventArgs> ItemLongClick;
-
         public MultiSelectAdapter(Context context) => Context = context;
 
         public Context Context { get; }
@@ -34,6 +31,9 @@ namespace PetLogger.Droid.Adapters
                 }
             }
         }
+
+        public EventHandler<ItemClickEventArgs> ItemClick;
+        public EventHandler<ItemLongClickEventArgs> ItemLongClick;
 
         protected abstract T GetItemAt(int position);
 
@@ -66,7 +66,7 @@ namespace PetLogger.Droid.Adapters
         {
             itemView.Click += (s, e) =>
             {
-                int position = (int)((View)s).Tag;
+                var position = (int)((View)s).Tag;
 
                 if (_selectedPositions.Any())
                 {
@@ -82,7 +82,7 @@ namespace PetLogger.Droid.Adapters
             {
                 if (!SelectedPositions.Any())
                 {
-                    int position = (int)((View)s).Tag;
+                    var position = (int)((View)s).Tag;
 
                     if (Context is Activity activity && _listener != null)
                     {

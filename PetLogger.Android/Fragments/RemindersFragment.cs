@@ -8,20 +8,17 @@ using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
-using PetLogger.Shared.Models;
-using System.Collections.Generic;
-using System.Linq;
 using Fragment = Android.Support.V4.App.Fragment;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class ReminderListFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
+    public class RemindersFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
     {
+        public static RemindersFragment Instantiate() => new RemindersFragment();
+
         private ReminderAdapter _reminderAdapter;
 
-        public static ReminderListFragment Instantiate() => new ReminderListFragment();
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_reminder_list, container, false);
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_reminders, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
@@ -30,7 +27,7 @@ namespace PetLogger.Droid.Fragments
             ToolbarHelper.ShowToolbar(Activity, "Reminders");
             ToolbarHelper.HideToolbarBackButton(Activity);
 
-            var reminderRecycler = View.FindViewById<RecyclerView>(Resource.Id.reminder_list);
+            var reminderRecycler = view.FindViewById<RecyclerView>(Resource.Id.reminder_recycler);
             SetUpReminderAdapter(reminderRecycler, view);
 
             var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
@@ -48,11 +45,6 @@ namespace PetLogger.Droid.Fragments
             //_reminderAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
 
             recyclerView.SetAdapter(_reminderAdapter);
-        }
-
-        private void CreateReminder(Reminder reminder)
-        {
-
         }
 
         private void DeleteSelectedItems(ActionMode mode)

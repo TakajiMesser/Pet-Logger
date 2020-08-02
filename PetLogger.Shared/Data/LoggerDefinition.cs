@@ -5,11 +5,6 @@ namespace PetLogger.Shared.Data
 {
     public class LoggerDefinition : Entity
     {
-        public bool IncludeDays { get; set; }
-        public bool IncludeHours { get; set; }
-        public bool IncludeMinutes { get; set; }
-        public bool IncludeSeconds { get; set; }
-
         public int Order { get; set; }
 
         [ForeignKey(typeof(Pet))]

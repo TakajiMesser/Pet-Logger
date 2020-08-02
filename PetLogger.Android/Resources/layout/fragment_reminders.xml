@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/reminder_list"
+        android:id="@+id/reminder_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="2dp"
@@ -21,12 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:backgroundTint="#D0607D8B"
-        android:src="@drawable/ic_menu_btn_add"
+        android:src="@drawable/fab_add"
         android:layout_gravity="bottom|end"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
         app:elevation="6dp"
         app:borderWidth="0dp"/>
 

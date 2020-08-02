@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.FloatingActionMenu")]
+    [Register("com.petlogger.android.components.FloatingActionMenu")]
     public class FloatingActionMenu : ViewGroup
     {
         private const int ANIMATION_DURATION = 250;

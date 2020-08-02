@@ -102,4 +102,12 @@
     <attr name="minValue" format="integer"/>
     <attr name="maxValue" format="integer"/>
   </declare-styleable>
+
+  <declare-styleable name="CustomPreference">
+    <attr name="titleIcon" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="PreferenceHeader">
+    <attr name="titleIcon" format="reference"/>
+  </declare-styleable>
 </resources>

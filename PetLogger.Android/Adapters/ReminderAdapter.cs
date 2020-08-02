@@ -10,12 +10,9 @@ namespace PetLogger.Droid.Adapters
 {
     public class ReminderAdapter : MultiSelectListAdapter<Reminder>, IFilterable
     {
-        private SearchFilter<Reminder> _filter;
+        public ReminderAdapter(Context context, IList<Reminder> reminders) : base(context, reminders) => Filter = CreateSearchFilter(l => l.Title);
 
-        public ReminderAdapter(Context context, IList<Reminder> reminders) : base(context, reminders) =>
-            _filter = CreateSearchFilter(l => l.Title);
-
-        public Filter Filter => _filter;
+        public Filter Filter { get; }
 
         public void RemoveSelectedAlarms()
         {
@@ -29,7 +26,7 @@ namespace PetLogger.Droid.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.list_item_reminder, parent, false);
+            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_reminder, parent, false);
             SetUpItemViewClickEvents(view);
 
             return new ViewHolder(view);
@@ -43,27 +40,17 @@ namespace PetLogger.Droid.Adapters
             viewHolder.ItemView.Tag = position;
             viewHolder.ItemView.Selected = IsSelected(position);
 
-            viewHolder.Title.Text = reminder.Title;
-            viewHolder.Title.Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular);
-
-            /*if (logger.LatestIncidentTime.HasValue)
-            {
-                viewHolder.TimeSince.IncludeDays = logger.IncludeDays;
-                viewHolder.TimeSince.IncludeHours = logger.IncludeHours;
-                viewHolder.TimeSince.IncludeMinutes = logger.IncludeMinutes;
-                viewHolder.TimeSince.IncludeSeconds = logger.IncludeSeconds;
-                viewHolder.TimeSince.InitialTime = logger.LatestIncidentTime.Value;
-                viewHolder.TimeSince.Start();
-            }*/
+            viewHolder.ReminderLabel.Text = reminder.Title;
+            viewHolder.ReminderLabel.Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular);
         }
 
         private class ViewHolder : RecyclerView.ViewHolder
         {
-            public TextView Title { get; set; }
+            public TextView ReminderLabel { get; set; }
 
             public ViewHolder(View itemView) : base(itemView)
             {
-                Title = itemView.FindViewById<TextView>(Resource.Id.title);
+                ReminderLabel = itemView.FindViewById<TextView>(Resource.Id.reminder_label);
             }
         }
     }

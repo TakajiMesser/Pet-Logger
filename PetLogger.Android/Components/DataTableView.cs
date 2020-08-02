@@ -16,7 +16,7 @@ using System.Text;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.DataTableView")]
+    [Register("com.petlogger.android.components.DataTableView")]
     public class DataTableView : ViewGroup
     {
         private LinearLayout _headers;

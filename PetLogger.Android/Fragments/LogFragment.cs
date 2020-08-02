@@ -11,10 +11,7 @@ namespace PetLogger.Droid.Fragments
     {
         public static DebugLogFragment Instantiate() => new DebugLogFragment();
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            return inflater.Inflate(Resource.Layout.fragment_log, container, false);
-        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_log, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {

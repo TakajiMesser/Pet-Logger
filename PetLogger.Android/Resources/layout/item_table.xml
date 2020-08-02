@@ -6,7 +6,7 @@
   android:padding="15dp"
   android:focusable="false"
   android:focusableInTouchMode="false"
-  android:background="@drawable/list_table_selector"
+  android:background="@drawable/selector_table"
   android:descendantFocusability="blocksDescendants">
 
   <TextView

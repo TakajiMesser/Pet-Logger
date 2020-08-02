@@ -12,9 +12,6 @@ namespace PetLogger.Droid.Fragments
 {
     public class TableFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
     {
-        private DataTableView _dataTable;
-        private string _tableName;
-
         public static TableFragment Instantiate(string tableName)
         {
             var fragment = new TableFragment()
@@ -26,6 +23,9 @@ namespace PetLogger.Droid.Fragments
             return fragment;
         }
 
+        private DataTableView _dataTable;
+        private string _tableName;
+
         public void Filter(string text) => _dataTable.Filter(text);
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -34,10 +34,7 @@ namespace PetLogger.Droid.Fragments
             _tableName = Arguments.GetString("tableName");
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            return inflater.Inflate(Resource.Layout.fragment_table, container, false);
-        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_table, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {

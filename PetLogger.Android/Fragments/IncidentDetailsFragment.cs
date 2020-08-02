@@ -9,11 +9,11 @@ using View = Android.Views.View;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class IncidentDetailFragment : Fragment
+    public class IncidentDetailsFragment : Fragment
     {
-        public static IncidentDetailFragment Instantiate(int petID, int incidentTypeID)
+        public static IncidentDetailsFragment Instantiate(int petID, int incidentTypeID)
         {
-            var fragment = new IncidentDetailFragment
+            var fragment = new IncidentDetailsFragment
             {
                 Arguments = new Bundle()
             };
@@ -35,7 +35,7 @@ namespace PetLogger.Droid.Fragments
             _incidentType = DBTable.Get<IncidentType>(Arguments.GetInt("incidentTypeID"));
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_incident_detail, container, false);
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_incident_details, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
@@ -49,16 +49,19 @@ namespace PetLogger.Droid.Fragments
 
             _detailList = view.FindViewById<LinearLayout>(Resource.Id.detail_list);
 
-            AddDetailView("", "", "");
+            AddDetailView(Resource.Drawable.baseline_addchart_black_36dp, "", "");
         }
 
-        private void AddDetailView(string title, string description, string value)
+        private void AddDetailView(int iconResourceID, string title, string value)
         {
-            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.list_item_detail, _detailList, false);
+            var view = LayoutInflater.From(Context).Inflate(Resource.Layout.item_incident_detail, _detailList, false);
 
-            view.FindViewById<TextView>(Resource.Id.title).Text = title;
-            view.FindViewById<TextView>(Resource.Id.description).Text = description;
+            var detailIcon = view.FindViewById<ImageView>(Resource.Id.detail_icon);
+            detailIcon.SetImageResource(iconResourceID);
+            detailIcon.SetScaleType(ImageView.ScaleType.FitCenter);
+
             view.FindViewById<TextView>(Resource.Id.detail_value).Text = value;
+            view.FindViewById<TextView>(Resource.Id.detail_label).Text = title;
 
             _detailList.AddView(view);
         }

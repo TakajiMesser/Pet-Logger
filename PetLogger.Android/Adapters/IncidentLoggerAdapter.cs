@@ -13,11 +13,9 @@ namespace PetLogger.Droid.Adapters
 {
     public class IncidentLoggerAdapter : MultiSelectListAdapter<IncidentLogger>, IFilterable
     {
-        private SearchFilter<IncidentLogger> _filter;
+        public IncidentLoggerAdapter(Context context, IList<IncidentLogger> loggers) : base(context, loggers) => Filter = CreateSearchFilter(l => l.Title);
 
-        public IncidentLoggerAdapter(Context context, IList<IncidentLogger> loggers) : base(context, loggers) => _filter = CreateSearchFilter(l => l.Title);
-
-        public Filter Filter => _filter;
+        public Filter Filter { get; }
 
         public event EventHandler<LoggerEventArgs> IncidentLogged;
 
@@ -33,12 +31,11 @@ namespace PetLogger.Droid.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.list_item_logger, parent, false);
+            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_incident_logger, parent, false);
             SetUpItemViewClickEvents(view);
 
             var viewHolder = new ViewHolder(view);
             viewHolder.LogButton.Click += LogButton_Click;
-            viewHolder.AddScheduleButton.Click += AddScheduleButton_Click;
 
             return viewHolder;
         }
@@ -49,17 +46,12 @@ namespace PetLogger.Droid.Adapters
             var logger = GetItemAt(position);
 
             logger.LogIncident();
+
+            // TODO - Why doesn't NotifyItemChanged() refresh the given item here?
+            NotifyItemChanged(position);
+            //NotifyDataSetChanged();
+
             IncidentLogged?.Invoke(this, new LoggerEventArgs(logger));
-        }
-
-        private void AddScheduleButton_Click(object sender, EventArgs e)
-        {
-            var position = (int)((View)sender).Tag;
-            var logger = GetItemAt(position);
-
-            logger.Update();
-            //NotifyItemChanged(position);
-            NotifyDataSetChanged();
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -70,7 +62,6 @@ namespace PetLogger.Droid.Adapters
             viewHolder.ItemView.Tag = position;
             viewHolder.ItemView.Selected = IsSelected(position);
             viewHolder.LogButton.Tag = position;
-            viewHolder.AddScheduleButton.Tag = position;
 
             viewHolder.Title.Text = logger.Title;
             viewHolder.Title.Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular);
@@ -80,17 +71,9 @@ namespace PetLogger.Droid.Adapters
 
             if (logger.LatestIncidentTime.HasValue)
             {
-                viewHolder.TimeSince.IncludeDays = logger.IncludeDays;
-                viewHolder.TimeSince.IncludeHours = logger.IncludeHours;
-                viewHolder.TimeSince.IncludeMinutes = logger.IncludeMinutes;
-                viewHolder.TimeSince.IncludeSeconds = logger.IncludeSeconds;
                 viewHolder.TimeSince.InitialTime = logger.LatestIncidentTime.Value;
                 viewHolder.TimeSince.Start();
             }
-
-            viewHolder.AddScheduleButton.SetImageResource(ThemeHelper.GetImageResourceID("add-alarm", Themes.Dark));
-            viewHolder.AddScheduleButton.Enabled = true;
-            viewHolder.AddScheduleButton.Visibility = ViewStates.Visible;
         }
 
         private class ViewHolder : RecyclerView.ViewHolder
@@ -98,14 +81,12 @@ namespace PetLogger.Droid.Adapters
             public TextView Title { get; set; }
             public FloatingActionButton LogButton {get;set;}
             public CountDownView TimeSince { get; set; }
-            public ImageButton AddScheduleButton { get; set; }
 
             public ViewHolder(View itemView) : base(itemView)
             {
                 Title = itemView.FindViewById<TextView>(Resource.Id.title);
                 LogButton = itemView.FindViewById<FloatingActionButton>(Resource.Id.fam_log_button);
                 TimeSince = itemView.FindViewById<CountDownView>(Resource.Id.time_since);
-                AddScheduleButton = itemView.FindViewById<ImageButton>(Resource.Id.button_add_schedule);
             }
         }
 

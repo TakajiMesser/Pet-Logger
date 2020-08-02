@@ -15,7 +15,7 @@ using System.IO;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.CSVTableView")]
+    [Register("com.petlogger.android.components.CSVTableView")]
     public class CSVTableView : ViewGroup, IDisposable
     {
         private LinearLayout _headers;

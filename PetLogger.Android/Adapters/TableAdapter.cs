@@ -4,7 +4,6 @@ using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Helpers;
 using PetLogger.Droid.Models;
-using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using System.Collections.Generic;
 
@@ -12,12 +11,9 @@ namespace PetLogger.Droid.Adapters
 {
     public class TableAdapter : MultiSelectListAdapter<TableCard>, IFilterable
     {
-        private SearchFilter<TableCard> _filter;
+        public TableAdapter(Context context, IList<TableCard> tables) : base(context, tables) => Filter = CreateSearchFilter(l => l.Name);
 
-        public TableAdapter(Context context, IList<TableCard> tables) : base(context, tables) =>
-            _filter = CreateSearchFilter(l => l.Name);
-
-        public Filter Filter => _filter;
+        public Filter Filter { get; }
 
         public void ClearSelectedTables()
         {
@@ -30,7 +26,7 @@ namespace PetLogger.Droid.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.list_item_table, parent, false);
+            var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_table, parent, false);
             SetUpItemViewClickEvents(view);
 
             return new ViewHolder(view);
@@ -47,7 +43,7 @@ namespace PetLogger.Droid.Adapters
             viewHolder.TableName.Text = tableCard.Name;
             viewHolder.TableName.Typeface = FontHelper.GetTypeface(Context, CustomFonts.RobotoCondensedRegular);
 
-            int nRows = tableCard.RowCount;
+            var nRows = tableCard.RowCount;
             viewHolder.RowCount.Text = nRows + " row";
             if (nRows != 1)
             {

@@ -30,7 +30,7 @@ namespace PetLogger.Droid.Fragments
             ToolbarHelper.ShowToolbar(Activity, "Pet Logger");
             ToolbarHelper.HideToolbarBackButton(Activity);
 
-            var loggerRecycler = View.FindViewById<RecyclerView>(Resource.Id.incident_logger_list);
+            var loggerRecycler = view.FindViewById<RecyclerView>(Resource.Id.incident_logger_recycler);
             SetUpLoggerRecycler(loggerRecycler, view);
 
             SetUpFloatingActionMenu(view);
@@ -40,11 +40,11 @@ namespace PetLogger.Droid.Fragments
         {
             ((SimpleItemAnimator)recyclerView.GetItemAnimator()).SupportsChangeAnimations = false;
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
-            recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(40));
+            recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(20));
 
             _loggerAdapter = new IncidentLoggerAdapter(Activity, GetIncidentLoggers().ToList());
             _loggerAdapter.SetMultiChoiceModeListener(this);
-            _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
+            _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
             _loggerAdapter.IncidentLogged += (s, args) => Snackbar.Make(view, args.Logger.Title + " logged", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null)
                 .Show();
@@ -56,9 +56,6 @@ namespace PetLogger.Droid.Fragments
         {
             var fam = view.FindViewById<FloatingActionMenu>(Resource.Id.fam_add);
             //fam.Visibility = ViewStates.Visible;
-
-            var fabAddPet = view.FindViewById<FloatingActionButton>(Resource.Id.fam_add_pet);
-            fabAddPet.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<Pet>.Instantiate("Pet"));
 
             var fabAddIncidentType = view.FindViewById<FloatingActionButton>(Resource.Id.fam_add_incident_type);
             fabAddIncidentType.Click += (s, args) => FragmentHelper.Add(Activity, AddEntityFragment<IncidentType>.Instantiate("Incident Type"));

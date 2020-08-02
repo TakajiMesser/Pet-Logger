@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using Android.Support.V7.Preferences;
+using Android.Support.V7.Widget;
 using Android.Views;
 using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
@@ -46,12 +47,33 @@ namespace PetLogger.Droid.Fragments
             SetPreferencesFromResource(Resource.Xml.preferences, rootKey);
         }
 
+        private void SetUpRecyclerView()
+        {
+            if (ListView != null && Context != null)
+            {
+                var layoutManager = new LinearLayoutManager(Context);
+                ListView.SetLayoutManager(layoutManager);
+
+                ListView.AddItemDecoration(new HorizontalDividerItemDecoration(Context, layoutManager.Orientation, Resource.Drawable.horizontal_divider_light)
+                {
+                    ShouldShowBeforeFirst = false,
+                    ShouldShowAfterLast = true,
+                    PaddingLeft = 12,
+                    PaddingRight = 12
+                });
+            }
+
+            ListView.SetBackgroundColor(Android.Graphics.Color.White);
+        }
+
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
 
             ToolbarHelper.ShowToolbar(Activity, "Settings");
-            ToolbarHelper.HideToolbarBackButton(Activity);
+            ToolbarHelper.ShowToolbarBackButton(Activity);
+
+            SetUpRecyclerView();
 
             var stayActive = PreferenceManager.FindPreference("stay_active");
             if (stayActive != null)
@@ -126,7 +148,7 @@ namespace PetLogger.Droid.Fragments
         {
             Activity.SupportFragmentManager.BeginTransaction()
                 .AddToBackStack(null)
-                .Replace(Resource.Id.content_frame, TableListFragment.Instantiate())
+                .Replace(Resource.Id.content_frame, TablesFragment.Instantiate())
                 .Commit();
         }
 

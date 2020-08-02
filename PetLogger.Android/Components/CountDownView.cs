@@ -7,11 +7,20 @@ using System.Timers;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.CountDownView")]
+    [Register("com.petlogger.android.components.CountDownView")]
     public class CountDownView : TimeSpanView
     {
+        private enum UpdateFrequencyModes
+        {
+            Never,
+            NextMinute,
+            NextSecond
+        }
+
         private DateTime _dateTime;
         private Timer _updateTimer = new Timer();
+
+        private UpdateFrequencyModes _updateFrequencyMode;
 
         public CountDownView(Context context) : base(context) { }
         public CountDownView(Context context, IAttributeSet attrs) : base(context, attrs) { }
@@ -52,6 +61,48 @@ namespace PetLogger.Droid.Components
         {
             var updatedTime = DateTime.Now - _dateTime;
             Post(() => TimeSpan = updatedTime);
+
+            /*var nDays = (int)updatedTime.TotalDays;
+            var nHours = updatedTime.Hours;
+            var nMinutes = updatedTime.Minutes;
+            var nSeconds = updatedTime.Seconds;
+
+            if (nDays >= 1)
+            {
+                // [Day, Hour] - Don't bother with updates
+                _updateFrequencyMode = UpdateFrequencyModes.Never;
+                _updateTimer.Stop();
+            }
+            else if (nHours >= 1)
+            {
+                // [Hour, Minute] - Update in however many seconds until we hit the next minute mark
+                var interval = 60 - nSeconds;
+
+                // Let's say we're 43 seconds in -> update in approx. 17 seconds
+                // 
+                _updateTimer.
+
+                if (_updateTimer.Interval != 1000)
+                {
+                    _updateTimer.Stop();
+                    _updateTimer.Interval = 1000;
+                    _updateTimer.Start();
+                }
+            }
+            else
+            {
+                // [Minute, Second] - Update every second
+                if (_updateFrequencyMode != UpdateFrequencyModes.NextSecond)
+                {
+                    _updateTimer.Interval = 1000;
+                }
+                if (_updateTimer.Interval != 1000)
+                {
+                    _updateTimer.Stop();
+                    _updateTimer.Interval = 1000;
+                    _updateTimer.Start();
+                }
+            }*/
         }
     }
 }

@@ -9,7 +9,7 @@ using System;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.pottylogger.android.components.EditTimeView")]
+    [Register("com.petlogger.android.components.EditTimeView")]
     public class EditTimeView : ViewGroup
     {
         // TODO - Change these to adjustable attributes
