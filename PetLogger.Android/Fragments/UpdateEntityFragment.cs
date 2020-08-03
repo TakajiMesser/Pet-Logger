@@ -13,24 +13,28 @@ using View = Android.Views.View;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class AddEntityFragment<TEntity> : Fragment where TEntity : IEntity
+    public class UpdateEntityFragment<TEntity> : Fragment where TEntity : class, IEntity, new()
     {
-        public static AddEntityFragment<TEntity> Instantiate(string entityName)
+        public static UpdateEntityFragment<TEntity> Instantiate(string entityName, int entityID)
         {
-            var fragment = new AddEntityFragment<TEntity>
+            var fragment = new UpdateEntityFragment<TEntity>
             {
                 Arguments = new Bundle()
             };
             fragment.Arguments.PutString("entityName", entityName);
+            fragment.Arguments.PutInt("entityID", entityID);
             return fragment;
         }
 
         private string _entityName;
+        private int _entityID;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             _entityName = Arguments.GetString("entityName");
+            _entityID = Arguments.GetInt("entityID");
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_add_entity, container, false);
@@ -43,18 +47,18 @@ namespace PetLogger.Droid.Fragments
             ToolbarHelper.ShowToolbarBackButton(Activity);
 
             var title = view.FindViewById<TextView>(Resource.Id.title);
-            title.Text = "Add " + _entityName;
+            title.Text = "Update " + _entityName;
 
             var inputsLayout = view.FindViewById<LinearLayout>(Resource.Id.inputs);
             var submitButton = view.FindViewById<AppCompatButton>(Resource.Id.btn_submit);
 
-            var entity = Activator.CreateInstance<TEntity>();
+            var entity = DBTable.Get<TEntity>(_entityID);
 
             foreach (var property in typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 if (property.CanWrite && !Attribute.IsDefined(property, typeof(AutoIncrementAttribute)))
                 {
-                    AddPropertyViews(property, inputsLayout);
+                    AddPropertyViews(entity, property, inputsLayout);
                 }
             }
 
@@ -66,7 +70,7 @@ namespace PetLogger.Droid.Fragments
 
                     Activity.RunOnUiThread(() =>
                     {
-                        Toast.MakeText(Activity, "Successfully added new entity", ToastLength.Long).Show();
+                        Toast.MakeText(Activity, "Successfully updated entity", ToastLength.Long).Show();
 
                         if (Activity is AppCompatActivity compatActivity)
                         {
@@ -77,9 +81,10 @@ namespace PetLogger.Droid.Fragments
             };
         }
 
-        private void AddPropertyViews(PropertyInfo property, LinearLayout layout)
+        private void AddPropertyViews(TEntity entity, PropertyInfo property, LinearLayout layout)
         {
-            var inputView = EntityHelper.CreateEntityPropertyView(Context, property);
+            var value = property.GetValue(entity);
+            var inputView = EntityHelper.CreateEntityPropertyView(Context, property, value);
 
             if (inputView != null)
             {
@@ -115,7 +120,7 @@ namespace PetLogger.Droid.Fragments
                 }
             }
 
-            DBTable.Insert(entity);
+            DBTable.Update(entity);
         }
     }
 }

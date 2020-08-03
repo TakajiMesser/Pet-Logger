@@ -103,6 +103,7 @@
     <Compile Include="Components\FileTextView.cs" />
     <Compile Include="Components\DataTableView.cs" />
     <Compile Include="Components\CSVTableView.cs" />
+    <Compile Include="Fragments\UpdateEntityFragment.cs" />
     <Compile Include="Fragments\IncidentDetailsFragment.cs" />
     <Compile Include="Fragments\PetFragment.cs" />
     <Compile Include="Fragments\LogFragment.cs" />
@@ -115,7 +116,8 @@
     <Compile Include="Fragments\HistoryFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\TablesFragment.cs" />
-    <Compile Include="Helpers\AlarmHelper.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\ReminderHelper.cs" />
     <Compile Include="Helpers\FormContent.cs" />
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\FragmentHelper.cs" />

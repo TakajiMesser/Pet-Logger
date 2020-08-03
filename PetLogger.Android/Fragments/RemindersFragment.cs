@@ -31,6 +31,8 @@ namespace PetLogger.Droid.Fragments
             SetUpReminderAdapter(reminderRecycler, view);
 
             var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
+
+            // TODO - We need to check if 
             fabAddReminder.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
         }
 
@@ -42,7 +44,7 @@ namespace PetLogger.Droid.Fragments
 
             _reminderAdapter = new ReminderAdapter(Activity, DBTable.GetAll<Reminder>().ToList());
             _reminderAdapter.SetMultiChoiceModeListener(this);
-            //_reminderAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
+            _reminderAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, UpdateEntityFragment<Reminder>.Instantiate("Reminder", args.Item.ID));
 
             recyclerView.SetAdapter(_reminderAdapter);
         }

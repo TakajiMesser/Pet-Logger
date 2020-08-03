@@ -43,6 +43,11 @@
                 app:iconSpaceReserved="false" />
 
             <Preference
+                android:key="back_up_database"
+                android:title="Back Up Database"
+                app:iconSpaceReserved="false" />
+
+            <Preference
                 android:key="reset_database"
                 android:title="Reset Local Database"
                 app:iconSpaceReserved="false" />

@@ -2,6 +2,7 @@
 using Android.Support.V7.Preferences;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.DataAccessLayer;
@@ -93,6 +94,12 @@ namespace PetLogger.Droid.Fragments
                 viewDatabase.PreferenceClick += ViewDatabase_PreferenceClick;
             }
 
+            var backUpDatabase = PreferenceManager.FindPreference("back_up_database");
+            if (backUpDatabase != null)
+            {
+                backUpDatabase.PreferenceClick += BackUpDatabase_PreferenceClick;
+            }
+
             var resetDatabase = PreferenceManager.FindPreference("reset_database");
             if (resetDatabase != null)
             {
@@ -150,6 +157,12 @@ namespace PetLogger.Droid.Fragments
                 .AddToBackStack(null)
                 .Replace(Resource.Id.content_frame, TablesFragment.Instantiate())
                 .Commit();
+        }
+
+        private void BackUpDatabase_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
+        {
+            DBAccess.BackUpDatabase();
+            Toast.MakeText(Context, "Successfully backed up database", ToastLength.Short).Show();
         }
 
         private void ResetDatabase_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)

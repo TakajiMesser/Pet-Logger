@@ -10,7 +10,7 @@ namespace PetLogger.Droid.Adapters
 {
     public class HistoryAdapter : ListAdapter<Incident>, IFilterable
     {
-        public HistoryAdapter(Context context, IList<Incident> incidents) : base(context, incidents) => Filter = CreateSearchFilter(i => i.Pet.Name + " " + i.IncidentType.Name);
+        public HistoryAdapter(Context context) : base(context) => Filter = CreateSearchFilter(i => i.Pet.Name + " " + i.IncidentType.Name);
 
         public Filter Filter { get; }
 

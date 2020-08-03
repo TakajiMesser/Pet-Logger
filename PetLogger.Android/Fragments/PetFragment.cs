@@ -62,7 +62,7 @@ namespace PetLogger.Droid.Fragments
             });
 
             _petIncidentAdapter = new PetIncidentAdapter(Activity, GetPetIncidents().ToList());
-            //_reminderAdapter.ItemClick += (s, args) => FragmentHelper.Add(Activity, IncidentDetailFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
+            _petIncidentAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
 
             recyclerView.SetAdapter(_petIncidentAdapter);
         }

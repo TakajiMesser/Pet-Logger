@@ -11,7 +11,7 @@ namespace PetLogger.Droid.Adapters
 {
     public class PetIncidentAdapter : ListAdapter<PetIncident>
     {
-        public PetIncidentAdapter(Context context, IList<PetIncident> petIncidents) : base(context, petIncidents) { }
+        public PetIncidentAdapter(Context context, List<PetIncident> petIncidents) : base(context, petIncidents) { }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -68,7 +68,7 @@ namespace PetLogger.Droid.Adapters
                 var timeSince = DateTime.Now - petIncident.LastIncidentTime;
 
                 // TODO - 5 is somewhat arbitrary here...
-                if (timeSince.TotalDays >= 5)
+                if (timeSince.TotalDays >= 2)
                 {
                     var nDays = (int)Math.Round(timeSince.TotalDays);
 

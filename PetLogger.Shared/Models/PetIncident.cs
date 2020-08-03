@@ -21,13 +21,16 @@ namespace PetLogger.Shared.Models
         public string Title => _pet.Name + " " + _incidentType.Name;
         public int ImageResourceID { get; }
 
+        public int PetID => _pet.ID;
+        public int IncidentTypeID => _incidentType.ID;
+
         public int IncidentCount => DBTable.GetAll<Incident>()
             .Where(i => i.PetID == _pet.ID && i.IncidentTypeID == _incidentType.ID)
             .Count();
 
         public DateTime LastIncidentTime => DBTable.GetAll<Incident>()
             .Where(i => i.PetID == _pet.ID && i.IncidentTypeID == _incidentType.ID)
-            .OrderBy(i => i.Time)
+            .OrderByDescending(i => i.Time)
             .Select(i => i.Time)
             .First();
 

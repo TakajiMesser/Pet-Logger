@@ -23,6 +23,8 @@ namespace PetLogger.Droid.Components
         private TextView _hourLabel;
         private TextView _minuteLabel;
 
+        private TimeSpan _time;
+
         public float TimeTextSize { get; private set; }
         public Color TimeTextColor { get; private set; }
         public Typeface TimeTypeface { get; private set; }
@@ -121,8 +123,8 @@ namespace PetLogger.Droid.Components
         {
             base.OnAttachedToWindow();
 
-            _hourPicker = CreatePickerView(1, 24);
-            _minutePicker = CreatePickerView(1, 59);
+            _hourPicker = CreatePickerView(0, 23);
+            _minutePicker = CreatePickerView(0, 59);
             _hourLabel = CreateLabelView("Hours");
             _minuteLabel = CreateLabelView("Minutes");
 

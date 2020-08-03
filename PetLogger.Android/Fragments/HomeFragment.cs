@@ -48,11 +48,18 @@ namespace PetLogger.Droid.Fragments
             _loggerAdapter = new IncidentLoggerAdapter(Activity, GetIncidentLoggers().ToList());
             _loggerAdapter.SetMultiChoiceModeListener(this);
             _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
-            _loggerAdapter.IncidentLogged += (s, args) => Snackbar.Make(view, args.Logger.Title + " logged", Snackbar.LengthLong)
+            _loggerAdapter.IncidentLogged += LoggerAdapter_IncidentLogged;
+
+            recyclerView.SetAdapter(_loggerAdapter);
+        }
+
+        private void LoggerAdapter_IncidentLogged(object sender, IncidentLoggerAdapter.LoggerEventArgs e)
+        {
+            Snackbar.Make(Activity.FindViewById(Resource.Id.content_frame), e.Logger.Title + " logged", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null)
                 .Show();
 
-            recyclerView.SetAdapter(_loggerAdapter);
+            ReminderHelper.ReplaceReminder(Context, e.Logger.PetID, e.Logger.IncidentTypeID);
         }
 
         private void SetUpFloatingActionMenu(View view)

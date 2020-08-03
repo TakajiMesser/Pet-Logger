@@ -88,6 +88,30 @@ namespace PetLogger.Shared.DataAccessLayer
 
         public static void Execute(string query) => Connection.Execute(query);
 
+        public static List<T> Query<T>(string query) where T : class, IEntity, new() => Connection.Query<T>(query);
+
+        public static void BackUpDatabase()
+        {
+            var directoryPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "PetLogger Database Backups");
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            // Attempt to find a valid backup file name that isn't already taken
+            var suffix = 1;
+            var filePath = Path.Combine(directoryPath, "petlogger-backup-" + suffix + ".db");
+
+            while (File.Exists(filePath))
+            {
+                suffix++;
+                filePath = Path.Combine(directoryPath, "petlogger-backup-" + suffix + ".db");
+            }
+
+            File.Copy(DatabasePath, filePath);
+        }
+
         public static TimeSpan? GetTimeSinceLastIncident(string petName, string incidentName)
         {
             var pet = DBTable.GetFirstOrDefault<Pet>(p => p.Name == petName);
