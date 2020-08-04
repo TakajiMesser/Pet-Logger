@@ -56,7 +56,6 @@ namespace PetLogger.Droid.Fragments
         private void LoggerAdapter_IncidentLogged(object sender, IncidentLoggerAdapter.LoggerEventArgs e)
         {
             Snackbar.Make(Activity.FindViewById(Resource.Id.content_frame), e.Logger.Title + " logged", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null)
                 .Show();
 
             ReminderHelper.ReplaceReminder(Context, e.Logger.PetID, e.Logger.IncidentTypeID);

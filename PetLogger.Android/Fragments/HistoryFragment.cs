@@ -74,6 +74,7 @@ namespace PetLogger.Droid.Fragments
             // Get initial set of rows
             _isFetchingRows = true;
 
+            _rowOffset = 0;
             _historyAdapter.AddItems(GetNextIncidentSet(_rowOffset));
             _rowOffset += LAZY_LOAD_LIMIT;
 

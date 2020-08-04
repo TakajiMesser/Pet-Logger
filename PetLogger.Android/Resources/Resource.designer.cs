@@ -6566,52 +6566,58 @@ namespace PetLogger.Droid
 			public const int mtrl_chip_close_icon_content_description = 2131689521;
 			
 			// aapt resource value: 0x7F0F0032
-			public const int no_write_external_storage_permission = 2131689522;
+			public const int password_toggle_content_description = 2131689522;
 			
 			// aapt resource value: 0x7F0F0033
-			public const int password_toggle_content_description = 2131689523;
+			public const int path_password_eye = 2131689523;
 			
 			// aapt resource value: 0x7F0F0034
-			public const int path_password_eye = 2131689524;
+			public const int path_password_eye_mask_strike_through = 2131689524;
 			
 			// aapt resource value: 0x7F0F0035
-			public const int path_password_eye_mask_strike_through = 2131689525;
+			public const int path_password_eye_mask_visible = 2131689525;
 			
 			// aapt resource value: 0x7F0F0036
-			public const int path_password_eye_mask_visible = 2131689526;
+			public const int path_password_strike_through = 2131689526;
 			
 			// aapt resource value: 0x7F0F0037
-			public const int path_password_strike_through = 2131689527;
+			public const int permission_set_alarm_missing = 2131689527;
 			
 			// aapt resource value: 0x7F0F0038
-			public const int permission_write_external_storage_rationale = 2131689528;
+			public const int permission_set_alarm_rationale = 2131689528;
 			
 			// aapt resource value: 0x7F0F0039
-			public const int search_menu_title = 2131689529;
+			public const int permission_write_external_storage_missing = 2131689529;
 			
 			// aapt resource value: 0x7F0F003A
-			public const int status_bar_notification_info_overflow = 2131689530;
+			public const int permission_write_external_storage_rationale = 2131689530;
 			
 			// aapt resource value: 0x7F0F003B
-			public const int summary_collapsed_preference_list = 2131689531;
+			public const int search_menu_title = 2131689531;
 			
 			// aapt resource value: 0x7F0F003C
-			public const int tab_history_title = 2131689532;
+			public const int status_bar_notification_info_overflow = 2131689532;
 			
 			// aapt resource value: 0x7F0F003D
-			public const int tab_home_title = 2131689533;
+			public const int summary_collapsed_preference_list = 2131689533;
 			
 			// aapt resource value: 0x7F0F003E
-			public const int tab_pets_title = 2131689534;
+			public const int tab_history_title = 2131689534;
 			
 			// aapt resource value: 0x7F0F003F
-			public const int tab_reminders_title = 2131689535;
+			public const int tab_home_title = 2131689535;
 			
 			// aapt resource value: 0x7F0F0040
-			public const int v7_preference_off = 2131689536;
+			public const int tab_pets_title = 2131689536;
 			
 			// aapt resource value: 0x7F0F0041
-			public const int v7_preference_on = 2131689537;
+			public const int tab_reminders_title = 2131689537;
+			
+			// aapt resource value: 0x7F0F0042
+			public const int v7_preference_off = 2131689538;
+			
+			// aapt resource value: 0x7F0F0043
+			public const int v7_preference_on = 2131689539;
 			
 			static String()
 			{

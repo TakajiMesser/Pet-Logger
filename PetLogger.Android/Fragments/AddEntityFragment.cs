@@ -1,9 +1,9 @@
 ﻿using Android.OS;
-using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Helpers;
+using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using SQLite;
 using System;
@@ -58,23 +58,22 @@ namespace PetLogger.Droid.Fragments
                 }
             }
 
-            submitButton.Click += (s, e) =>
+            submitButton.Click += (s, e) => ProgressDialogHelper.RunTask(Activity, "Submitting...", () =>
             {
-                ProgressDialogHelper.RunTask(Activity, "Submitting...", () =>
+                Submit(view, entity);
+
+                // TODO - Come up with a smarter way of doing this...
+                if (entity is Reminder reminder)
                 {
-                    Submit(view, entity);
+                    ReminderHelper.ReplaceReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                }
 
-                    Activity.RunOnUiThread(() =>
-                    {
-                        Toast.MakeText(Activity, "Successfully added new entity", ToastLength.Long).Show();
-
-                        if (Activity is AppCompatActivity compatActivity)
-                        {
-                            compatActivity.SupportFragmentManager.PopBackStack();
-                        }
-                    });
+                Activity.RunOnUiThread(() =>
+                {
+                    Toast.MakeText(Context, "Successfully added new entity", ToastLength.Long).Show();
+                    FragmentHelper.PopOne(Activity);
                 });
-            };
+            });
         }
 
         private void AddPropertyViews(PropertyInfo property, LinearLayout layout)

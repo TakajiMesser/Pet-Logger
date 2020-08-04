@@ -31,8 +31,6 @@ namespace PetLogger.Droid.Fragments
             SetUpReminderAdapter(reminderRecycler, view);
 
             var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
-
-            // TODO - We need to check if 
             fabAddReminder.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
         }
 
@@ -57,8 +55,19 @@ namespace PetLogger.Droid.Fragments
 
                 ProgressDialogHelper.RunTask(Activity, dialog, () =>
                 {
-                    _reminderAdapter.RemoveSelectedAlarms();
-                    Activity.RunOnUiThread(() => mode.Finish());
+                    foreach (var reminder in _reminderAdapter.SelectedItems)
+                    {
+                        ReminderHelper.DeleteReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                        reminder.Delete();
+                    }
+
+                    Activity.RunOnUiThread(() =>
+                    {
+                        // TODO - We still need to explicitly delete these entries in the adapter
+                        _reminderAdapter.NotifyDataSetChanged();
+                        //_reminderAdapter.RemoveSelectedAlarms();
+                        mode.Finish();
+                    });
                 });
             });
         }

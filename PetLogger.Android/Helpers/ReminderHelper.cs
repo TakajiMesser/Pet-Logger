@@ -19,10 +19,33 @@ namespace PetLogger.Droid.Helpers
                 switch (reminder.ReminderType)
                 {
                     case ReminderTypes.Alarm:
-                        ReminderHelper.ReplaceSystemAlarm(context, reminder.Title, DateTime.Now + reminder.TimeBetween);
+                        ReplaceSystemAlarm(context, reminder.Title, DateTime.Now + reminder.TimeBetween);
                         break;
                     case ReminderTypes.Timer:
-                        ReminderHelper.ReplaceSystemTimer(context, reminder.Title, reminder.TimeBetween);
+                        ReplaceSystemTimer(context, reminder.Title, reminder.TimeBetween);
+                        break;
+                    case ReminderTypes.Notification:
+                        //ReminderHelper.SetUpNotification(Context, reminder.Title, DateTime.Now + reminder.TimeBetween);
+                        break;
+                }
+            }
+        }
+
+        public static void DeleteReminder(Context context, int petID, int incidentTypeID)
+        {
+            // TODO - Handle case where there is more than one reminder for a given pet incident
+            var reminders = DBTable.GetAll<Reminder>()
+                .Where(r => r.PetID == petID && r.IncidentTypeID == incidentTypeID);
+
+            foreach (var reminder in reminders)
+            {
+                switch (reminder.ReminderType)
+                {
+                    case ReminderTypes.Alarm:
+                        DeleteSystemAlarm(context, reminder.Title);
+                        break;
+                    case ReminderTypes.Timer:
+                        DeleteSystemTimer(context, reminder.Title);
                         break;
                     case ReminderTypes.Notification:
                         //ReminderHelper.SetUpNotification(Context, reminder.Title, DateTime.Now + reminder.TimeBetween);

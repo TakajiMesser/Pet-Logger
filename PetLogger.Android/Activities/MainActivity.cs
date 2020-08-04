@@ -84,6 +84,7 @@ namespace PetLogger.Droid.Activities
 
         private void InitializeDatabase()
         {
+            //DBAccess.BackUpDatabase();
             DBAccess.InitializeTables();
 
             // TODO - Set up database values for testing purposes

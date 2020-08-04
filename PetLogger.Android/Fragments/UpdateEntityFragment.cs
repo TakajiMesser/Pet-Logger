@@ -1,9 +1,9 @@
 ﻿using Android.OS;
-using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Helpers;
+using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using SQLite;
 using System;
@@ -68,14 +68,16 @@ namespace PetLogger.Droid.Fragments
                 {
                     Submit(view, entity);
 
+                    // TODO - Come up with a smarter way of doing this...
+                    if (entity is Reminder reminder)
+                    {
+                        ReminderHelper.ReplaceReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                    }
+
                     Activity.RunOnUiThread(() =>
                     {
                         Toast.MakeText(Activity, "Successfully updated entity", ToastLength.Long).Show();
-
-                        if (Activity is AppCompatActivity compatActivity)
-                        {
-                            compatActivity.SupportFragmentManager.PopBackStack();
-                        }
+                        FragmentHelper.PopOne(Activity);
                     });
                 });
             };
