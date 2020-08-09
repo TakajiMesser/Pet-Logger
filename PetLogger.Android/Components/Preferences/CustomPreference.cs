@@ -6,9 +6,9 @@ using Android.Widget;
 using PetLogger.Droid.Helpers;
 using System;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
-    [Register("com.petlogger.android.components.CustomPreference")]
+    [Register("com.petlogger.android.components.preferences.CustomPreference")]
     public class CustomPreference : Preference
     {
         private int _titleIconResourceID;

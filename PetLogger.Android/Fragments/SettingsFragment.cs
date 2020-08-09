@@ -4,6 +4,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Components;
+using PetLogger.Droid.Components.Preferences;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.DataAccessLayer;
 

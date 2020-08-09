@@ -16,6 +16,17 @@
         android:divider="@null"
         android:dividerHeight="10dp" />
 
+    <TextView
+        android:id="@+id/empty_reminders_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@color/textGray"
+        android:text="@string/empty_reminders"/>
+
     <android.support.design.widget.FloatingActionButton 
         android:id="@+id/fab_add_reminder"
         android:layout_width="wrap_content"

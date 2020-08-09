@@ -25,6 +25,8 @@ namespace PetLogger.Droid.Helpers
 
         public static int PredictionsThreshold => int.Parse(Preferences.GetString("predictions_timestamp_threshold", "5"));
 
+        public static Themes DisplayTheme => ThemeHelper.ParseTheme(Preferences.GetString("display_theme", "light"));
+
         public static bool StayActive => Preferences.GetBoolean("stay_active", false);
 
         public static TimeSpan CrossoverTime => TimeSpan.FromMinutes(Preferences.GetInt("crossover_time", 0));

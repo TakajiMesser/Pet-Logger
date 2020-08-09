@@ -5,9 +5,9 @@ using Android.Util;
 using System;
 using DialogPreference = Android.Support.V7.Preferences.DialogPreference;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
-    [Register("com.petlogger.android.components.TimePickerPreference")]
+    [Register("com.petlogger.android.components.preferences.TimePickerPreference")]
     public class TimePickerPreference : DialogPreference
     {
         private int _nMinutes;

@@ -1,5 +1,8 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
+using Android.OS;
 using Android.Provider;
+using PetLogger.Droid.Models.Reminders;
 using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using System;
@@ -109,19 +112,26 @@ namespace PetLogger.Droid.Helpers
             
         }
 
-        /*private static void CreateNotification(Context context)
+        public static void SetUpAlarm(Context context)
         {
-            var channel = new NotificationChannel("id", "name", NotificationImportance.High);
-            channel.EnableVibration(true);
-            channel.LockscreenVisibility = NotificationVisibility.Public;
+            var bundle = new Bundle();
+            //bundle.PutString("path", RingtoneManager.GetActualDefaultRingtoneUri(context, RingtoneType.Alarm).Path);
+            bundle.PutString("path", Settings.System.DefaultAlarmAlertUri.ToString());
 
-            var notificationManager = context.GetSystemService(NotificationService) as NotificationManager;
-            notificationManager.CreateNotificationChannel(channel);
+            var alarmIntent = new Intent(context, typeof(AlarmReceiver)).PutExtras(bundle);
+            var broadcastIntent = PendingIntent.GetBroadcast(context, 0, alarmIntent, PendingIntentFlags.OneShot);
+
+            var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
+            alarmManager.Set(AlarmType.RtcWakeup, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + 5000, broadcastIntent);
         }
 
-        private class NotificationPublisher : BroadcastReceiver
+        public static void CancelAlarm(Context context)
         {
+            var alarmIntent = new Intent(context, typeof(AlarmReceiver));
+            var broadcastIntent = PendingIntent.GetBroadcast(context, 0, alarmIntent, PendingIntentFlags.OneShot);
 
-        }*/
+            var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
+            alarmManager.Cancel(broadcastIntent);
+        }
     }
 }

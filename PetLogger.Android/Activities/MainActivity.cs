@@ -55,7 +55,7 @@ namespace PetLogger.Droid.Activities
         private void OnPermissionsGranted()
         {
             DebugLog.LazyWrite(this, "All permissions granted");
-            InitializeDatabase();
+            DBAccess.InitializeDatabase();
 
             SetContentView(Resource.Layout.activity_main);
             InitializeUI();
@@ -80,69 +80,6 @@ namespace PetLogger.Droid.Activities
                 Log.Debug("Unhandled Exception", e.Exception.ToString());
                 DebugLog.LazyWrite(this, "UnobservedTaskException: " + e.Exception);
             };
-        }
-
-        private void InitializeDatabase()
-        {
-            //DBAccess.BackUpDatabase();
-            DBAccess.InitializeTables();
-
-            // TODO - Set up database values for testing purposes
-            /*DBAccess.ResetTables();
-            BuiltIn.InitializeBuiltInTypes();
-
-            var dog = DBTable.Get<PetType>(p => p.Name == "Dog");
-            var cat = DBTable.Get<PetType>(p => p.Name == "Cat");
-
-            DBTable.Insert(new Pet()
-            {
-                Name = "Cooper",
-                PetTypeID = dog.ID
-            });
-
-            DBTable.Insert(new Pet()
-            {
-                Name = "Kora",
-                PetTypeID = cat.ID
-            });
-
-            var cooper = DBTable.Get<Pet>(p => p.Name == "Cooper");
-            var pee = DBTable.Get<IncidentType>(i => i.Name == "Pee");
-            var poo = DBTable.Get<IncidentType>(i => i.Name == "Poo");
-
-            DBTable.Insert(new Incident()
-            {
-                PetID = cooper.ID,
-                IncidentTypeID = pee.ID,
-                Time = DateTime.Now - TimeSpan.FromHours(27),
-            });
-
-            DBTable.Insert(new Incident()
-            {
-                PetID = cooper.ID,
-                IncidentTypeID = poo.ID,
-                Time = DateTime.Now - TimeSpan.FromHours(10),
-            });
-
-            DBTable.Insert(new LoggerDefinition()
-            {
-                PetID = cooper.ID,
-                IncidentTypeID = pee.ID,
-                IncludeDays = true,
-                IncludeHours = true,
-                IncludeMinutes = true,
-                IncludeSeconds = true,
-            });
-
-            DBTable.Insert(new LoggerDefinition()
-            {
-                PetID = cooper.ID,
-                IncidentTypeID = poo.ID,
-                IncludeDays = true,
-                IncludeHours = true,
-                IncludeMinutes = true,
-                IncludeSeconds = true,
-            });*/
         }
 
         private void InitializeUI()

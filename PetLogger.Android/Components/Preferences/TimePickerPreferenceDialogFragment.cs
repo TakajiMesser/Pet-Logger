@@ -5,7 +5,7 @@ using Android.Views;
 using Android.Widget;
 using System;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
     public class TimePickerPreferenceDialogFragment : PreferenceDialogFragmentCompat
     {
@@ -31,7 +31,7 @@ namespace PetLogger.Droid.Components
         protected override View OnCreateDialogView(Context context)
         {
             _picker = new TimePicker(context);
-            _picker.SetIs24HourView(new Java.Lang.Boolean(true));
+            _picker.SetIs24HourView(new Java.Lang.Boolean(false));
 
             return _picker;
         }

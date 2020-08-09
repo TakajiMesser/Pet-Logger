@@ -82,17 +82,17 @@
     <Compile Include="Adapters\ForeignEntityAdapter.cs" />
     <Compile Include="Adapters\TableAdapter.cs" />
     <Compile Include="Components\ProgressSpinner.cs" />
-    <Compile Include="Components\CustomPreference.cs" />
-    <Compile Include="Components\PreferenceHeader.cs" />
+    <Compile Include="Components\Preferences\CustomPreference.cs" />
+    <Compile Include="Components\Preferences\PreferenceHeader.cs" />
     <Compile Include="Components\HorizontalDividerItemDecoration.cs" />
     <Compile Include="Components\CSVTableAdapter.cs" />
     <Compile Include="Components\CSVTableRow.cs" />
     <Compile Include="Components\DataTableRow.cs" />
     <Compile Include="Components\DataTableAdapter.cs" />
-    <Compile Include="Components\TimePickerPreferenceDialogFragment.cs" />
-    <Compile Include="Components\TimePickerPreference.cs" />
-    <Compile Include="Components\NumberPickerPreference.cs" />
-    <Compile Include="Components\EditNumberPreference.cs" />
+    <Compile Include="Components\Preferences\TimePickerPreferenceDialogFragment.cs" />
+    <Compile Include="Components\Preferences\TimePickerPreference.cs" />
+    <Compile Include="Components\Preferences\NumberPickerPreference.cs" />
+    <Compile Include="Components\Preferences\EditNumberPreference.cs" />
     <Compile Include="Components\FloatingActionMenu.cs" />
     <Compile Include="Components\CountDownView.cs" />
     <Compile Include="Components\EditTimeView.cs" />
@@ -117,6 +117,8 @@
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\TablesFragment.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
+    <Compile Include="Helpers\AudioHelper.cs" />
     <Compile Include="Helpers\ReminderHelper.cs" />
     <Compile Include="Helpers\FormContent.cs" />
     <Compile Include="Helpers\DialogHelper.cs" />
@@ -130,6 +132,9 @@
     <Compile Include="Helpers\PreferenceHelper.cs" />
     <Compile Include="Helpers\FontHelper.cs" />
     <Compile Include="Models\Logging\DebugLog.cs" />
+    <Compile Include="Models\HistoryItem.cs" />
+    <Compile Include="Models\Reminders\RingtoneService.cs" />
+    <Compile Include="Models\Reminders\AlarmReceiver.cs" />
     <Compile Include="Models\RowCard.cs" />
     <Compile Include="Models\TableCard.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -2072,7 +2077,7 @@
     <AndroidResource Include="Resources\layout\fragment_tables.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\item_history.xml" />
+    <AndroidResource Include="Resources\layout\item_history_incident.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\item_incident_detail.xml" />
@@ -2139,6 +2144,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\anim\fragment_fade_in.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_history_header.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>

@@ -6,9 +6,9 @@ using Android.Widget;
 using PetLogger.Droid.Helpers;
 using System;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
-    [Register("com.petlogger.android.components.PreferenceHeader")]
+    [Register("com.petlogger.android.components.preferences.PreferenceHeader")]
     public class PreferenceHeader : PreferenceCategory
     {
         public PreferenceHeader(Context context) : base(context) { }

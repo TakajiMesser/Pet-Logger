@@ -6,9 +6,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
-    [Register("com.petlogger.android.components.NumberPickerPreference")]
+    [Register("com.petlogger.android.components.preferences.NumberPickerPreference")]
     public class NumberPickerPreference : DialogPreference
     {
         private const long PICKER_SPEED = 50;

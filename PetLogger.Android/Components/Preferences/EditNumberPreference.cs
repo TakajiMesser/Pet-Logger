@@ -8,9 +8,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace PetLogger.Droid.Components
+namespace PetLogger.Droid.Components.Preferences
 {
-    [Register("com.petlogger.android.components.EditNumberPreference")]
+    [Register("com.petlogger.android.components.preferences.EditNumberPreference")]
     public class EditNumberPreference : EditTextPreference
     {
         private int _initialValue;

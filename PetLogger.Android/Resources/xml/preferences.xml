@@ -4,31 +4,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/PrefsTheme">
 
-    <CheckBoxPreference
-        android:key="stay_active"
-        android:title="Stay Active?"
-        android:summary="Keep screen on while app is open"
-        android:defaultValue="false"
-        app:iconSpaceReserved="false" />
-
-    <com.petlogger.android.components.TimePickerPreference
+    <com.petlogger.android.components.preferences.TimePickerPreference
         android:key="crossover_time"
         android:title="Crossover Time"
         android:summary="Determines when one day ends and the next begins"
         app:iconSpaceReserved="false" />
 
-    <com.petlogger.android.components.TimePickerPreference
-        android:key="sleep_time"
-        android:title="Sleep Time"
-        android:summary="Determines when to silence reminders"
-        app:iconSpaceReserved="false" />
+    <PreferenceScreen
+        android:key="display_settings"
+        android:title="Display Settings"
+        app:iconSpaceReserved="false">
+
+        <com.petlogger.android.components.preferences.PreferenceHeader
+            android:title="Display Settings"
+            app:iconSpaceReserved="false">
+
+            <ListPreference
+                android:key="display_theme"
+                android:title="Theme"
+                android:dialogTitle="Theme"
+                android:summary="Theme for display colors and styling"
+                android:entries="@array/Themes"
+                android:entryValues="@array/ThemeValues"
+                android:defaultValue="light"
+                app:iconSpaceReserved="false" />
+
+            <CheckBoxPreference
+                android:key="stay_active"
+                android:title="Stay Active?"
+                android:summary="Keep screen on while app is open"
+                android:defaultValue="false"
+                app:iconSpaceReserved="false" />
+          
+        </com.petlogger.android.components.preferences.PreferenceHeader>
+      
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="reminder_settings"
+        android:title="Reminder Settings"
+        app:iconSpaceReserved="false">
+      
+        <com.petlogger.android.components.preferences.PreferenceHeader
+            android:title="Reminder Settings"
+            app:iconSpaceReserved="false">
+
+            <com.petlogger.android.components.preferences.TimePickerPreference
+                android:key="sleep_time"
+                android:title="Sleep Time"
+                android:summary="Determines when to silence reminders"
+                app:iconSpaceReserved="false" />
+          
+        </com.petlogger.android.components.preferences.PreferenceHeader>
+      
+    </PreferenceScreen>
   
     <PreferenceScreen
         android:key="developer_settings"
         android:title="Developer Settings"
-        app:iconSpaceReserved="false" >
+        app:iconSpaceReserved="false">
 
-        <com.petlogger.android.components.PreferenceHeader
+        <com.petlogger.android.components.preferences.PreferenceHeader
             android:title="Developer Settings"
             app:iconSpaceReserved="false">
 
@@ -57,16 +93,16 @@
                 android:title="Reset to Default Values"
                 app:iconSpaceReserved="false" />
 
-        </com.petlogger.android.components.PreferenceHeader>
+        </com.petlogger.android.components.preferences.PreferenceHeader>
 
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="about_settings"
         android:title="About PetLogger"
-        app:iconSpaceReserved="false" >
+        app:iconSpaceReserved="false">
 
-        <com.petlogger.android.components.PreferenceHeader
+        <com.petlogger.android.components.preferences.PreferenceHeader
             android:title="About PetLogger"
             app:iconSpaceReserved="false">
 
@@ -75,7 +111,7 @@
                 android:title="App version"
                 app:iconSpaceReserved="false" />
 
-        </com.petlogger.android.components.PreferenceHeader>
+        </com.petlogger.android.components.preferences.PreferenceHeader>
 
     </PreferenceScreen>
   

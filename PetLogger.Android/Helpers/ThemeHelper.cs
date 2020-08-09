@@ -18,6 +18,19 @@ namespace PetLogger.Droid.Helpers
             "bath"
         };
 
+        public static Themes ParseTheme(string value)
+        {
+            switch (value)
+            {
+                case "light":
+                    return Themes.Light;
+                case "dark":
+                    return Themes.Dark;
+            }
+
+            throw new ArgumentOutOfRangeException("Could not find parse theme from " + value);
+        }
+
         public static int GetImageResourceID(string imageKey, Themes theme)
         {
             switch (imageKey)

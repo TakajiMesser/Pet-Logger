@@ -16,6 +16,7 @@ namespace PetLogger.Droid.Fragments
     {
         public static RemindersFragment Instantiate() => new RemindersFragment();
 
+        private TextView _emptyLabel;
         private ReminderAdapter _reminderAdapter;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) => inflater.Inflate(Resource.Layout.fragment_reminders, container, false);
@@ -26,6 +27,8 @@ namespace PetLogger.Droid.Fragments
 
             ToolbarHelper.ShowToolbar(Activity, "Reminders");
             ToolbarHelper.HideToolbarBackButton(Activity);
+
+            _emptyLabel = view.FindViewById<TextView>(Resource.Id.empty_reminders_label);
 
             var reminderRecycler = view.FindViewById<RecyclerView>(Resource.Id.reminder_recycler);
             SetUpReminderAdapter(reminderRecycler, view);
@@ -40,7 +43,13 @@ namespace PetLogger.Droid.Fragments
             recyclerView.SetLayoutManager(new LinearLayoutManager(Context));
             recyclerView.AddItemDecoration(new VerticalSpaceItemDecoration(40));
 
-            _reminderAdapter = new ReminderAdapter(Activity, DBTable.GetAll<Reminder>().ToList());
+            var reminders = DBTable.GetAll<Reminder>().ToList();
+            if (reminders.Count > 0)
+            {
+                _emptyLabel.Visibility = ViewStates.Gone;
+            }
+
+            _reminderAdapter = new ReminderAdapter(Activity, reminders);
             _reminderAdapter.SetMultiChoiceModeListener(this);
             _reminderAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, UpdateEntityFragment<Reminder>.Instantiate("Reminder", args.Item.ID));
 

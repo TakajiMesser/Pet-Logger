@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using PetLogger.Droid.Adapters;
 using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
@@ -17,6 +18,7 @@ namespace PetLogger.Droid.Fragments
 
         public static HistoryFragment Instantiate() => new HistoryFragment();
 
+        private TextView _emptyLabel;
         private HistoryAdapter _historyAdapter;
         private bool _isFetchingRows = false;
         private int _rowOffset;
@@ -29,6 +31,8 @@ namespace PetLogger.Droid.Fragments
 
             ToolbarHelper.ShowToolbar(Activity, "Incident History");
             ToolbarHelper.HideToolbarBackButton(Activity);
+
+            _emptyLabel = view.FindViewById<TextView>(Resource.Id.empty_history_label);
 
             var historyRecycler = view.FindViewById<RecyclerView>(Resource.Id.history_recycler);
             SetUpHistoryAdapter(historyRecycler, view);
@@ -62,8 +66,14 @@ namespace PetLogger.Droid.Fragments
                         dialog.SetCancelable(false);
                         dialog.Show();*/
 
-                        _historyAdapter.AddItems(GetNextIncidentSet(_rowOffset));
-                        _rowOffset += LAZY_LOAD_LIMIT;
+                        var incidents = GetNextIncidentSet(_rowOffset);
+
+                        if (incidents.Count > 0)
+                        {
+                            _emptyLabel.Visibility = ViewStates.Gone;
+                            _historyAdapter.AddIncidents(incidents);
+                            _rowOffset += incidents.Count;
+                        }
 
                         //dialog.Dismiss();
                         _isFetchingRows = false;
@@ -73,15 +83,21 @@ namespace PetLogger.Droid.Fragments
 
             // Get initial set of rows
             _isFetchingRows = true;
-
             _rowOffset = 0;
-            _historyAdapter.AddItems(GetNextIncidentSet(_rowOffset));
-            _rowOffset += LAZY_LOAD_LIMIT;
+
+            var incidents = GetNextIncidentSet(_rowOffset);
+
+            if (incidents.Count > 0)
+            {
+                _emptyLabel.Visibility = ViewStates.Gone;
+                _historyAdapter.AddIncidents(incidents);
+                _rowOffset += incidents.Count;
+            }
 
             _isFetchingRows = false;
         }
 
-        public IEnumerable<Incident> GetNextIncidentSet(int offset) => DBAccess.Query<Incident>("SELECT * FROM " + DBAccess.GetMapping<Incident>().TableName
+        public List<Incident> GetNextIncidentSet(int offset) => DBAccess.Query<Incident>("SELECT * FROM " + DBAccess.GetMapping<Incident>().TableName
             + " ORDER BY `Time` DESC"
             + " LIMIT " + LAZY_LOAD_LIMIT
             + " OFFSET " + offset);
