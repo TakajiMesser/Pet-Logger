@@ -65,7 +65,7 @@ namespace PetLogger.Droid.Fragments
                 // TODO - Come up with a smarter way of doing this...
                 if (entity is Reminder reminder)
                 {
-                    ReminderHelper.ReplaceReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                    ReminderHelper.ScheduleReminder(Context, reminder);
                 }
 
                 Activity.RunOnUiThread(() =>
@@ -105,11 +105,15 @@ namespace PetLogger.Droid.Fragments
                 {
                     var property = type.GetProperty(labelText.Text);
                     var valueView = inputs.GetChildAt(i + 1);
-                    var value = EntityHelper.GetPropertyValue(valueView, property.PropertyType);
 
-                    if (value != null)
+                    if (property != null)
                     {
-                        property.SetValue(entity, value);
+                        var value = EntityHelper.GetPropertyValue(valueView, property.PropertyType);
+
+                        if (value != null)
+                        {
+                            property.SetValue(entity, value);
+                        }
                     }
                 }
             }

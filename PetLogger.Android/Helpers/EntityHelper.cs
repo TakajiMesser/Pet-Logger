@@ -97,7 +97,7 @@ namespace PetLogger.Droid.Helpers
             {
                 return new ToggleButton(context)
                 {
-                    Checked = currentValue != null ? (bool)currentValue : false
+                    Checked = currentValue != null && (bool)currentValue
                 };
             }
             else if (property.PropertyType.IsEnum)

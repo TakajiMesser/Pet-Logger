@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Adapters\EnumAdapter.cs" />
+    <Compile Include="Adapters\RingtoneAdapter.cs" />
     <Compile Include="Adapters\ListAdapter.cs" />
     <Compile Include="Adapters\PetIncidentAdapter.cs" />
     <Compile Include="Adapters\PetTabAdapter.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Components\FileTextView.cs" />
     <Compile Include="Components\DataTableView.cs" />
     <Compile Include="Components\CSVTableView.cs" />
+    <Compile Include="Fragments\ReminderFragment.cs" />
     <Compile Include="Fragments\UpdateEntityFragment.cs" />
     <Compile Include="Fragments\IncidentDetailsFragment.cs" />
     <Compile Include="Fragments\PetFragment.cs" />
@@ -133,8 +135,10 @@
     <Compile Include="Helpers\FontHelper.cs" />
     <Compile Include="Models\Logging\DebugLog.cs" />
     <Compile Include="Models\HistoryItem.cs" />
+    <Compile Include="Models\Reminders\DismissAlarmReceiver.cs" />
+    <Compile Include="Models\Reminders\SnoozeAlarmReceiver.cs" />
     <Compile Include="Models\Reminders\RingtoneService.cs" />
-    <Compile Include="Models\Reminders\AlarmReceiver.cs" />
+    <Compile Include="Models\Reminders\TriggerAlarmReceiver.cs" />
     <Compile Include="Models\RowCard.cs" />
     <Compile Include="Models\TableCard.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -2150,6 +2154,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\item_history_header.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_reminder.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>

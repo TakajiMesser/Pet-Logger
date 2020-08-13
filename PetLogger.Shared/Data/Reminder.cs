@@ -8,8 +8,7 @@ namespace PetLogger.Shared.Data
     {
         None,
         Notification,
-        Alarm,
-        Timer
+        Alarm
     }
 
     public class Reminder : Entity
@@ -17,6 +16,10 @@ namespace PetLogger.Shared.Data
         public ReminderTypes ReminderType { get; set; }
 
         public TimeSpan TimeBetween { get; set; }
+
+        public bool Vibrate { get; set; }
+        public string SoundPath { get; set; }
+        public int SnoozeMinutes { get; set; }
 
         [ForeignKey(typeof(Pet))]
         public int PetID { get; set; }

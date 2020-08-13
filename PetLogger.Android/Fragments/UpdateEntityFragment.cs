@@ -71,7 +71,7 @@ namespace PetLogger.Droid.Fragments
                     // TODO - Come up with a smarter way of doing this...
                     if (entity is Reminder reminder)
                     {
-                        ReminderHelper.ReplaceReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                        ReminderHelper.ScheduleReminder(Context, reminder);
                     }
 
                     Activity.RunOnUiThread(() =>

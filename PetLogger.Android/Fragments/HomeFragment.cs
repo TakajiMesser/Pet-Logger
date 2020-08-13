@@ -58,8 +58,12 @@ namespace PetLogger.Droid.Fragments
             Snackbar.Make(Activity.FindViewById(Resource.Id.content_frame), e.Logger.Title + " logged", Snackbar.LengthLong)
                 .Show();
 
-            ReminderHelper.SetUpAlarm(Context);
-            //ReminderHelper.ReplaceReminder(Context, e.Logger.PetID, e.Logger.IncidentTypeID);
+            var reminder = DBTable.GetFirstOrDefault<Reminder>(r => r.PetID == e.Logger.PetID && r.IncidentTypeID == e.Logger.IncidentTypeID);
+
+            if (reminder != null)
+            {
+                ReminderHelper.ScheduleReminder(Context, reminder);
+            }
         }
 
         private void SetUpFloatingActionMenu(View view)

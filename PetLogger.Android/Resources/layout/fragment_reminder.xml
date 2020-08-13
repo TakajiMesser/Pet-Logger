@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/title"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="32dp"
+            android:textColor="@color/colorPrimary" />
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/inputs"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <Spinner
+                android:id="@+id/reminder_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sound"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <Spinner
+                android:id="@+id/sound_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vibrate"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <ToggleButton
+                android:id="@+id/vibrate_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snooze (in minutes)"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <NumberPicker
+                android:id="@+id/snooze_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pet"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <Spinner
+                android:id="@+id/pet_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Incident Type"
+                android:textSize="12dp"
+                android:textColor="@color/textGray" />
+
+            <Spinner
+                android:id="@+id/incident_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Submit"
+            android:background="@drawable/ripple"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</ScrollView>

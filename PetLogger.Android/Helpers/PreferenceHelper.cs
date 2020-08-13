@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Support.V7.Preferences;
 using System;
+using System.Globalization;
 
 namespace PetLogger.Droid.Helpers
 {
@@ -31,6 +32,8 @@ namespace PetLogger.Droid.Helpers
 
         public static TimeSpan CrossoverTime => TimeSpan.FromMinutes(Preferences.GetInt("crossover_time", 0));
 
-        public static TimeSpan SleepTime => TimeSpan.FromMinutes(Preferences.GetInt("sleep_time", 0));
+        public static TimeSpan SleepTime => TimeSpan.ParseExact(Preferences.GetString("sleep_time", "00:00"), "hh:mm", CultureInfo.CurrentCulture);
+
+        public static TimeSpan WakeTime => TimeSpan.ParseExact(Preferences.GetString("wake_time", "08:00"), "hh:mm", CultureInfo.CurrentCulture);
     }
 }

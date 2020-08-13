@@ -34,7 +34,7 @@ namespace PetLogger.Droid.Fragments
             SetUpReminderAdapter(reminderRecycler, view);
 
             var fabAddReminder = view.FindViewById<FloatingActionButton>(Resource.Id.fab_add_reminder);
-            fabAddReminder.Click += (s, args) => FragmentHelper.Push(Activity, AddEntityFragment<Reminder>.Instantiate("Reminder"));
+            fabAddReminder.Click += (s, args) => FragmentHelper.Push(Activity, ReminderFragment.Instantiate());
         }
 
         private void SetUpReminderAdapter(RecyclerView recyclerView, View view)
@@ -51,7 +51,7 @@ namespace PetLogger.Droid.Fragments
 
             _reminderAdapter = new ReminderAdapter(Activity, reminders);
             _reminderAdapter.SetMultiChoiceModeListener(this);
-            _reminderAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, UpdateEntityFragment<Reminder>.Instantiate("Reminder", args.Item.ID));
+            _reminderAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, ReminderFragment.Instantiate(args.Item.ID));
 
             recyclerView.SetAdapter(_reminderAdapter);
         }
@@ -66,7 +66,7 @@ namespace PetLogger.Droid.Fragments
                 {
                     foreach (var reminder in _reminderAdapter.SelectedItems)
                     {
-                        ReminderHelper.DeleteReminder(Context, reminder.PetID, reminder.IncidentTypeID);
+                        ReminderHelper.CancelReminder(Context, reminder);
                         reminder.Delete();
                     }
 

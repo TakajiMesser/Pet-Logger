@@ -15,4 +15,6 @@
     <string name="permission_write_external_storage_missing">This application cannot run because it does not have permission to write external storage. Please allow these permissions through app settings. The application will now exit.</string>
     <string name="permission_set_alarm_rationale">Access to set alarms is needed for setting incident reminders.</string>
     <string name="permission_set_alarm_missing">This application cannot run because it does not have permission to set alarms. Please allow these permissions through app settings. The application will now exit.</string>
+    <string name="permission_vibrate_rationale">Vibration permissions are needed for setting reminders.</string>
+    <string name="permission_vibrate_missing">This application cannot run because it does not have vibration permissions. Please allow these permissions through app settings. The application will now exit.</string>
 </resources>

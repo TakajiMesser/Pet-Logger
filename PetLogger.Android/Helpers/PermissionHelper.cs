@@ -12,7 +12,7 @@ namespace PetLogger.Droid.Helpers
     public static class PermissionHelper
     {
         private const int PERMISSIONS_REQUEST_CODE = 2;
-        private static string[] PERMISSIONS = new string[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.SetAlarm };
+        private static string[] PERMISSIONS = new string[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.Vibrate, Manifest.Permission.SetAlarm };
 
         public static void RequestPermissions(Activity activity, Action onGranted)
         {
@@ -86,6 +86,8 @@ namespace PetLogger.Droid.Helpers
             {
                 case Manifest.Permission.WriteExternalStorage:
                     return Resource.String.permission_write_external_storage_rationale;
+                case Manifest.Permission.Vibrate:
+                    return Resource.String.permission_vibrate_rationale;
                 case Manifest.Permission.SetAlarm:
                     return Resource.String.permission_set_alarm_rationale;
             }
@@ -99,6 +101,8 @@ namespace PetLogger.Droid.Helpers
             {
                 case Manifest.Permission.WriteExternalStorage:
                     return Resource.String.permission_write_external_storage_missing;
+                case Manifest.Permission.Vibrate:
+                    return Resource.String.permission_vibrate_missing;
                 case Manifest.Permission.SetAlarm:
                     return Resource.String.permission_set_alarm_missing;
             }
