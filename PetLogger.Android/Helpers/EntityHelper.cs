@@ -48,9 +48,9 @@ namespace PetLogger.Droid.Helpers
                     return enumAdapter.GetValue(valueSpinner.SelectedItemPosition);
                 }
             }
-            else if (view is EditTimeView valueTime)
+            else if (view is EditDurationView valueTime)
             {
-                return valueTime.Time;
+                return valueTime.Duration;
             }
 
             return null;
@@ -111,14 +111,10 @@ namespace PetLogger.Droid.Helpers
             }
             else if (property.PropertyType == typeof(TimeSpan))
             {
-                var editTimeView = new EditTimeView(context);
-
-                /*if (currentValue != null)
+                return new EditDurationView(context)
                 {
-                    editTimeView.Time = (TimeSpan)currentValue;
-                }*/
-
-                return editTimeView;
+                    Duration = currentValue != null ? (TimeSpan)currentValue : TimeSpan.Zero
+                };
             }
 
             return null;

@@ -47,16 +47,27 @@
     <attr name="verticalRowDivider" format="reference"/>
   </declare-styleable>
 
-  <declare-styleable name="TimeSpanView">
-    <attr name="timeTextSize" format="integer"/>
-    <attr name="timeTextColor" format="color"/>
-    <attr name="timeFontFamily" format="reference"/>
-    <attr name="labelTextSize" format="integer"/>
-    <attr name="labelTextColor" format="color"/>
-    <attr name="labelFontFamily" format="reference"/>
+  <declare-styleable name="DurationView">
+    <attr name="valueTextSize" format="integer"/>
+    <attr name="valueTextColor" format="color"/>
+    <attr name="valueFontFamily" format="reference"/>
+    <attr name="unitTextSize" format="integer"/>
+    <attr name="unitTextColor" format="color"/>
+    <attr name="unitFontFamily" format="reference"/>
+    <attr name="displayDays" format="boolean"/>
+    <attr name="displayHours" format="boolean"/>
+    <attr name="displayMinutes" format="boolean"/>
+    <attr name="displaySeconds" format="boolean"/>
+    <attr name="displayType" format="enum">
+      <enum name="all" value="0"/>
+      <enum name="invisible" value="1"/>
+      <enum name="gone" value="2"/>
+      <enum name="dynamic" value="3"/>
+    </attr>
+    <attr name="dynamicDisplayCount" format="integer"/>
   </declare-styleable>
 
-  <declare-styleable name="EditTimeView">
+  <declare-styleable name="EditDurationView">
     <attr name="timeTextSize" format="integer"/>
     <attr name="timeTextColor" format="color"/>
     <attr name="timeFontFamily" format="reference"/>

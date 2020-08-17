@@ -54,6 +54,12 @@
                 android:title="Sleep Time"
                 android:summary="Determines when to silence reminders"
                 app:iconSpaceReserved="false" />
+
+            <com.petlogger.android.components.preferences.TimePickerPreference
+                android:key="wake_time"
+                android:title="Wake Time"
+                android:summary="Determines when to stop silencing reminders"
+                app:iconSpaceReserved="false" />
           
         </com.petlogger.android.components.preferences.PreferenceHeader>
       

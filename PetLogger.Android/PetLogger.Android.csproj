@@ -95,9 +95,9 @@
     <Compile Include="Components\Preferences\NumberPickerPreference.cs" />
     <Compile Include="Components\Preferences\EditNumberPreference.cs" />
     <Compile Include="Components\FloatingActionMenu.cs" />
-    <Compile Include="Components\CountDownView.cs" />
-    <Compile Include="Components\EditTimeView.cs" />
-    <Compile Include="Components\TimeSpanView.cs" />
+    <Compile Include="Components\LiveDurationView.cs" />
+    <Compile Include="Components\EditDurationView.cs" />
+    <Compile Include="Components\DurationView.cs" />
     <Compile Include="Components\FileTextRowAdapter.cs" />
     <Compile Include="Components\FileTextRow.cs" />
     <Compile Include="Components\VerticalSpaceItemDecoration.cs" />

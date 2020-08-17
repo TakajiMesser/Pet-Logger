@@ -31,6 +31,27 @@ namespace PetLogger.Droid.Adapters
             NotifyItemInserted(_items.Count - 1);
         }
 
+        public void AddItems(IEnumerable<T> items)
+        {
+            var startPosition = _items.Count;
+            foreach (var item in items)
+            {
+                _items.Add(item);
+            }
+
+            NotifyItemRangeInserted(startPosition, _items.Count - startPosition);
+        }
+
+        public void RemoveItem(T item)
+        {
+            var index = _items.IndexOf(item);
+            if (index >= 0)
+            {
+                _items.RemoveAt(index);
+                NotifyItemRemoved(index);
+            }
+        }
+
         protected SearchFilter<T> CreateSearchFilter(Func<T, string> func) => new SearchFilter(this, func);
 
         private class SearchFilter : SearchFilter<T>

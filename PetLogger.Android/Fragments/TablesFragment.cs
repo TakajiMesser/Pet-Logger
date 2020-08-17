@@ -46,7 +46,7 @@ namespace PetLogger.Droid.Fragments
                     .Replace(Resource.Id.content_frame, TableFragment.Instantiate(e.Item.Name))
                     .Commit();
             };
-            _tableAdapter.SetMultiChoiceModeListener(this);
+            //_tableAdapter.SetMultiChoiceModeListener(this);
             _recyclerView.SetAdapter(_tableAdapter);
         }
 

@@ -22,6 +22,6 @@ namespace PetLogger.Droid.Adapters
 
         public int GetID(int position) => _ids[position];
 
-        public int GetPosition(int id) => _ids.IndexOf(id);
+        public int GetIDPosition(int id) => _ids.IndexOf(id);
     }
 }

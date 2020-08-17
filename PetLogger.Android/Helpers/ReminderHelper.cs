@@ -18,7 +18,18 @@ namespace PetLogger.Droid.Helpers
             var broadcastIntent = PendingIntent.GetBroadcast(context, 0, alarmIntent, PendingIntentFlags.OneShot);
 
             var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
-            alarmManager.Set(AlarmType.RtcWakeup, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + 5000, broadcastIntent);
+            alarmManager.Set(AlarmType.RtcWakeup, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + (long)reminder.TimeBetween.TotalMilliseconds, broadcastIntent);
+        }
+
+        public static void ScheduleReminder(Context context, Reminder reminder, DateTime fromTime)
+        {
+            var alarmIntent = new Intent(context, typeof(TriggerAlarmReceiver))
+               .SetData(Android.Net.Uri.Parse("content://reminder/" + reminder.ID));
+
+            var broadcastIntent = PendingIntent.GetBroadcast(context, 0, alarmIntent, PendingIntentFlags.OneShot);
+
+            var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
+            alarmManager.Set(AlarmType.RtcWakeup, new DateTimeOffset(fromTime).ToUnixTimeMilliseconds() + (long)reminder.TimeBetween.TotalMilliseconds, broadcastIntent);
         }
 
         public static void SnoozeReminder(Context context, Reminder reminder)
@@ -29,7 +40,7 @@ namespace PetLogger.Droid.Helpers
             var broadcastIntent = PendingIntent.GetBroadcast(context, 0, alarmIntent, PendingIntentFlags.OneShot);
 
             var alarmManager = context.GetSystemService(Context.AlarmService) as AlarmManager;
-            alarmManager.Set(AlarmType.RtcWakeup, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + 5000, broadcastIntent);
+            alarmManager.Set(AlarmType.RtcWakeup, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + reminder.SnoozeMinutes * 60000L, broadcastIntent);
         }
 
         public static void CancelReminder(Context context, Reminder reminder)

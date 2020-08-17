@@ -50,7 +50,7 @@
         
         </LinearLayout>
 
-    <com.petlogger.android.components.CountDownView
+    <com.petlogger.android.components.LiveDurationView
         android:id="@+id/time_since"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,6 +61,8 @@
         app:timeTextSize="36"
         app:timeTextColor="@color/textWhite"
         app:labelTextSize="12"
-        app:labelTextColor="@color/textWhite"/>
+        app:labelTextColor="@color/textWhite"
+        app:displayType="dynamic"
+        app:dynamicDisplayCount="2"/>
   
 </RelativeLayout>

@@ -46,7 +46,7 @@ namespace PetLogger.Droid.Fragments
             });
 
             _loggerAdapter = new IncidentLoggerAdapter(Activity, GetIncidentLoggers().ToList());
-            _loggerAdapter.SetMultiChoiceModeListener(this);
+            //_loggerAdapter.SetMultiChoiceModeListener(this);
             _loggerAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, IncidentDetailsFragment.Instantiate(args.Item.PetID, args.Item.IncidentTypeID));
             _loggerAdapter.IncidentLogged += LoggerAdapter_IncidentLogged;
 

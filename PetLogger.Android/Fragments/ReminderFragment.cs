@@ -1,12 +1,15 @@
-﻿using Android.OS;
+﻿using Android.Media;
+using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Adapters;
+using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using System;
+using System.Timers;
 using Fragment = Android.Support.V4.App.Fragment;
 using View = Android.Views.View;
 
@@ -32,8 +35,9 @@ namespace PetLogger.Droid.Fragments
         private Reminder _reminder;
 
         private Spinner _reminderTypeSpinner;
-        private TimePicker _timePicker;
+        private TextView _soundLabel;
         private Spinner _soundSpinner;
+        private EditDurationView _timePicker;
         private ToggleButton _vibrateToggle;
         private NumberPicker _snoozePicker;
         private Spinner _petSpinner;
@@ -69,20 +73,24 @@ namespace PetLogger.Droid.Fragments
             _reminderTypeSpinner.Adapter = new EnumAdapter<ReminderTypes>(Context);
             _reminderTypeSpinner.ItemSelected += ReminderTypeSpinner_ItemSelected;
 
-            _timePicker = view.FindViewById<TimePicker>(Resource.Id.time_picker);
-
             _soundSpinner = view.FindViewById<Spinner>(Resource.Id.sound_spinner);
-            _soundSpinner.Adapter = new RingtoneAdapter(Context, Android.Media.RingtoneType.Alarm);
+            _soundSpinner.Adapter = new RingtoneAdapter(Context, Android.Media.RingtoneType.Notification);
+            _soundSpinner.ItemSelected += SoundSpinner_ItemSelected;
 
+            _soundLabel = view.FindViewById<TextView>(Resource.Id.sound_label);
+
+            _timePicker = view.FindViewById<EditDurationView>(Resource.Id.time_picker);
             _vibrateToggle = view.FindViewById<ToggleButton>(Resource.Id.vibrate_toggle);
-
+            
             _snoozePicker = view.FindViewById<NumberPicker>(Resource.Id.snooze_picker);
+            _snoozePicker.MinValue = 0;
+            _snoozePicker.MaxValue = 60;
 
             _petSpinner = view.FindViewById<Spinner>(Resource.Id.pet_spinner);
-            _petSpinner.Adapter = new ForeignEntityAdapter(Context, typeof(Reminder).GetProperty(nameof(Reminder.PetID)), DBTable.GetAll<Pet>());
+            _petSpinner.Adapter = new ForeignEntityAdapter(Context, PetLogger.Shared.Helpers.EntityHelper.GetIdentifierProperty(typeof(Pet)), DBTable.GetAll<Pet>());
 
             _incidentTypeSpinner = view.FindViewById<Spinner>(Resource.Id.incident_type_spinner);
-            _incidentTypeSpinner.Adapter = new ForeignEntityAdapter(Context, typeof(Reminder).GetProperty(nameof(Reminder.IncidentTypeID)), DBTable.GetAll<IncidentType>());
+            _incidentTypeSpinner.Adapter = new ForeignEntityAdapter(Context, PetLogger.Shared.Helpers.EntityHelper.GetIdentifierProperty(typeof(IncidentType)), DBTable.GetAll<IncidentType>());
 
             if (_reminder != null)
             {
@@ -97,6 +105,34 @@ namespace PetLogger.Droid.Fragments
             submitButton.Click += SubmitButton_Click;
         }
 
+        private void SoundSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var ringtoneAdapter = _soundSpinner.Adapter as RingtoneAdapter;
+            var soundPath = ringtoneAdapter.GetPath(e.Position);
+
+            if (!string.IsNullOrEmpty(soundPath))
+            {
+                var ringtone = RingtoneManager.GetRingtone(Context, Android.Net.Uri.Parse(soundPath));
+
+                if (ringtone != null)
+                {
+                    var timer = new Timer(3000)
+                    {
+                        AutoReset = false
+                    };
+
+                    timer.Elapsed += (s, args) =>
+                    {
+                        ringtone.Stop();
+                        timer.Stop();
+                    };
+
+                    ringtone.Play();
+                    timer.Start();
+                }
+            }
+        }
+
         private void ReminderTypeSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             var reminderTypeAdapter = _reminderTypeSpinner.Adapter as EnumAdapter<ReminderTypes>;
@@ -106,43 +142,19 @@ namespace PetLogger.Droid.Fragments
             {
                 case ReminderTypes.Alarm:
                     _soundSpinner.Adapter = new RingtoneAdapter(Context, Android.Media.RingtoneType.Alarm);
+                    _soundLabel.Visibility = ViewStates.Visible;
                     _soundSpinner.Visibility = ViewStates.Visible;
                     break;
                 case ReminderTypes.Notification:
                     _soundSpinner.Adapter = new RingtoneAdapter(Context, Android.Media.RingtoneType.Notification);
+                    _soundLabel.Visibility = ViewStates.Visible;
                     _soundSpinner.Visibility = ViewStates.Visible;
                     break;
                 default:
+                    _soundLabel.Visibility = ViewStates.Gone;
                     _soundSpinner.Visibility = ViewStates.Gone;
                     break;
             }
-        }
-
-        private void SubmitButton_Click(object sender, System.EventArgs e)
-        {
-            ProgressDialogHelper.RunTask(Activity, "Submitting...", () =>
-            {
-                if (_reminder != null)
-                {
-                    UpdateValues();
-                    _reminder.Update();
-                }
-                else
-                {
-                    _reminder = new Reminder();
-
-                    UpdateValues();
-                    _reminder.Insert();
-                }
-
-                ReminderHelper.ScheduleReminder(Context, _reminder);
-
-                Activity.RunOnUiThread(() =>
-                {
-                    Toast.MakeText(Context, "Successfully added new entity", ToastLength.Long).Show();
-                    FragmentHelper.PopOne(Activity);
-                });
-            });
         }
 
         private void LoadDefaultValues()
@@ -153,15 +165,13 @@ namespace PetLogger.Droid.Fragments
                 //_reminderTypeSpinner.SetSelection(position);
             }
 
-            _timePicker.Hour = 3;
-            _timePicker.Minute = 0;
-
             if (_soundSpinner.Adapter is RingtoneAdapter ringtoneAdapter)
             {
                 //var position = ringtoneAdapter.GetPosition(_reminder.SoundPath);
                 //_soundSpinner.SetSelection(position);
             }
 
+            _timePicker.Duration = TimeSpan.FromHours(3);
             _vibrateToggle.Checked = true;
             _snoozePicker.Value = 10;
 
@@ -180,33 +190,31 @@ namespace PetLogger.Droid.Fragments
 
         private void LoadValues()
         {
-            if (_reminderTypeSpinner.Adapter is EnumAdapter<ReminderTypes> enumAdapter)
+            if (_reminderTypeSpinner.Adapter is EnumAdapter<ReminderTypes> reminderTypeAdapter)
             {
-                var position = enumAdapter.GetPosition(_reminder.ReminderType);
+                var position = reminderTypeAdapter.GetValuePosition(_reminder.ReminderType);
                 _reminderTypeSpinner.SetSelection(position);
             }
 
-            _timePicker.Hour = _reminder.TimeBetween.Hours;
-            _timePicker.Minute = _reminder.TimeBetween.Minutes;
-
             if (_soundSpinner.Adapter is RingtoneAdapter ringtoneAdapter)
             {
-                var position = ringtoneAdapter.GetPosition(_reminder.SoundPath);
-                _soundSpinner.SetSelection(position);
+                var position = ringtoneAdapter.GetPathPosition(_reminder.SoundPath);
+                _soundSpinner.SetSelection(position, false);
             }
 
+            _timePicker.Duration = _reminder.TimeBetween;
             _vibrateToggle.Checked = _reminder.Vibrate;
             _snoozePicker.Value = _reminder.SnoozeMinutes;
 
             if (_petSpinner.Adapter is ForeignEntityAdapter petAdapter)
             {
-                var position = petAdapter.GetPosition(_reminder.PetID);
+                var position = petAdapter.GetIDPosition(_reminder.PetID);
                 _petSpinner.SetSelection(position);
             }
 
             if (_incidentTypeSpinner.Adapter is ForeignEntityAdapter incidentTypeAdapter)
             {
-                var position = incidentTypeAdapter.GetPosition(_reminder.IncidentTypeID);
+                var position = incidentTypeAdapter.GetIDPosition(_reminder.IncidentTypeID);
                 _incidentTypeSpinner.SetSelection(position);
             }
         }
@@ -215,16 +223,15 @@ namespace PetLogger.Droid.Fragments
         {
             if (_reminderTypeSpinner.Adapter is EnumAdapter<ReminderTypes> enumAdapter)
             {
-                _reminder.ReminderType = (ReminderTypes)enumAdapter.GetValue(_reminderTypeSpinner.SelectedItemPosition);
+                _reminder.ReminderType = enumAdapter.GetValue(_reminderTypeSpinner.SelectedItemPosition);
             }
-
-            _reminder.TimeBetween = TimeSpan.FromHours(_timePicker.Hour) + TimeSpan.FromMinutes(_timePicker.Minute);
 
             if (_soundSpinner.Adapter is RingtoneAdapter ringtoneAdapter)
             {
                 _reminder.SoundPath = ringtoneAdapter.GetPath(_soundSpinner.SelectedItemPosition);
             }
 
+            _reminder.TimeBetween = _timePicker.Duration;
             _reminder.Vibrate = _vibrateToggle.Checked;
             _reminder.SnoozeMinutes = _snoozePicker.Value;
 
@@ -237,6 +244,48 @@ namespace PetLogger.Droid.Fragments
             {
                 _reminder.IncidentTypeID = incidentTypeAdapter.GetID(_incidentTypeSpinner.SelectedItemPosition);
             }
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            ProgressDialogHelper.RunTask(Activity, "Submitting...", () =>
+            {
+                var isUpdate = false;
+
+                if (_reminder != null)
+                {
+                    isUpdate = true;
+                    UpdateValues();
+                    _reminder.Update();
+                }
+                else
+                {
+                    _reminder = new Reminder();
+
+                    UpdateValues();
+                    _reminder.Insert();
+                }
+
+                var latestIncident = DBTable.GetAll<Incident>(i => i.PetID == _reminder.PetID && i.IncidentTypeID == _reminder.IncidentTypeID)
+                    .OrderByDescending(i => i.Time)
+                    .FirstOrDefault();
+
+                // If this results in a reminder that would be scheduled in the past, simply ignore/cancel it
+                if (latestIncident != null && latestIncident.Time + _reminder.TimeBetween > DateTime.Now)
+                {
+                    ReminderHelper.ScheduleReminder(Context, _reminder, latestIncident.Time);
+                }
+                else
+                {
+                    ReminderHelper.CancelReminder(Context, _reminder);
+                }
+
+                Activity.RunOnUiThread(() =>
+                {
+                    Toast.MakeText(Context, "Successfully " + (isUpdate ? "updated existing" : "added new") + " reminder", ToastLength.Long).Show();
+                    FragmentHelper.PopOne(Activity);
+                });
+            });
         }
     }
 }

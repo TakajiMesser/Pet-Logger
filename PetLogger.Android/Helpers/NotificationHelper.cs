@@ -41,9 +41,12 @@ namespace PetLogger.Droid.Helpers
                 .AddAction(Resource.Drawable.baseline_snooze_black_36dp, "Dismiss", dismissBroadcast)
                 .SetContentIntent(PendingIntent.GetActivity(context, 0, new Intent(context, typeof(Activities.MainActivity)), PendingIntentFlags.OneShot)); // Start up this activity when the user clicks the intent.
 
-            // Finally, publish the notification:
-            var notificationManager = NotificationManagerCompat.From(context); 
-            notificationManager.Notify(NOTIFICATION_ID, builder.Build());
+            var notification = builder.Build();
+            notification.Flags = NotificationFlags.NoClear;
+
+            // Finally, publish the notification
+            var notificationManager = NotificationManagerCompat.From(context);
+            notificationManager.Notify(NOTIFICATION_ID, notification);
         }
 
         public static void DismissReminderNotification(Context context, Reminder reminder)

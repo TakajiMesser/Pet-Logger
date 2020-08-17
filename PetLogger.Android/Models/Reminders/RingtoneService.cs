@@ -25,10 +25,10 @@ namespace PetLogger.Droid.Models.Reminders
             // TODO - Report or log error for malformed data URI
             if (reminder != null)
             {
-                //if (!string.IsNullOrEmpty(reminder.SoundPath))
+                if (!string.IsNullOrEmpty(reminder.SoundPath))
                 {
-                    _ringtone = RingtoneManager.GetRingtone(this, Android.Provider.Settings.System.DefaultAlarmAlertUri);
-                    //_ringtone = RingtoneManager.GetRingtone(this, Android.Net.Uri.Parse(reminder.SoundPath));
+                    //_ringtone = RingtoneManager.GetRingtone(this, Android.Provider.Settings.System.DefaultAlarmAlertUri);
+                    _ringtone = RingtoneManager.GetRingtone(this, Android.Net.Uri.Parse(reminder.SoundPath));
                     _ringtone?.Play();
                 }
 

@@ -8,11 +8,12 @@ using PetLogger.Droid.Components;
 using PetLogger.Droid.Helpers;
 using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
+using ActionMode = Android.Support.V7.View.ActionMode;
 using Fragment = Android.Support.V4.App.Fragment;
 
 namespace PetLogger.Droid.Fragments
 {
-    public class RemindersFragment : Fragment, /*ISearchFragment, */AbsListView.IMultiChoiceModeListener
+    public class RemindersFragment : Fragment, /*ISearchFragment, */ActionMode.ICallback
     {
         public static RemindersFragment Instantiate() => new RemindersFragment();
 
@@ -50,7 +51,7 @@ namespace PetLogger.Droid.Fragments
             }
 
             _reminderAdapter = new ReminderAdapter(Activity, reminders);
-            _reminderAdapter.SetMultiChoiceModeListener(this);
+            _reminderAdapter.SetActionModeCallback(this);
             _reminderAdapter.ItemClick += (s, args) => FragmentHelper.Push(Activity, ReminderFragment.Instantiate(args.Item.ID));
 
             recyclerView.SetAdapter(_reminderAdapter);
@@ -72,16 +73,12 @@ namespace PetLogger.Droid.Fragments
 
                     Activity.RunOnUiThread(() =>
                     {
-                        // TODO - We still need to explicitly delete these entries in the adapter
-                        _reminderAdapter.NotifyDataSetChanged();
-                        //_reminderAdapter.RemoveSelectedAlarms();
+                        _reminderAdapter.RemoveSelectedAlarms();
                         mode.Finish();
                     });
                 });
             });
         }
-
-        public void OnItemCheckedStateChanged(ActionMode mode, int position, long id, bool @checked) { }
 
         public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
         {

@@ -7,9 +7,15 @@ using System.Timers;
 
 namespace PetLogger.Droid.Components
 {
-    [Register("com.petlogger.android.components.CountDownView")]
-    public class CountDownView : TimeSpanView
+    [Register("com.petlogger.android.components.LiveDurationView")]
+    public class LiveDurationView : DurationView
     {
+        public enum CountDirections
+        {
+            Up,
+            Down
+        }
+
         private enum UpdateFrequencyModes
         {
             Never,
@@ -22,13 +28,15 @@ namespace PetLogger.Droid.Components
 
         private UpdateFrequencyModes _updateFrequencyMode;
 
-        public CountDownView(Context context) : base(context) { }
-        public CountDownView(Context context, IAttributeSet attrs) : base(context, attrs) { }
-        public CountDownView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { }
+        public LiveDurationView(Context context) : base(context) { }
+        public LiveDurationView(Context context, IAttributeSet attrs) : base(context, attrs) { }
+        public LiveDurationView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { }
 
-        public CountDownView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
+        public LiveDurationView(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
 
-        public DateTime InitialTime
+        public CountDirections CountDirection { get; set; }
+
+        public DateTime Time
         {
             get => _dateTime;
             set
@@ -59,8 +67,26 @@ namespace PetLogger.Droid.Components
 
         private void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var updatedTime = DateTime.Now - _dateTime;
-            Post(() => TimeSpan = updatedTime);
+            if (CountDirection == CountDirections.Up)
+            {
+                var updatedTime = DateTime.Now - _dateTime;
+                if (updatedTime < TimeSpan.Zero)
+                {
+                    updatedTime = TimeSpan.Zero;
+                }
+
+                Post(() => Duration = updatedTime);
+            }
+            else if (CountDirection == CountDirections.Down)
+            {
+                var updatedTime = _dateTime - DateTime.Now;
+                if (updatedTime < TimeSpan.Zero)
+                {
+                    updatedTime = TimeSpan.Zero;
+                }
+
+                Post(() => Duration = updatedTime);
+            }
 
             /*var nDays = (int)updatedTime.TotalDays;
             var nHours = updatedTime.Hours;

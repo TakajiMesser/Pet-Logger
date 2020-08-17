@@ -24,7 +24,7 @@ namespace PetLogger.Droid.Adapters
 
         public T GetValue(int position) => _enumValues[position];
 
-        public int GetPosition(T value) => _enumValues.IndexOf(value);
+        public int GetValuePosition(T value) => _enumValues.IndexOf(value);
     }
 
     public class EnumAdapter : ArrayAdapter<string>
@@ -48,6 +48,6 @@ namespace PetLogger.Droid.Adapters
 
         public object GetValue(int position) => _enumValues[position];
 
-        public int GetPosition(object value) => _enumValues.IndexOf(value);
+        public int GetValuePosition(object value) => _enumValues.IndexOf(value);
     }
 }

@@ -11,7 +11,8 @@ namespace PetLogger.Droid.Adapters
 
         public RingtoneAdapter(Context context, RingtoneType ringtoneType) : base(context, Android.Resource.Layout.SimpleSpinnerDropDownItem)
         {
-            AddItem("None", "");
+            _paths.Add("");
+            Add("None");
 
             var ringtoneManager= new RingtoneManager(context);
             ringtoneManager.SetType(ringtoneType);
@@ -22,14 +23,9 @@ namespace PetLogger.Droid.Adapters
                 var title = cursor.GetString((int)RingtoneColumnIndex.Title);
                 var path = cursor.GetString((int)RingtoneColumnIndex.Uri) + "/" + cursor.GetString((int)RingtoneColumnIndex.Id);
 
-                AddItem(title, path);
+                _paths.Add(path);
+                Add(title);
             }
-        }
-
-        public void AddItem(string name, string path)
-        {
-            Add(name);
-            _paths.Add(path);
         }
 
         public string GetPath(int position) => _paths[position];

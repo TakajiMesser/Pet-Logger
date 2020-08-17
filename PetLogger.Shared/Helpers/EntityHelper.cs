@@ -1,7 +1,4 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Support.V7.Preferences;
-using PetLogger.Shared.DataAccessLayer;
+﻿using PetLogger.Shared.DataAccessLayer;
 using System;
 using System.Reflection;
 
@@ -13,7 +10,7 @@ namespace PetLogger.Shared.Helpers
         {
             foreach (var property in type.GetProperties())
             {
-                if (Attribute.GetCustomAttribute(property, typeof(IdentifierAttribute)) is IdentifierAttribute identifierAttribute)
+                if (Attribute.GetCustomAttribute(property, typeof(IdentifierAttribute)) is IdentifierAttribute)
                 {
                     return property;
                 }

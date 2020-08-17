@@ -3,7 +3,6 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using PetLogger.Droid.Helpers;
-using PetLogger.Shared.Data;
 using PetLogger.Shared.DataAccessLayer;
 using SQLite;
 using System;
@@ -61,12 +60,6 @@ namespace PetLogger.Droid.Fragments
             submitButton.Click += (s, e) => ProgressDialogHelper.RunTask(Activity, "Submitting...", () =>
             {
                 Submit(view, entity);
-
-                // TODO - Come up with a smarter way of doing this...
-                if (entity is Reminder reminder)
-                {
-                    ReminderHelper.ScheduleReminder(Context, reminder);
-                }
 
                 Activity.RunOnUiThread(() =>
                 {

@@ -8,10 +8,10 @@ namespace PetLogger.Droid.Adapters
 {
     public abstract class ListAdapter<T> : RecyclerView.Adapter
     {
-        private List<T> _items;
+        private IList<T> _items;
 
         public ListAdapter(Context context) : this(context, new List<T>()) { }
-        public ListAdapter(Context context, List<T> items)
+        public ListAdapter(Context context, IList<T> items)
         {
             Context = context;
             _items = items;
@@ -34,9 +34,22 @@ namespace PetLogger.Droid.Adapters
         public void AddItems(IEnumerable<T> items)
         {
             var startPosition = _items.Count;
-            _items.AddRange(items);
+            foreach (var item in items)
+            {
+                _items.Add(item);
+            }
 
             NotifyItemRangeInserted(startPosition, _items.Count - startPosition);
+        }
+
+        public void RemoveItem(T item)
+        {
+            var index = _items.IndexOf(item);
+            if (index >= 0)
+            {
+                _items.RemoveAt(index);
+                NotifyItemRemoved(index);
+            }
         }
 
         public void SetUpItemViewClickEvents(View itemView)

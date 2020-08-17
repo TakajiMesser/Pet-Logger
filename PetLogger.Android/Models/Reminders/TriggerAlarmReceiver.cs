@@ -22,8 +22,8 @@ namespace PetLogger.Droid.Models.Reminders
                 if (IsTimeBetween(DateTime.Now.TimeOfDay, PreferenceHelper.WakeTime, PreferenceHelper.SleepTime))
                 {
                     var ringtoneService = new Intent(context, typeof(RingtoneService))
-                    .SetData(intent.Data);
-                    context.StartService(ringtoneService);
+                        .SetData(intent.Data);
+                        context.StartService(ringtoneService);
 
                     NotificationHelper.CreateReminderNotification(context, reminder, ringtoneService);
                 }
@@ -37,7 +37,8 @@ namespace PetLogger.Droid.Models.Reminders
             // Sleep = 3 AM   (03:00)
             // Current = 2 AM (02:00) <- This is fine, because it is Current < Wake AND Current < Sleep AND Sleep < Wake
             if (time > startTime && time < endTime) return true;
-            if (time < startTime && time < endTime && startTime > endTime) return true;
+            if (time < endTime && endTime < startTime) return true;
+            if (time > startTime && startTime > endTime) return true;
 
             return false;
         }

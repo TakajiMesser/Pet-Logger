@@ -71,7 +71,8 @@ namespace PetLogger.Droid.Adapters
 
             if (logger.LatestIncidentTime.HasValue)
             {
-                viewHolder.TimeSince.InitialTime = logger.LatestIncidentTime.Value;
+                viewHolder.TimeSince.CountDirection = LiveDurationView.CountDirections.Up;
+                viewHolder.TimeSince.Time = logger.LatestIncidentTime.Value;
                 viewHolder.TimeSince.Start();
             }
         }
@@ -80,13 +81,13 @@ namespace PetLogger.Droid.Adapters
         {
             public TextView Title { get; set; }
             public FloatingActionButton LogButton {get;set;}
-            public CountDownView TimeSince { get; set; }
+            public LiveDurationView TimeSince { get; set; }
 
             public ViewHolder(View itemView) : base(itemView)
             {
                 Title = itemView.FindViewById<TextView>(Resource.Id.title);
                 LogButton = itemView.FindViewById<FloatingActionButton>(Resource.Id.fam_log_button);
-                TimeSince = itemView.FindViewById<CountDownView>(Resource.Id.time_since);
+                TimeSince = itemView.FindViewById<LiveDurationView>(Resource.Id.time_since);
             }
         }
 
