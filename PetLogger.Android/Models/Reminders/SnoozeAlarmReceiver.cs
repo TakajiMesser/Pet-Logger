@@ -21,7 +21,12 @@ namespace PetLogger.Droid.Models.Reminders
             // TODO - Report or log error for malformed data URI
             if (reminder != null)
             {
+                //NotificationHelper.DismissReminderNotification(context, reminder);
                 ReminderHelper.SnoozeReminder(context, reminder);
+            }
+            else
+            {
+                Toast.MakeText(context, "Snooze Reminder was null", ToastLength.Short).Show();
             }
         }
     }

@@ -43,11 +43,11 @@ namespace PetLogger.Shared.DataAccessLayer
 
         public static void InitializeDatabase()
         {
-            //DBAccess.BackUpDatabase();
-            DBAccess.InitializeTables();
+            //BackUpDatabase();
+            InitializeTables();
 
             // TODO - Set up database values for testing purposes
-            /*DBAccess.ResetTables();
+            /*ResetTables();
             BuiltIn.InitializeBuiltInTypes();
 
             var dog = DBTable.Get<PetType>(p => p.Name == "Dog");
@@ -86,21 +86,13 @@ namespace PetLogger.Shared.DataAccessLayer
             DBTable.Insert(new LoggerDefinition()
             {
                 PetID = cooper.ID,
-                IncidentTypeID = pee.ID,
-                IncludeDays = true,
-                IncludeHours = true,
-                IncludeMinutes = true,
-                IncludeSeconds = true,
+                IncidentTypeID = pee.ID
             });
 
             DBTable.Insert(new LoggerDefinition()
             {
                 PetID = cooper.ID,
-                IncidentTypeID = poo.ID,
-                IncludeDays = true,
-                IncludeHours = true,
-                IncludeMinutes = true,
-                IncludeSeconds = true,
+                IncidentTypeID = poo.ID
             });*/
         }
 

@@ -193,13 +193,13 @@ namespace PetLogger.Droid.Fragments
             if (_reminderTypeSpinner.Adapter is EnumAdapter<ReminderTypes> reminderTypeAdapter)
             {
                 var position = reminderTypeAdapter.GetValuePosition(_reminder.ReminderType);
-                _reminderTypeSpinner.SetSelection(position);
+                _reminderTypeSpinner.SetSelection(position, true);
             }
 
             if (_soundSpinner.Adapter is RingtoneAdapter ringtoneAdapter)
             {
                 var position = ringtoneAdapter.GetPathPosition(_reminder.SoundPath);
-                _soundSpinner.SetSelection(position, false);
+                _soundSpinner.Post(() => _soundSpinner.SetSelection(position, true));
             }
 
             _timePicker.Duration = _reminder.TimeBetween;
@@ -209,13 +209,13 @@ namespace PetLogger.Droid.Fragments
             if (_petSpinner.Adapter is ForeignEntityAdapter petAdapter)
             {
                 var position = petAdapter.GetIDPosition(_reminder.PetID);
-                _petSpinner.SetSelection(position);
+                _petSpinner.SetSelection(position, true);
             }
 
             if (_incidentTypeSpinner.Adapter is ForeignEntityAdapter incidentTypeAdapter)
             {
                 var position = incidentTypeAdapter.GetIDPosition(_reminder.IncidentTypeID);
-                _incidentTypeSpinner.SetSelection(position);
+                _incidentTypeSpinner.SetSelection(position, true);
             }
         }
 

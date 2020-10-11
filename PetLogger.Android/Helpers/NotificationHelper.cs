@@ -36,7 +36,7 @@ namespace PetLogger.Droid.Helpers
                 .SetContentTitle(reminder.Title + " reminder") // Set the title
                 //.SetNumber(5) // Display the count in the Content Info
                 .SetSmallIcon(Resource.Drawable.ic_action_attach) // This is the icon to display
-                .SetContentText("Snoozed") // the message to display
+                .SetContentText("Default message") // the message to display
                 .AddAction(Resource.Drawable.baseline_snooze_black_36dp, "Snooze", snoozeBroadcast)
                 .AddAction(Resource.Drawable.baseline_snooze_black_36dp, "Dismiss", dismissBroadcast)
                 .SetContentIntent(PendingIntent.GetActivity(context, 0, new Intent(context, typeof(Activities.MainActivity)), PendingIntentFlags.OneShot)); // Start up this activity when the user clicks the intent.

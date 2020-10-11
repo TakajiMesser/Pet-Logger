@@ -66,13 +66,13 @@ namespace PetLogger.Droid.Fragments
                         dialog.SetCancelable(false);
                         dialog.Show();*/
 
-                        var incidents = GetNextIncidentSet(_rowOffset);
+                        var nextIncidents = GetNextIncidentSet(_rowOffset);
 
-                        if (incidents.Count > 0)
+                        if (nextIncidents.Count > 0)
                         {
                             _emptyLabel.Visibility = ViewStates.Gone;
-                            _historyAdapter.AddIncidents(incidents);
-                            _rowOffset += incidents.Count;
+                            _historyAdapter.AddIncidents(nextIncidents);
+                            _rowOffset += nextIncidents.Count;
                         }
 
                         //dialog.Dismiss();

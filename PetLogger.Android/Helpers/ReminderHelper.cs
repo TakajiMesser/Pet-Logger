@@ -64,7 +64,7 @@ namespace PetLogger.Droid.Helpers
                 {
                     if (int.TryParse(pathSegments[0], out int reminderID))
                     {
-                        return DBTable.Get<Reminder>(reminderID);
+                        return DBTable.GetFirstOrDefault<Reminder>(r => r.ID == reminderID);
                     }
                 }
             }

@@ -28,6 +28,10 @@ namespace PetLogger.Droid.Models.Reminders
                     NotificationHelper.CreateReminderNotification(context, reminder, ringtoneService);
                 }
             }
+            else
+            {
+                Toast.MakeText(context, "Trigger Reminder was null", ToastLength.Short).Show();
+            }
         }
 
         private static bool IsTimeBetween(TimeSpan time, TimeSpan startTime, TimeSpan endTime)
