@@ -50,6 +50,11 @@ namespace PetLogger.Droid.Fragments
             _detailList = view.FindViewById<LinearLayout>(Resource.Id.detail_list);
 
             AddDetailView(Resource.Drawable.baseline_addchart_black_36dp, "", "");
+
+            // Bar graph
+            // Show incident count over last X days
+            // Running average?
+            // Lifetime count?
         }
 
         private void AddDetailView(int iconResourceID, string title, string value)

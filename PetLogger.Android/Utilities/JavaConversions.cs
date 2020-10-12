@@ -64,5 +64,7 @@ namespace PetLogger.Droid.Utilities
         /// <param name="value">The value of the .NET string.</param>
         /// <returns>A new Java String.</returns>
         public static Java.Lang.String ToJavaString(this string value) => new Java.Lang.String(value);
+
+        public static String ToNetString(this Java.Lang.String value) => (string)value;
     }
 }

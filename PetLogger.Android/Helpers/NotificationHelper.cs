@@ -39,7 +39,7 @@ namespace PetLogger.Droid.Helpers
                 .SetContentText("Default message") // the message to display
                 .AddAction(Resource.Drawable.baseline_snooze_black_36dp, "Snooze", snoozeBroadcast)
                 .AddAction(Resource.Drawable.baseline_snooze_black_36dp, "Dismiss", dismissBroadcast)
-                .SetContentIntent(PendingIntent.GetActivity(context, 0, new Intent(context, typeof(Activities.MainActivity)), PendingIntentFlags.OneShot)); // Start up this activity when the user clicks the intent.
+                .SetContentIntent(PendingIntent.GetActivity(context, 0, new Intent(context, typeof(Activities.LightActivity)), PendingIntentFlags.OneShot)); // Start up this activity when the user clicks the intent.
 
             var notification = builder.Build();
             notification.Flags = NotificationFlags.NoClear;

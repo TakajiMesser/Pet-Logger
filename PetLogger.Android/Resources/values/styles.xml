@@ -1,18 +1,30 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!--<item name="toolbarStyle">@style/AppTheme.PopupOverlay</item> -->
+    <style name="LightTheme" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/textBlack</item>
+    </style>
+    
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:textColorPrimary">@color/textWhite</item>
+    </style>
+    
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorSecondary">@color/textGray</item>
+        <!--<item name="toolbarStyle">@style/AppTheme.PopupOverlay</item> -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:datePickerMode">spinner</item>
     </style>
 
     <style name="AppBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        
     </style>
   
     <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Dark">

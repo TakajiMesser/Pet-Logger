@@ -1,11 +1,14 @@
-﻿using Android.OS;
+﻿using Android.Content;
+using Android.OS;
 using Android.Support.V7.Preferences;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using PetLogger.Droid.Activities;
 using PetLogger.Droid.Components;
 using PetLogger.Droid.Components.Preferences;
 using PetLogger.Droid.Helpers;
+using PetLogger.Droid.Utilities;
 using PetLogger.Shared.DataAccessLayer;
 
 namespace PetLogger.Droid.Fragments
@@ -77,6 +80,12 @@ namespace PetLogger.Droid.Fragments
 
             SetUpRecyclerView();
 
+            var displayTheme = PreferenceManager.FindPreference("display_theme");
+            if (displayTheme != null)
+            {
+                displayTheme.PreferenceChange += DisplayTheme_PreferenceChange;
+            }
+
             var stayActive = PreferenceManager.FindPreference("stay_active");
             if (stayActive != null)
             {
@@ -119,6 +128,29 @@ namespace PetLogger.Droid.Fragments
                 version.Summary = Activity.PackageManager.GetPackageInfo(Activity.PackageName, 0).VersionName;
             }
         }
+
+        private void DisplayTheme_PreferenceChange(object sender, Preference.PreferenceChangeEventArgs e)
+        {
+            var value = ((Java.Lang.String)e.NewValue).ToNetString();
+            var theme = ThemeHelper.ParseTheme(value);
+
+            if (theme == Themes.Light)
+            {
+                StartActivity(new Intent(Context, typeof(LightActivity))
+                    .SetFlags(ActivityFlags.ClearTop | ActivityFlags.ClearTask | ActivityFlags.NewTask));
+                    //.PutExtra("logout", true));
+                Activity.Finish();
+            }
+            else if (theme == Themes.Dark)
+            {
+                StartActivity(new Intent(Context, typeof(DarkActivity))
+                    .SetFlags(ActivityFlags.ClearTop | ActivityFlags.ClearTask | ActivityFlags.NewTask));
+                //.PutExtra("logout", true));
+                Activity.Finish();
+            }
+        }
+
+        //public static Themes DisplayTheme => ThemeHelper.ParseTheme(Preferences.GetString("display_theme", "light"));
 
         private void StayActive_PreferenceChange(object sender, Preference.PreferenceChangeEventArgs e)
         {

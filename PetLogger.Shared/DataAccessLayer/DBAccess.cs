@@ -45,9 +45,12 @@ namespace PetLogger.Shared.DataAccessLayer
         {
             //BackUpDatabase();
             InitializeTables();
+            //InitializeDummyValues();
+        }
 
-            // TODO - Set up database values for testing purposes
-            /*ResetTables();
+        private static void InitializeDummyValues()
+        {
+            ResetTables();
             BuiltIn.InitializeBuiltInTypes();
 
             var dog = DBTable.Get<PetType>(p => p.Name == "Dog");
@@ -93,7 +96,7 @@ namespace PetLogger.Shared.DataAccessLayer
             {
                 PetID = cooper.ID,
                 IncidentTypeID = poo.ID
-            });*/
+            });
         }
 
         public static Type ParseTableName(string tableName)

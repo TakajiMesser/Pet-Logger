@@ -19,8 +19,7 @@ using Fragment = Android.Support.V4.App.Fragment;
 
 namespace PetLogger.Droid.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity, IOnRequestPermissionsResultCallback
+    public abstract class BaseActivity : AppCompatActivity, IOnRequestPermissionsResultCallback
     {
         private bool _isInSettings;
 
@@ -34,6 +33,11 @@ namespace PetLogger.Droid.Activities
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetUpUnhandledExceptionHandlers();
+        }
+
+        protected override void OnPostCreate(Bundle savedInstanceState)
+        {
+            base.OnPostCreate(savedInstanceState);
 
             PermissionHelper.RequestPermissions(this, OnPermissionsGranted);
 
